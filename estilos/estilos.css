@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+body { 
+    background: url('/primerachamba/static/fondo.png') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color:white;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logo {
+    border-radius: 100px;
+    margin-bottom: 100px;
+    max-width: 750px;
+    height: auto;
+}
+
+.home-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 50px;
+}
+
+.home-button {
+    width: 250px;
+    height: 200px;
+    font-size: 40px;
+    font-weight: bold;
+    font-family: 'Audiowide', cursive;
+    color: black;
+    background-color: white;
+    opacity: 0.8;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.home-button:hover {
+    background-color: black;
+    color: yellow;
+}
+#moto:hover::after {
+    font-size: 20px;
+    color: transparent;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.8;
+}
