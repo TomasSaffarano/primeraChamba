@@ -42,6 +42,10 @@ class ViewTurno {
         }
     }
 
+    public function showhome(){
+        require_once 'app/templates/ViewHome.phtml';
+    }
+
     // Muestra los detalles de un turno
     public function showTurnoDetails($turno) {
         echo '<h2>Detalles del Turno</h2>';
