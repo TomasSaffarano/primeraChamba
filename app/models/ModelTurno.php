@@ -1,4 +1,5 @@
 <?php
+require_once 'app/views/ViewTurno.php';
 class ModelTurno {
     private $db;
 
