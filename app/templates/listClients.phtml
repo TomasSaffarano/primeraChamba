@@ -1,0 +1,24 @@
+<?php require './app/templates/header.phtml';?>
+
+<div>
+<h2>Clientes</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">DNI</th>
+        <th scope="col">Telefono</th>
+      </tr>
+    </thead>
+    <tbody>
+    <?php foreach($clients as $client) :?>
+      <tr>
+        <th scope="row"><?php echo$client->nombre?></th>
+        <td><?php echo $client->nombre ?></td>
+        <td><a  href="<?php echo BASE_URL . "verCliente/" . $client->id?>">Ver Completo</a></td>
+      </tr>
+    <?php endforeach ?>
+    </tbody>
+  </table>
+</div>
+<?php require './app/templates/footer.phtml' ?>

@@ -1,0 +1,71 @@
+<?php require './app/templates/header.phtml'; ?>
+
+<div>
+    <h2>Motos</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Modelo</th>
+                <th scope="col">Patente</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Kilómetros</th>
+                <th scope="col">Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach($motos as $moto) : ?>
+            <tr>
+                <td><?php echo $moto->modelo; ?></td>
+                <td><?php echo $moto->patente; ?></td>
+                <td><?php echo $moto->estado; ?></td>
+                <td><?php echo $moto->kilometros ?? 'N/A'; ?></td>
+                <td><a href="<?php echo BASE_URL . "verMoto/" . $moto->id; ?>">Ver Detalles</a></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+
+<!-- FORMULARIO PARA AGREGAR MOTO -->
+<div>
+    <h2>Agregar Moto</h2>
+    <form action="<?php echo BASE_URL . 'agregarMoto'; ?>" method="POST">
+        <div class="mb-3">
+            <label for="modelo" class="form-label">Modelo</label>
+            <input type="text" class="form-control" id="modelo" name="modelo" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="patente" class="form-label">Patente</label>
+            <input type="text" class="form-control" id="patente" name="patente" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="estado" class="form-label">Estado</label>
+            <select class="form-control" id="estado" name="estado" required>
+                <option value="Disponible">Disponible</option>
+                <option value="Ocupado">Ocupado</option>
+                <option value="En reparación">En reparación</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="kilometros" class="form-label">Kilómetros</label>
+            <input type="number" class="form-control" id="kilometros" name="kilometros">
+        </div>
+
+        <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción</label>
+            <textarea class="form-control" id="descripcion" name="descripcion"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="observaciones" class="form-label">Observaciones</label>
+            <textarea class="form-control" id="observaciones" name="observaciones"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Agregar Moto</button>
+    </form>
+</div>
+
+<?php require './app/templates/footer.phtml'; ?>
