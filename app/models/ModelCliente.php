@@ -14,7 +14,7 @@ class ModelCliente {
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
     public function obtenerClientePorDNI($dni) {
-        $stmt = $this->db->prepare("SELECT * FROM clientes WHERE dni = ?");
+        $stmt = $this->db->prepare("SELECT * FROM cliente WHERE dni = ?");
         $stmt->execute([$dni]);
         return $stmt->fetch(PDO::FETCH_OBJ);
     }

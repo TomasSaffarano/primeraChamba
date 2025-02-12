@@ -21,30 +21,35 @@ class ControllerMoto {
     }
 
     public function agregarMoto() {
-        if (!empty($_POST['modelo']) && !empty($_POST['patente']) && !empty($_POST['estado'])) {
+        if (!empty($_POST['modelo']) && !empty($_POST['patente']) && !empty($_POST['estado']) && !empty($_POST['dni'])) {
             $modelo = $_POST['modelo'];
             $patente = $_POST['patente'];
             $estado = $_POST['estado'];
             $kilometros = $_POST['kilometros'] ?? NULL;
             $descripcion = $_POST['descripcion'] ?? NULL;
             $observaciones = $_POST['observaciones'] ?? NULL;
-
-            // Llamada al modelo para insertar la moto
-            $this->model->insertMoto($modelo, $patente, $estado, $kilometros, $descripcion, $observaciones);
-            
-            // Redirigir al listado de motos
-            header("Location: " . BASE_URL . "motos");
-            exit();
-        }
-    }
-
-    public function mostrarMotosCliente($dni_cliente) {
-        $motosCliente = $this->model->getMotosByDNI($dni_cliente);
-        
-        if (!empty($motosCliente)) {
-            $this->view->showMotos($motosCliente);  // Pasamos solo las motos filtradas
+            $dni = $_POST['dni'];
+    
+            $cliente = $this->clienteModel->obtenerClientePorDNI($dni);
+    
+            if ($cliente) {
+                $id_cliente = $cliente->id;
+                $this->model->insertMoto($modelo, $patente, $estado, $kilometros, $descripcion, $observaciones, $dni);
+    
+                header("Location: " . BASE_URL . "motos");
+                exit();
+            } else {
+                echo "Cliente no encontrado con el DNI: $dni";
+            }
         } else {
-            $this->view->showError("No se encontraron motos para el cliente con DNI $dni_cliente.");
+            echo "Por favor, complete todos los campos requeridos.";
+        }
+    }    public function mostrarMotosCliente($dni) {
+        $motos = $this->model->getMotosByDNI($dni);
+        if (!empty($motos)) {
+            $this->view->showMotos($motos);
+        } else {
+            $this->view->showError("No se encontraron motos para el cliente con DNI $dni.");
         }
     }
 }

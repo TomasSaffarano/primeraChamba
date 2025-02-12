@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-01-2025 a las 20:47:22
+-- Tiempo de generación: 12-02-2025 a las 15:33:13
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Versión de PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -58,7 +58,7 @@ CREATE TABLE `cliente` (
 --
 
 INSERT INTO `cliente` (`id`, `nombre`, `dni`, `telefono`) VALUES
-(1, 'Vicky se la come', 3000000, 567476);
+(1, '[value-2]', 44443953, 0);
 
 -- --------------------------------------------------------
 
@@ -71,18 +71,18 @@ CREATE TABLE `moto` (
   `modelo` varchar(30) NOT NULL,
   `patente` varchar(20) NOT NULL,
   `estado` varchar(20) NOT NULL,
-  `id_cliente` int(11) DEFAULT NULL,
   `descripcion` varchar(300) DEFAULT NULL,
   `observaciones` varchar(300) DEFAULT NULL,
-  `kilometros` int(11) DEFAULT NULL
+  `kilometros` int(11) DEFAULT NULL,
+  `dni` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `moto`
 --
 
-INSERT INTO `moto` (`id`, `modelo`, `patente`, `estado`, `id_cliente`, `descripcion`, `observaciones`, `kilometros`) VALUES
-(2, 'm', 'm2', 'reparacion', 1, '', '', 0);
+INSERT INTO `moto` (`id`, `modelo`, `patente`, `estado`, `descripcion`, `observaciones`, `kilometros`, `dni`) VALUES
+(15, 'aaa', 'aaaa', 'aaa', 'aaa', 'aa', 0, 44443953);
 
 -- --------------------------------------------------------
 
@@ -102,7 +102,7 @@ CREATE TABLE `turno` (
 --
 
 INSERT INTO `turno` (`id`, `ingreso`, `entrega`, `id_cliente`) VALUES
-(1, '2025-01-27', '2025-01-27', 1);
+(1, '2025-01-27', '2025-01-27', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -118,14 +118,15 @@ ALTER TABLE `admin`
 -- Indices de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `dni` (`dni`);
 
 --
 -- Indices de la tabla `moto`
 --
 ALTER TABLE `moto`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_cliente` (`id_cliente`);
+  ADD KEY `fk_dni` (`dni`);
 
 --
 -- Indices de la tabla `turno`
@@ -154,7 +155,7 @@ ALTER TABLE `cliente`
 -- AUTO_INCREMENT de la tabla `moto`
 --
 ALTER TABLE `moto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `turno`
@@ -165,12 +166,6 @@ ALTER TABLE `turno`
 --
 -- Restricciones para tablas volcadas
 --
-
---
--- Filtros para la tabla `moto`
---
-ALTER TABLE `moto`
-  ADD CONSTRAINT `moto_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `turno`

@@ -6,55 +6,42 @@ require './app/templates/header.phtml';
     <link rel="stylesheet" href="/primeraChamba/estilos/estilosMoto.css">
 </head>
 
-<div class="container">
-    <!-- FORMULARIO PARA AGREGAR MOTO -->
-    <form action="<?php echo BASE_URL . 'agregarMoto'; ?>" method="POST">
-        <h2>Agregar Moto</h2>
-        <div class="mb-3">
-            <label for="modelo" class="form-label">Modelo</label>
-            <input type="text" class="form-control" id="modelo" name="modelo" required>
-        </div>
-        
-        <div class="mb-3">
-            <label for="patente" class="form-label">Patente</label>
-            <input type="text" class="form-control" id="patente" name="patente" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="estado" class="form-label">Estado</label>
-            <select class="form-control" id="estado" name="estado" required>
-                <option value="Disponible">Disponible</option>
-                <option value="Ocupado">Ocupado</option>
-                <option value="En reparación">En reparación</option>
-            </select>
-        </div>
-
-        <div class="mb-3">
-            <label for="kilometros" class="form-label">Kilómetros</label>
-            <input type="number" class="form-control" id="kilometros" name="kilometros">
-        </div>
-
-        <div class="mb-3">
-            <label for="descripcion" class="form-label">Descripción</label>
-            <textarea class="form-control" id="descripcion" name="descripcion"></textarea>
-        </div>
-
-        <div class="mb-3">
-            <label for="observaciones" class="form-label">Observaciones</label>
-            <textarea class="form-control" id="observaciones" name="observaciones"></textarea>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Agregar Moto</button>
-    </form>
-
-    <!-- BUSCADOR DE MOTOS POR CLIENTE -->
-    <div class="search-container mb-3">
-        <h2>Buscar Motos por Cliente</h2>
-        <form action="<?php echo BASE_URL . 'buscarMotoPorCliente'; ?>" method="GET" class="d-flex">
-            <input type="text" name="dni" class="form-control me-2" placeholder="Ingrese el DNI del cliente..." required>
-            <button type="submit" class="btn btn-secondary">Buscar</button>
-        </form>
+<form action="<?php echo BASE_URL . 'agregarMoto'; ?>" method="POST">
+    <div class="form-group">
+        <label for="modelo">Modelo</label>
+        <input type="text" name="modelo" class="form-control" id="modelo" required>
     </div>
+    <div class="form-group">
+        <label for="patente">Patente</label>
+        <input type="text" name="patente" class="form-control" id="patente" required>
+    </div>
+    <div class="form-group">
+        <label for="estado">Estado</label>
+        <input type="text" name="estado" class="form-control" id="estado" required>
+    </div>
+    <div class="form-group">
+        <label for="dni">DNI del Cliente</label>
+        <input type="text" name="dni" class="form-control" id="dni" required>
+    </div>
+    <div class="form-group">
+        <label for="kilometros">Kilómetros</label>
+        <input type="number" name="kilometros" class="form-control" id="kilometros">
+    </div>
+    <div class="form-group">
+        <label for="descripcion">Descripción</label>
+        <textarea name="descripcion" class="form-control" id="descripcion"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="observaciones">Observaciones</label>
+        <textarea name="observaciones" class="form-control" id="observaciones"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Agregar Moto</button>
+</form>
+
+    <form action="<?php echo BASE_URL . 'motosPorDni'; ?>" method="GET" class="d-flex">
+    <input type="text" name="dni" class="form-control me-2" placeholder="Ingrese el DNI del cliente..." required>
+    <button type="submit" class="btn btn-secondary">Buscar</button>
+</form>
 
     <!-- RESULTADOS DE LA BÚSQUEDA POR CLIENTE -->
     <?php if (isset($motosCliente)) : ?>
