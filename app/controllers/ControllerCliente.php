@@ -16,4 +16,6 @@ class ControllerCliente {
         $clients = $this->model->getClients();
         $this->view->showClients($clients);
     }
+
+    
 }

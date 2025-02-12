@@ -31,7 +31,16 @@ switch ($params[0]) {
     case 'agregarMoto':
             $controller = new ControllerMoto(); 
             $controller->agregarMoto();
-            break;    
+            break; 
+    case 'motosPorDni':
+        $controller = new ControllerMoto();
+        if (isset($params[1])) {
+            $dni = $params[1];
+            $controller->mostrarMotosCliente($dni);
+        } else {
+            echo "DNI no especificado";
+        }
+        break;
 
     default:
         echo "Página no encontrada";
