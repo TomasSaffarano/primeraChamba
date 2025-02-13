@@ -2,6 +2,8 @@
 
 require_once 'app/controllers/ControllerTurno.php';
 require_once 'app/controllers/ControllerCliente.php';
+require_once 'app/controllers/errorController.php';
+require_once 'app/controllers/succesController.php';
 
 define('BASE_URL', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/');
 
@@ -24,6 +26,20 @@ switch ($params[0]) {
         $controller->getAllClientes();
         break;
 
-    default:
-        echo "Página no encontrada";
+    case 'agregarCliente':
+        $controller = new ControllerCliente(); 
+        $controller->addClient();
+        break;
+    
+        default:
+        $error = "404 page not found";
+        $redir = "home";
+        $controler = new ErrorControler();
+        $controler->showError($error, $redir);
+        break;
+
+        case 'realizado': 
+            $controler= new SuccessControler();
+            $controler->showSuccess();
+            break; 
 }

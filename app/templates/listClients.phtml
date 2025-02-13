@@ -11,13 +11,17 @@
       </tr>
     </thead>
     <tbody>
+    <a href="<?= BASE_URL . 'agregarCliente' ?>">Agregar</a>
     <?php foreach($clients as $client) :?>
       <tr>
         <th scope="row"><?php echo$client->nombre?></th>
-        <td><?php echo $client->nombre ?></td>
-        <td><a  href="<?php echo BASE_URL . "verCliente/" . $client->id?>">Ver Completo</a></td>
+        <td><?php echo $client->dni ?></td>
+        <td><?php echo $client->telefono ?></td>
+        <td><a  href="<?php echo BASE_URL . "eliminar/" . $client->id?>">Borrar</a></td>
+        <td><a  href="<?php echo BASE_URL . "modificar/" . $client->id?>">Modificar</a></td>
       </tr>
     <?php endforeach ?>
+    
     </tbody>
   </table>
 </div>

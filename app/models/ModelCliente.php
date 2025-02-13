@@ -13,5 +13,13 @@ class ModelCliente {
         $query->execute();
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
+
+    public function insertClient($name, $dni, $cellphone){
+        $query = $this->db->prepare('INSERT INTO cliente(nombre,dni,telefono) VALUES (?, ?, ?)');
+        $query->execute([$name,$dni, $cellphone]);
+        $id = $this->db->lastInsertId();
+        return $id;
+    }
+
 }
 ?>

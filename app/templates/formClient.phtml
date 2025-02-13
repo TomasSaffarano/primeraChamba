@@ -1,0 +1,49 @@
+<?php 
+require_once 'app/templates/header.phtml';
+
+$isEdit = isset($client);  
+?>
+
+<div class="container my-5 p-4 shadow-sm bg-light rounded">
+    <h2 class="text-center text-black mb-4"><?= $isEdit ? "Editar cliente" : "Agregar nuevo cliente" ?></h2>
+
+    <form action="<?= $isEdit ? BASE_URL . 'modificarCliente/' . $client->id : BASE_URL . 'agregarCliente' ?>" method="POST" enctype="multipart/form-data">
+        <div class="row mb-3">
+            <div class="col-md-9">
+                <div class="form-floating">
+                    <input name="name" type="text" class="form-control" id="nameInput" placeholder="Nombre del cliente" 
+                        value="<?= $isEdit ? $client->name : '' ?>">
+                    <label for="nameInput">Nombre del cliente</label>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="form-floating">
+                    <input name="dni" type="number" class="form-control" id="dniInput" placeholder="DNI" 
+                        value="<?= $isEdit ? $client->dni : '' ?>">
+                    <label for="nameInput">DNI</label>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <div class="form-floating">
+                    <input name="cellphone" type="number" class="form-control" id="cellInput" placeholder="Telefono del cliente" 
+                        value="<?= $isEdit ? $client->telefono : '' ?>">
+                    <label for="nameInput">Telefono del cliente</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-lg mt-3">Guardar</button>
+        </div>
+    </form>
+    <a href="<?php echo BASE_URL; ?>clientes" class="btn btn-primary ms-5 mt-2" id="volver">VOLVER</a>
+</div>
+
+<?php 
+require_once 'app/templates/footer.phtml';
+?>
+
+
+
+
