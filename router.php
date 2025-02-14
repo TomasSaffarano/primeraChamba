@@ -4,6 +4,7 @@ require_once 'app/controllers/ControllerTurno.php';
 require_once 'app/controllers/ControllerCliente.php';
 require_once 'app/controllers/errorController.php';
 require_once 'app/controllers/succesController.php';
+require_once 'app/controllers/ControllerMoto.php';
 
 define('BASE_URL', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/');
 
