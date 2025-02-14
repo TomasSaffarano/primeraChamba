@@ -1,0 +1,108 @@
+<?php
+require './app/templates/header.phtml';
+?>
+
+<head>
+    <link rel="stylesheet" href="/primeraChamba/estilos/estilosMoto.css">
+</head>
+
+<form action="<?php echo BASE_URL . 'agregarMoto'; ?>" method="POST">
+    <div class="form-group">
+        <label for="modelo">Modelo</label>
+        <input type="text" name="modelo" class="form-control" id="modelo" required>
+    </div>
+    <div class="form-group">
+        <label for="patente">Patente</label>
+        <input type="text" name="patente" class="form-control" id="patente" required>
+    </div>
+    <div class="form-group">
+        <label for="estado">Estado</label>
+        <input type="text" name="estado" class="form-control" id="estado" required>
+    </div>
+    <div class="form-group">
+        <label for="dni">DNI del Cliente</label>
+        <input type="text" name="dni" class="form-control" id="dni" required>
+    </div>
+    <div class="form-group">
+        <label for="kilometros">Kilómetros</label>
+        <input type="number" name="kilometros" class="form-control" id="kilometros">
+    </div>
+    <div class="form-group">
+        <label for="descripcion">Descripción</label>
+        <textarea name="descripcion" class="form-control" id="descripcion"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="observaciones">Observaciones</label>
+        <textarea name="observaciones" class="form-control" id="observaciones"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Agregar Moto</button>
+</form>
+
+    <form action="<?php echo BASE_URL . 'motosPorDni'; ?>" method="GET" class="d-flex">
+    <input type="text" name="dni" class="form-control me-2" placeholder="Ingrese el DNI del cliente..." required>
+    <button type="submit" class="btn btn-secondary">Buscar</button>
+</form>
+
+    <!-- RESULTADOS DE LA BÚSQUEDA POR CLIENTE -->
+    <?php if (isset($motosCliente)) : ?>
+        <div class="table-container mt-4">
+            <h2>Motos del Cliente con DNI: <?php echo htmlspecialchars($_GET['dni']); ?></h2>
+
+            <?php if (count($motosCliente) > 0) : ?>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Modelo</th>
+                            <th scope="col">Patente</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Kilómetros</th>
+                            <th scope="col">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($motosCliente as $moto) : ?>
+                            <tr>
+                                <td><?php echo $moto->modelo; ?></td>
+                                <td><?php echo $moto->patente; ?></td>
+                                <td><?php echo $moto->estado; ?></td>
+                                <td><?php echo $moto->kilometros ?? 'N/A'; ?></td>
+                                <td><a href="<?php echo BASE_URL . "verMoto/" . $moto->id; ?>">Ver Detalles</a></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php else : ?>
+                <p>No se encontraron motos para el cliente con DNI <?php echo htmlspecialchars($_GET['dni']); ?>.</p>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+
+    <!-- LISTA DE TODAS LAS MOTOS -->
+    <div class="table-container mt-4">
+        <h2>Todas las Motos</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Modelo</th>
+                    <th scope="col">Patente</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Kilómetros</th>
+                    <th scope="col">Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($motos as $moto) : ?>
+                    <tr>
+                        <td><?php echo $moto->modelo; ?></td>
+                        <td><?php echo $moto->patente; ?></td>
+                        <td><?php echo $moto->estado; ?></td>
+                        <td><?php echo $moto->kilometros ?? 'N/A'; ?></td>
+                        <td><a href="<?php echo BASE_URL . "verMoto/" . $moto->id; ?>">Ver Detalles</a></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<?php require './app/templates/footer.phtml'; ?>

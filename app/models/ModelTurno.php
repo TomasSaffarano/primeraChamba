@@ -7,6 +7,7 @@ class ModelTurno {
         $this->db = new PDO('mysql:host=localhost;' . 'dbname=taller_moto;charset=utf8', 'root', '');
     }
 
+
     public function createTurno($fechaIngreso, $fechaEntrega, $idCliente) {
         $query = $this->db->prepare("INSERT INTO turnos (fecha_ingreso, fecha_entrega, id_cliente) VALUES (?, ?, ?)");
         $query->execute([$fechaIngreso, $fechaEntrega, $idCliente]);

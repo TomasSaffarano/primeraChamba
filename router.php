@@ -25,6 +25,27 @@ switch ($params[0]) {
         $controller = new ControllerCliente(); 
         $controller->getAllClientes();
         break;
+    case 'motos':
+        $controller = new ControllerMoto(); 
+        $controller->getAllMotos();
+        break; 
+    case 'agregarMoto':
+            $controller = new ControllerMoto(); 
+            $controller->agregarMoto();
+            break; 
+    case 'motosPorDni':
+            $controller = new ControllerMoto();
+            if (isset($_GET['dni'])) {
+                $dni = $_GET['dni'];
+                $controller->mostrarMotosCliente($dni);
+            } else {
+                echo "DNI no especificado";
+            }
+            break;
+
+    default:
+        echo "Página no encontrada";
+        break;
 
     case 'agregarCliente':
         $controller = new ControllerCliente(); 
