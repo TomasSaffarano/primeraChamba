@@ -43,10 +43,6 @@ switch ($params[0]) {
             }
             break;
 
-    default:
-        echo "Página no encontrada";
-        break;
-
     case 'agregarCliente':
         $controller = new ControllerCliente(); 
         $controller->addClient();
@@ -63,4 +59,6 @@ switch ($params[0]) {
             $controler= new SuccessControler();
             $controler->showSuccess();
             break; 
+
+        
 }
