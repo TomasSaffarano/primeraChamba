@@ -16,7 +16,20 @@ class ControllerMoto {
     }
 
     public function getAllMotos() {
+        // Obtener todas las motos desde el modelo
         $motos = $this->model->getMotos();
+    
+        // Ordenar las motos de acuerdo al estado, donde 'en_reparacion' aparece primero
+        usort($motos, function($a, $b) {
+            if ($a->estado == 'en_reparacion' && $b->estado != 'en_reparacion') {
+                return -1; // $a debe ir antes que $b
+            } elseif ($a->estado != 'en_reparacion' && $b->estado == 'en_reparacion') {
+                return 1; // $b debe ir antes que $a
+            }
+            return 0; // si ambos tienen el mismo estado, no cambiar el orden
+        });
+    
+        // Pasar las motos ordenadas a la vista
         $this->view->showMotos($motos);
     }
 

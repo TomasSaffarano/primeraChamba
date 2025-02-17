@@ -1,0 +1,68 @@
+/* Estilos para el logo */
+.logonav {
+    margin-top: 25px;
+    max-width: 100%;
+    height: 62px;
+    width: 238px; /* Ajusta el tamaño del logo según lo que necesites */
+}
+
+/* Estilos para la barra de navegación */
+.navbar {
+    box-sizing: border-box;
+    position: absolute;
+    width: 100%; /* Puedes ajustar este valor según el tamaño que prefieras */
+    height: 100px;
+    top:0;
+    left: 0;
+    right: 0; /* Asegura que el navbar se ajuste entre ambos lados */
+    background: rgba(71, 71, 71, 0.53);
+    opacity: 0.9;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    display: flex;
+    margin: 0 auto; /* Centra el navbar horizontalmente */
+}
+
+.navbar-nav {
+    margin-top: 45px;
+    display: flex; /* Usamos Flexbox para los ítems */
+    justify-content: flex-end; /* Alineamos los ítems al final (a la derecha) */
+    flex-grow: 1; /* Para que ocupe todo el ancho disponible */
+    margin-left: 1000px; /* Esto asegura que los ítems se alineen al lado derecho */
+    gap: 30px;
+}
+
+/* Estilos para los ítems individuales */
+.nav-item {
+    margin-right: 20px; /* Espaciado entre los ítems */
+    list-style: none;
+}
+/* Estilos para los enlaces de navegación */
+.nav-link {
+    color: black; /* Color de texto blanco */
+    font-size: 1rem;
+    text-transform: uppercase; /* Opcional: para hacer el texto en mayúsculas */
+    font-weight: 600; /* Opcional: para resaltar los ítems */
+    text-decoration: none;
+    transition: all 0.3s ease; /* Transición suave para todos los efectos */
+    display: inline-block; /* Asegura que el transform funcione correctamente */
+}
+
+/* Hover para los enlaces */
+.nav-link:hover {
+    color: rgb(236, 230, 230); /* Mantener el color de texto blanco al pasar el mouse */
+    text-decoration: none; /* Eliminar subrayado por defecto */
+    transform: scale(1.1); /* Aumentar el tamaño del texto un 10% */
+}
+
+
+/* Estilos para el menú móvil */
+.navbar-toggler {
+    border: none; /* Quitar borde del botón en dispositivos móviles */
+}
+
+/* Opcional: Si necesitas que la barra de navegación se estire a todo lo ancho */
+.container-fluid {
+    max-width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+}
