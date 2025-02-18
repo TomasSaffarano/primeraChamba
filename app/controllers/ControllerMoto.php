@@ -16,7 +16,20 @@ class ControllerMoto {
     }
 
     public function getAllMotos() {
+        // Obtener todas las motos desde el modelo
         $motos = $this->model->getMotos();
+    
+        // Ordenar las motos de acuerdo al estado, donde 'en_reparacion' aparece primero
+        usort($motos, function($a, $b) {
+            if ($a->estado == 'en_reparacion' && $b->estado != 'en_reparacion') {
+                return -1; // $a debe ir antes que $b
+            } elseif ($a->estado != 'en_reparacion' && $b->estado == 'en_reparacion') {
+                return 1; // $b debe ir antes que $a
+            }
+            return 0; // si ambos tienen el mismo estado, no cambiar el orden
+        });
+    
+        // Pasar las motos ordenadas a la vista
         $this->view->showMotos($motos);
     }
 
@@ -52,6 +65,24 @@ class ControllerMoto {
             $this->view->showError("No se encontraron motos para el cliente con DNI $dni.");
         }
     }
+
+    public function borrarMoto($params = []) {
+        $id = $params[':ID']; // Obtiene el ID de la moto
+        $this->model->eliminarMoto($id);
+        header("Location: " . BASE_URL . "motos"); // Redirige después de borrar
+        exit();
+    }
+    public function editarMoto($id) {
+        // Obtener la moto con el ID proporcionado
+        $moto = $this->model->getMotoByID($id);
+        
+        // Mostrar la vista de edición (suponiendo que esta vista tenga un formulario para editar la moto)
+        $this->view->showMotos($moto); // Cambié el nombre de la vista para mayor claridad
+        
+        // No redirigir aquí, ya que estamos en el proceso de edición, no en un borrado
+    }
+    
 }
+
 ?>
 
