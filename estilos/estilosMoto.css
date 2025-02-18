@@ -7,7 +7,7 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
-    color: black;
+    color: rgb(248, 246, 246);
     justify-content: center;
     align-items: center; /* Alinea todo verticalmente */
     height: 100vh; /* Hace que el body ocupe el 100% de la altura de la ventana */
@@ -58,7 +58,24 @@ body {
     box-sizing: border-box;
 }
 .form-control::placeholder {
-    color: #959494; /* Placeholder más tenue */
+    color: #959494; /* Color uniforme para todos los placeholders */
+    font-size: 1rem; /* Tamaño de fuente igual para todos */
+    font-family: Arial, sans-serif; /* Mismo tipo de letra */
+}
+/* Cambia el color del texto del select */
+.form-control {
+    color:  #959494; /* Ajusta el color del texto */
+}
+
+/* Cambia el color de las opciones dentro del select */
+.form-control option {
+    color: black; /* Ajusta el color de las opciones */
+    background-color: rgba(118, 118, 118, 0.9); /* Ajusta el fondo de las opciones */
+}
+
+/* Cambia el color de la primera opción "placeholder" */
+.form-control option:disabled {
+    color: #959494; /* Mismo color que los placeholders */
 }
 
 textarea.form-control {
@@ -94,6 +111,7 @@ textarea.form-control {
 /* Tabla de Motos */
 .table-container {
     margin-top: 20px;
+    width: 600px;
 }
 
 .table {

@@ -24,6 +24,18 @@ class ModelMoto {
         $query->execute([$dni]);
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
+    public function eliminarMoto($id) {
+        $query = $this->db->prepare("DELETE FROM moto WHERE id = ?");
+        $query->execute([$id]);
+    }
+
+    // Obtener moto por ID
+    public function getMotoByID($id) {
+        $query = $this->db->prepare("SELECT * FROM moto WHERE id = ?");
+        $query->execute([$id]);
+        return $query->fetch(PDO::FETCH_OBJ);
+    }
+
 }
 
 ?>

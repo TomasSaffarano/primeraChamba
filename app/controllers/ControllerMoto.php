@@ -65,6 +65,24 @@ class ControllerMoto {
             $this->view->showError("No se encontraron motos para el cliente con DNI $dni.");
         }
     }
+
+    public function borrarMoto($params = []) {
+        $id = $params[':ID']; // Obtiene el ID de la moto
+        $this->model->eliminarMoto($id);
+        header("Location: " . BASE_URL . "motos"); // Redirige después de borrar
+        exit();
+    }
+    public function editarMoto($id) {
+        // Obtener la moto con el ID proporcionado
+        $moto = $this->model->getMotoByID($id);
+        
+        // Mostrar la vista de edición (suponiendo que esta vista tenga un formulario para editar la moto)
+        $this->view->showMotos($moto); // Cambié el nombre de la vista para mayor claridad
+        
+        // No redirigir aquí, ya que estamos en el proceso de edición, no en un borrado
+    }
+    
 }
+
 ?>
 

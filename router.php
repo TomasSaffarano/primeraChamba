@@ -41,7 +41,23 @@ switch ($params[0]) {
                 echo "DNI no especificado";
             }
             break;
+    case 'borrarMoto':
+            if (!empty($params[1])) { // Si hay un segundo parámetro en la URL
+                $controller = new ControllerMoto();
+                $controller->borrarMoto([':ID' => $params[1]]);
+            } else {
+                echo "Error: Falta el ID de la moto";
+            }
+            break;
 
+    case 'editarMoto':
+            if (!empty($params[1])) { 
+                $controller = new ControllerMoto();
+                $controller->editarMoto([':ID' => $params[1]]);
+            } else {
+                echo "Error: Falta el ID de la moto";
+            }
+            break;
     default:
         echo "Página no encontrada";
 }
