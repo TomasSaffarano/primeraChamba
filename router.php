@@ -43,8 +43,48 @@ switch ($params[0]) {
                 echo "DNI no especificado";
             }
             break;
+    case 'borrarMoto':
+            if (!empty($params[1])) { // Si hay un segundo parámetro en la URL
+                $controller = new ControllerMoto();
+                $controller->borrarMoto([':ID' => $params[1]]);
+            } else {
+                echo "Error: Falta el ID de la moto";
+            }
+            break;
+
+ case 'agregarCliente':
+        $controller = new ControllerCliente(); 
+        $controller->addClient();
+        break;
+
+    case 'modificarCliente':
+        $controller = new ControllerCliente();
+        $controller->updateClient($params[1]);
+        break;
+
+    case 'realizado': 
+        $controller = new SuccessControler();
+        $controller->showSuccess();
+        break; 
+
+    case 'eliminarCliente':
+        $controller = new ControllerCliente();
+        $controller->deleteClient($params[1]);
+        break;
+
+    case 'editarMoto':
+        if (!empty($params[1])) { 
+            $controller = new ControllerMoto();
+            $controller->editarMoto([':ID' => $params[1]]);
+        } else {
+            echo "Error: Falta el ID de la moto";
+        }
+        break;
 
     default:
-        echo "Página no encontrada";
+        $error = "404 page not found";
+        $redir = "home";
+        $controller = new ErrorControler();
+        $controller->showError($error, $redir);
+        break;
 }
-?>
