@@ -8,4 +8,9 @@ class ViewCliente {
     {
         require_once 'app/templates/formClient.phtml';
     }
+
+    public function showClientForm($client = null, $isEdit = false)
+    {
+        require_once 'app/templates/formClient.phtml';
+    }
 }

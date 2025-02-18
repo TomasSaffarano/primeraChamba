@@ -26,5 +26,30 @@ class ModelCliente {
         $stmt->execute([$dni]);
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
+
+    public function checkIDExists($id_client){
+        $query = $this->db->prepare("SELECT * FROM cliente WHERE id = ?");
+        $result = $query->execute([$id_client]);
+        return $query->fetchColumn() > 0;
+    }
+
+    public function eraseClient($id){
+        $query = $this->db->prepare('DELETE FROM cliente WHERE id = ?');
+        $result = $query->execute([$id]);
+        return $result;
+    }
+
+    public function getClient($id) {
+        $query = $this->db->prepare("SELECT * FROM cliente WHERE id = ?");
+        $result = $query->execute([$id]);
+        return $query->fetch(PDO::FETCH_OBJ);
+    }
+
+    public function updateClient($id, $name, $dni, $cellphone) {
+        $query = $this->db->prepare('UPDATE cliente SET nombre = ?, dni = ?, telefono = ? WHERE id = ?');
+        $query->execute([$name, $dni, $cellphone,$id]);
+                return true; 
+     } 
+
 }
 ?>

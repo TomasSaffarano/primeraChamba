@@ -17,8 +17,8 @@
         <th scope="row"><?php echo$client->nombre?></th>
         <td><?php echo $client->dni ?></td>
         <td><?php echo $client->telefono ?></td>
-        <td><a  href="<?php echo BASE_URL . "eliminar/" . $client->id?>">Borrar</a></td>
-        <td><a  href="<?php echo BASE_URL . "modificar/" . $client->id?>">Modificar</a></td>
+        <td><a  href="<?php echo BASE_URL . "eliminarCliente/" . $client->id?>">Borrar</a></td>
+        <td><a  href="<?php echo BASE_URL . "modificarCliente/" . $client->id?>">Modificar</a></td>
       </tr>
     <?php endforeach ?>
     

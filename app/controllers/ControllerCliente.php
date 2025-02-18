@@ -63,5 +63,49 @@ class ControllerCliente {
         ];
     }
 
+    
+    public function deleteClient($id)
+    {
+        if($this->model->checkIDExists($id)){
+            $result = $this->model->eraseClient($id);
+            if($result)
+            header('Location: ' . BASE_URL . 'realizado');
+        else
+            $this->error->showError('Error en la base de datos', 'clientes');
+        return;
+        } else {
+            $error = "No existe el cliente con el id=$id";
+            $redir = "clientes";
+            $this->error->showError($error, $redir);
+        }
+    }
 
+    public function updateClient($id)
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $client = $this->model->getClient($id);
+            if (!$client) {
+                $error = "No existe el cliente con el id=$id";
+                $redir = "clientes";
+                $this->error->showError($error, $redir);
+                return;
+            }
+            $this->view->showClientForm($client, true);
+        } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $clientData = $this->getValidatedClientData();
+            if (!$clientData) {
+                $error = "Error: completar todos los campos obligatorios";
+                $redir = "clientes";
+                $this->error->showError($error, $redir);
+            } else {
+                // Actualizo el producto
+                $result = $this->model->updateClient($id, $clientData['name'],  $clientData['dni'],  $clientData['telefono']);
+                if($result)
+                header('Location: ' . BASE_URL . 'realizado');
+            else
+                $this->error->showError('Error en la base de datos', 'clientes');
+            return;
+            }
+        }
+    }
 }

@@ -49,17 +49,26 @@ switch ($params[0]) {
         $controller->addClient();
         break;
     
-        default:
-        $error = "404 page not found";
-        $redir = "home";
-        $controler = new ErrorControler();
-        $controler->showError($error, $redir);
-        break;
+
+        case 'modificarCliente':
+            $controler=new controllerCliente();
+            $controler->updateClient($params[1]);
+            break;
 
         case 'realizado': 
             $controler= new SuccessControler();
             $controler->showSuccess();
             break; 
 
-        
+        case 'eliminarCliente':
+            $controler=new ControllerCliente();
+            $controler->deleteClient($params[1]);
+            break;
+
+        default:
+            $error = "404 page not found";
+            $redir = "home";
+            $controler = new ErrorControler();
+            $controler->showError($error, $redir);
+            break;
 }
