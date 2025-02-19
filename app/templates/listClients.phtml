@@ -1,16 +1,21 @@
-<?php require './app/templates/header.phtml';?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Motos</title>
+    <title>Gestión de Clientes</title>
     <link rel="stylesheet" href="/primeraChamba/estilos/estilosMoto.css">
+    
 </head>
+<body>
+
+<?php require './app/templates/header.phtml'; ?>
 <body>
 <div>
 <h2>Clientes</h2>
+<div>
+
+</div id="seccionTabla">
   <table class="table">
     <thead>
       <tr>
@@ -20,14 +25,14 @@
       </tr>
     </thead>
     <tbody>
-    <a href="<?= BASE_URL . 'agregarCliente' ?>">Agregar</a>
+    <a href="<?= BASE_URL . 'agregarCliente' ?>" class="btn btn-primary">Agregar</a>
     <?php foreach($clients as $client) :?>
       <tr>
-        <th scope="row"><?php echo$client->nombre?></th>
+        <td scope="row"><?php echo$client->nombre?></td>
         <td><?php echo $client->dni ?></td>
         <td><?php echo $client->telefono ?></td>
-        <td><a  href="<?php echo BASE_URL . "eliminarCliente/" . $client->id?>">Borrar</a></td>
-        <td><a  href="<?php echo BASE_URL . "modificarCliente/" . $client->id?>">Modificar</a></td>
+        <td><a  href="<?php echo BASE_URL . "eliminarCliente/" . $client->id?>" class="btn-primary">Borrar</a></td>
+        <td><a  href="<?php echo BASE_URL . "modificarCliente/" . $client->id?>" class="btn-primary">Modificar</a></td>
       </tr>
     <?php endforeach ?>
     
@@ -37,3 +42,13 @@
 </body>
 <div>
 <?php require './app/templates/footer.phtml' ?>
+
+
+
+
+
+
+
+
+
+

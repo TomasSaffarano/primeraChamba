@@ -12,7 +12,12 @@ body {
     background-color:white;
 }
 
-
+.formAgregarCliente {
+    margin: 40px auto;  /* Margen de 40px en todos los lados y centrado horizontal */
+    padding: 20px;       /* Espaciado interno opcional */
+    width: 50%;          /* Ancho del formulario, ajusta según necesites */
+    box-sizing: border-box;
+}
 
 .logo {
     border-radius: 100px;
