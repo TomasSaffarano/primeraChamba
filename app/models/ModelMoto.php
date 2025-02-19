@@ -31,11 +31,16 @@ class ModelMoto {
 
     // Obtener moto por ID
     public function getMotoByID($id) {
+        $id = (int) $id; 
         $query = $this->db->prepare("SELECT * FROM moto WHERE id = ?");
         $query->execute([$id]);
         return $query->fetch(PDO::FETCH_OBJ);
     }
-
+    
+    // Método para actualizar la moto en la base de datos
+    public function updateMoto($id, $modelo, $patente, $estado, $dni, $kilometros, $descripcion, $observaciones) {
+        $query = $this->db->prepare("UPDATE moto SET modelo = ?, patente = ?, estado = ?, dni = ?, kilometros = ?, descripcion = ?, observaciones = ? WHERE id = ?");
+        return $query->execute([$modelo, $patente, $estado, $dni, $kilometros, $descripcion, $observaciones, $id]);
+    }
 }
-
 ?>

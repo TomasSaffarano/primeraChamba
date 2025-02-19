@@ -1,6 +1,6 @@
 <?php
 class ViewMoto {
-    public function showMotos($motos){
+    public function showMotos($motos, $motoAEditar = null) {
         require_once './app/templates/listMotos.phtml';
     }
     public function showError($message) {

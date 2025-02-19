@@ -16,48 +16,49 @@ class ControllerMoto {
     }
 
     public function getAllMotos() {
-        // Obtener todas las motos desde el modelo
         $motos = $this->model->getMotos();
     
-        // Ordenar las motos de acuerdo al estado, donde 'en_reparacion' aparece primero
         usort($motos, function($a, $b) {
             if ($a->estado == 'en_reparacion' && $b->estado != 'en_reparacion') {
-                return -1; // $a debe ir antes que $b
+                return -1;
             } elseif ($a->estado != 'en_reparacion' && $b->estado == 'en_reparacion') {
-                return 1; // $b debe ir antes que $a
+                return 1;
             }
-            return 0; // si ambos tienen el mismo estado, no cambiar el orden
+            return 0;
         });
     
-        // Pasar las motos ordenadas a la vista
         $this->view->showMotos($motos);
     }
 
     public function agregarMoto() {
-        if (!empty($_POST['modelo']) && !empty($_POST['patente']) && !empty($_POST['estado']) && !empty($_POST['dni'])) {
-            $modelo = $_POST['modelo'];
-            $patente = $_POST['patente'];
-            $estado = $_POST['estado'];
-            $kilometros = $_POST['kilometros'] ?? NULL;
-            $descripcion = $_POST['descripcion'] ?? NULL;
-            $observaciones = $_POST['observaciones'] ?? NULL;
-            $dni = $_POST['dni'];
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $modelo = htmlspecialchars(trim($_POST['modelo']));
+            $patente = htmlspecialchars(trim($_POST['patente']));
+            $estado = htmlspecialchars(trim($_POST['estado']));
+            $kilometros = isset($_POST['kilometros']) ? (int) $_POST['kilometros'] : NULL;
+            $descripcion = isset($_POST['descripcion']) ? htmlspecialchars(trim($_POST['descripcion'])) : NULL;
+            $observaciones = isset($_POST['observaciones']) ? htmlspecialchars(trim($_POST['observaciones'])) : NULL;
+            $dni = htmlspecialchars(trim($_POST['dni']));
     
+            if (empty($modelo) || empty($patente) || empty($estado) || empty($dni)) {
+                echo "Por favor, complete todos los campos requeridos.";
+                return;
+            }
+
             $cliente = $this->clienteModel->obtenerClientePorDNI($dni);
     
             if ($cliente) {
-                $id_cliente = $cliente->id;
                 $this->model->insertMoto($modelo, $patente, $estado, $kilometros, $descripcion, $observaciones, $dni);
-    
                 header("Location: " . BASE_URL . "motos");
                 exit();
             } else {
                 echo "Cliente no encontrado con el DNI: $dni";
             }
-        } else {
-            echo "Por favor, complete todos los campos requeridos.";
         }
-    }    public function mostrarMotosCliente($dni) {
+    }
+
+    public function mostrarMotosCliente($dni) {
+        $dni = htmlspecialchars(trim($dni));
         $motos = $this->model->getMotosByDNI($dni);
         if (!empty($motos)) {
             $this->view->showMotos($motos);
@@ -67,22 +68,44 @@ class ControllerMoto {
     }
 
     public function borrarMoto($params = []) {
-        $id = $params[':ID']; // Obtiene el ID de la moto
+        $id = (int) $params[':ID'];
         $this->model->eliminarMoto($id);
-        header("Location: " . BASE_URL . "motos"); // Redirige después de borrar
+        header("Location: " . BASE_URL . "motos");
         exit();
     }
+
     public function editarMoto($id) {
-        // Obtener la moto con el ID proporcionado
-        $moto = $this->model->getMotoByID($id);
-        
-        // Mostrar la vista de edición (suponiendo que esta vista tenga un formulario para editar la moto)
-        $this->view->showMotos($moto); // Cambié el nombre de la vista para mayor claridad
-        
-        // No redirigir aquí, ya que estamos en el proceso de edición, no en un borrado
-    }
+        $id = (int) $id;
+        $motoAEditar = $this->model->getMotoById($id);
+        $motos = $this->model->getMotos();
     
+        if ($motoAEditar) {
+            $this->view->showMotos($motos, $motoAEditar);
+        } else {
+            $this->view->showError("Moto no encontrada.");
+        }
+    }
+
+    public function actualizarMoto($id) {
+        $id = (int) $id;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $modelo = htmlspecialchars(trim($_POST['modelo']));
+            $patente = htmlspecialchars(trim($_POST['patente']));
+            $estado = htmlspecialchars(trim($_POST['estado']));
+            $dni = htmlspecialchars(trim($_POST['dni']));
+            $kilometros = isset($_POST['kilometros']) ? (int) $_POST['kilometros'] : 0;
+            $descripcion = isset($_POST['descripcion']) ? htmlspecialchars(trim($_POST['descripcion'])) : '';
+            $observaciones = isset($_POST['observaciones']) ? htmlspecialchars(trim($_POST['observaciones'])) : '';
+    
+            if (empty($modelo) || empty($patente) || empty($estado) || empty($dni)) {
+                $this->view->showError("Faltan datos obligatorios.");
+                return;
+            }
+    
+            $this->model->updateMoto($id, $modelo, $patente, $estado, $dni, $kilometros, $descripcion, $observaciones);
+            header("Location: " . BASE_URL . "motos");
+        }
+    }
 }
 
 ?>
-
