@@ -12,7 +12,7 @@ class ControllerCliente {
     public function __construct() {
         $this->view = new ViewCliente();
         $this->model = new ModelCliente();
-        $this->error = new ErrorControler();
+        $this->error = new ErrorController();
     }
 
     public function getAllClientes() {

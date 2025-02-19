@@ -75,16 +75,23 @@ switch ($params[0]) {
     case 'editarMoto':
         if (!empty($params[1])) { 
             $controller = new ControllerMoto();
-            $controller->editarMoto([':ID' => $params[1]]);
+            $controller->editarMoto($params[1]);
         } else {
             echo "Error: Falta el ID de la moto";
         }
         break;
-
+    case 'actualizarMoto':
+        if (!empty($params[1])) { 
+            $controller = new ControllerMoto();
+            $controller->actualizarMoto($params[1]);
+        } else {
+            echo "Error: Falta el ID de la moto";
+        }
+            break;
     default:
         $error = "404 page not found";
         $redir = "home";
-        $controller = new ErrorControler();
+        $controller = new ErrorController();
         $controller->showError($error, $redir);
         break;
 }

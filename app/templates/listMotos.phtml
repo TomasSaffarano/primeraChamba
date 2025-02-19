@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Motos</title>
-    <link rel="stylesheet" href="/primeraChamba/estilos/estilosMoto.css">
+    <link rel="stylesheet" href="/primeraChamba/estilos/moto.css">
 </head>
 <body>
 
@@ -12,44 +12,56 @@
 
 <div class="container">
     <!-- Sección izquierda: Formulario Agregar Moto -->
-    <div class="form-section">
-        <h2>Ingresar moto al sistema</h2>
-        <form action="<?php echo BASE_URL . 'agregarMoto'; ?>" method="POST">
-            <div class="form-group">
-                <label for="modelo">Modelo</label>
-                <input type="text" name="modelo" class="form-control" placeholder="Ingresa el modelo de la moto" id="modelo" required>
-            </div>
-            <div class="form-group">
-                <label for="patente">Patente</label>
-                <input type="text" name="patente" class="form-control" placeholder="Ingresa la patente de la moto" id="patente" required>
-            </div>
-            <div class="form-group">
-                <label for="estado">Estado</label>
-                <select name="estado" class="form-control" id="estado" required>
-                    <option value="" disabled selected>Selecciona un estado</option>
-                    <option value="en_reparacion">En reparación</option>
-                    <option value="terminada">Terminada</option>
-                    <option value="entregada">Entregada</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="dni">DNI del Cliente</label>
-                <input type="text" name="dni" class="form-control" placeholder="Ingresa el DNI del cliente" id="dni" required>
-            </div>
-            <div class="form-group">
-                <label for="kilometros">Kilómetros</label>
-                <input type="number" name="kilometros" class="form-control" id="kilometros" placeholder="Ingresa los kilómetros" min="0" step="1">
-            </div>
-            <div class="form-group">
-                <label for="descripcion">Descripción</label>
-                <textarea name="descripcion" class="form-control" placeholder="Ingresa una descripcion de los arreglos" id="descripcion"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="observaciones">Observaciones</label>
-                <textarea name="observaciones" class="form-control" placeholder="Agrega observaciones adicionales" id="observaciones"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Agregar Moto</button>
-        </form>
+    <div class="<?php echo isset($motoAEditar) ? 'form-section edit-mode' : 'form-section'; ?>">
+    <h2><?php echo isset($motoAEditar) ? "Editar Moto" : "Ingresar moto al sistema"; ?></h2>
+    <form action="<?php echo isset($motoAEditar) ? BASE_URL . 'actualizarMoto/' . $motoAEditar->id : BASE_URL . 'agregarMoto'; ?>" method="POST">
+    <div class="form-group">
+        <label for="modelo">Modelo</label>
+        <input type="text" name="modelo" class="form-control" id="modelo"
+               value="<?php echo isset($motoAEditar) ? htmlspecialchars($motoAEditar->modelo) : ''; ?>"
+               placeholder="Ingresa el modelo de la moto" required>
+    </div>
+    <div class="form-group">
+        <label for="patente">Patente</label>
+        <input type="text" name="patente" class="form-control" id="patente"
+               value="<?php echo isset($motoAEditar) ? htmlspecialchars($motoAEditar->patente) : ''; ?>"
+               placeholder="Ingresa la patente de la moto" required>
+    </div>
+    <div class="form-group">
+        <label for="estado">Estado</label>
+        <select name="estado" class="form-control" id="estado" required>
+            <option value="en_reparacion" <?php echo isset($motoAEditar) && $motoAEditar->estado == 'en_reparacion' ? 'selected' : ''; ?>>En reparación</option>
+            <option value="terminada" <?php echo isset($motoAEditar) && $motoAEditar->estado == 'terminada' ? 'selected' : ''; ?>>Terminada</option>
+            <option value="entregada" <?php echo isset($motoAEditar) && $motoAEditar->estado == 'entregada' ? 'selected' : ''; ?>>Entregada</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="dni">DNI del Cliente</label>
+        <input type="text" name="dni" class="form-control" id="dni"
+               value="<?php echo isset($motoAEditar) ? htmlspecialchars($motoAEditar->dni) : ''; ?>"
+               placeholder="Ingresa el DNI del cliente" required>
+    </div>
+    <div class="form-group">
+        <label for="kilometros">Kilómetros</label>
+        <input type="number" name="kilometros" class="form-control" id="kilometros"
+               value="<?php echo isset($motoAEditar) ? htmlspecialchars($motoAEditar->kilometros) : ''; ?>"
+               placeholder="Ingresa los kilómetros" min="0" step="1">
+    </div>
+    <div class="form-group">
+        <label for="descripcion">Descripción</label>
+        <textarea name="descripcion" class="form-control" id="descripcion"
+                  placeholder="Ingresa una descripción de los arreglos"><?php echo isset($motoAEditar) ? htmlspecialchars($motoAEditar->descripcion) : ''; ?></textarea>
+    </div>
+    <div class="form-group">
+        <label for="observaciones">Observaciones</label>
+        <textarea name="observaciones" class="form-control" id="observaciones"
+                  placeholder="Agrega observaciones adicionales"><?php echo isset($motoAEditar) ? htmlspecialchars($motoAEditar->observaciones) : ''; ?></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        <?php echo isset($motoAEditar) ? "Actualizar Moto" : "Agregar Moto"; ?>
+    </button>
+</form>
     </div>
 
     <!-- Sección derecha: Búsqueda y lista de motos -->
@@ -128,47 +140,6 @@
             </table>
         </div>
     </div>
-
-    <!-- Formulario de Edición de moto (solo visible si se edita una moto) -->
-    <?php if (isset($motoAEditar)) : ?>
-        <h2>Editar Moto</h2>
-        <form action="<?php echo BASE_URL . 'actualizarMoto/' . $motoAEditar->id; ?>" method="POST">
-            <div class="form-group">
-                <label for="modelo">Modelo</label>
-                <input type="text" name="modelo" class="form-control" id="modelo" value="<?php echo htmlspecialchars($motoAEditar->modelo); ?>" required>
-            </div>
-            <div class="form-group">
-                <label for="patente">Patente</label>
-                <input type="text" name="patente" class="form-control" id="patente" value="<?php echo htmlspecialchars($motoAEditar->patente); ?>" required>
-            </div>
-            <div class="form-group">
-                <label for="estado">Estado</label>
-                <select name="estado" class="form-control" id="estado" required>
-                    <option value="en_reparacion" <?php echo $motoAEditar->estado == 'en_reparacion' ? 'selected' : ''; ?>>En reparación</option>
-                    <option value="terminada" <?php echo $motoAEditar->estado == 'terminada' ? 'selected' : ''; ?>>Terminada</option>
-                    <option value="entregada" <?php echo $motoAEditar->estado == 'entregada' ? 'selected' : ''; ?>>Entregada</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="dni">DNI del Cliente</label>
-                <input type="text" name="dni" class="form-control" id="dni" value="<?php echo htmlspecialchars($motoAEditar->dni); ?>" required>
-            </div>
-            <div class="form-group">
-                <label for="kilometros">Kilómetros</label>
-                <input type="number" name="kilometros" class="form-control" id="kilometros" value="<?php echo htmlspecialchars($motoAEditar->kilometros); ?>" min="0" step="1">
-            </div>
-            <div class="form-group">
-                <label for="descripcion">Descripción</label>
-                <textarea name="descripcion" class="form-control" id="descripcion"><?php echo htmlspecialchars($motoAEditar->descripcion); ?></textarea>
-            </div>
-            <div class="form-group">
-                <label for="observaciones">Observaciones</label>
-                <textarea name="observaciones" class="form-control" id="observaciones"><?php echo htmlspecialchars($motoAEditar->observaciones); ?></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Actualizar Moto</button>
-        </form>
-    <?php endif; ?>
-</div>
 
 </body>
 </html>
