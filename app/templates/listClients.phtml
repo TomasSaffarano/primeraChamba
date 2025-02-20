@@ -31,8 +31,8 @@
         <td scope="row"><?php echo$client->nombre?></td>
         <td><?php echo $client->dni ?></td>
         <td><?php echo $client->telefono ?></td>
-        <td><a  href="<?php echo BASE_URL . "eliminarCliente/" . $client->id?>" class="btn-primary">Borrar</a></td>
-        <td><a  href="<?php echo BASE_URL . "modificarCliente/" . $client->id?>" class="btn-primary">Modificar</a></td>
+        <td><a href="<?php echo BASE_URL . "modificarCliente/" . $client->id; ?>" class="icon-btn" title="Editar">✏️</a></td>
+        <td><a href="<?php echo BASE_URL . "eliminarCliente/" . $client->id; ?>" class="icon-btn delete-btn" title="Borrar" onclick="return confirm('¿Seguro que quieres borrar este cliente?');">🗑️</a></td>
       </tr>
     <?php endforeach ?>
     

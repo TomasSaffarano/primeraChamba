@@ -31,6 +31,13 @@ class ControllerCliente {
                 $redir = "clientes";
                 $this->error->showError($error, $redir);
             } else {
+                $existe = $this->model->obtenerClientePorDNI($clientData['dni']);
+                if($existe){
+                $error = "Error: el cliente ya existe";
+                $redir = "clientes";
+                $this->error->showError($error, $redir);
+                return;
+                }
                 $result = $this->model->insertClient( $clientData['name'],  $clientData['dni'],  $clientData['telefono']);
                 if($result)
                 header('Location: ' . BASE_URL . 'realizado');
