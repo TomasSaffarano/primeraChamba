@@ -62,10 +62,10 @@ switch ($params[0]) {
         $controller->updateClient($params[1]);
         break;
 
-    case 'realizado': 
-        $controller = new SuccessControler();
-        $controller->showSuccess();
-        break; 
+    //case 'realizado': 
+      //  $controller = new SuccessControler();
+       // $controller->showSuccess();
+        //break; 
 
     case 'eliminarCliente':
         $controller = new ControllerCliente();

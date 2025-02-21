@@ -16,13 +16,13 @@ body {
 
 /* Contenedor principal */
 .container {
-    margin-top: 280px;
+    margin-top: 350px;
     display: flex;
     flex-direction: row; /* Alinea las secciones de izquierda a derecha */
     width: 80%;
     max-width: 1200px;
     justify-content: center; /* Centra las secciones horizontalmente */
-    gap: 20px; /* Espacio entre las secciones */
+    gap: 5px; /* Espacio entre las secciones */
 }
 
 /* Sección izquierda (Formulario Agregar Moto) */
@@ -139,10 +139,6 @@ textarea.form-control {
 
 .table a:hover {
     text-decoration: underline;
-}
-
-#volver {
-    margin: 20px 0;
 }
 
 

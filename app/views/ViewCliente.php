@@ -1,16 +1,17 @@
 <?php
 class ViewCliente {
-    public function showClients($clients){
+    // Mostrar todos los clientes
+    public function showClients($clients) {
         require_once './app/templates/listClients.phtml';
     }
 
-    public function addClient()
-    {
-        require_once 'app/templates/formClient.phtml';
+    // Mostrar formulario para agregar un cliente
+    public function addClient() {
+        require_once './app/templates/listClients.phtml';
     }
 
-    public function showClientForm($client = null, $isEdit = false)
-    {
-        require_once 'app/templates/formClient.phtml';
+    // Mostrar formulario para editar un cliente (con los datos del cliente)
+    public function showClientForm($client = null, $isEdit = false, $clients = []) {
+        require_once './app/templates/listClients.phtml';
     }
 }

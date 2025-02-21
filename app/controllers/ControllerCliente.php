@@ -40,7 +40,7 @@ class ControllerCliente {
                 }
                 $result = $this->model->insertClient( $clientData['name'],  $clientData['dni'],  $clientData['telefono']);
                 if($result)
-                header('Location: ' . BASE_URL . 'realizado');
+                header('Location: ' . BASE_URL . 'clientes');
             else
                 $this->error->showError('Error en la base de datos', 'clientes');
             return;
@@ -76,7 +76,7 @@ class ControllerCliente {
         if($this->model->checkIDExists($id)){
             $result = $this->model->eraseClient($id);
             if($result)
-            header('Location: ' . BASE_URL . 'realizado');
+            header('Location: ' . BASE_URL . 'clientes');
         else
             $this->error->showError('Error en la base de datos', 'clientes');
         return;
@@ -97,22 +97,29 @@ class ControllerCliente {
                 $this->error->showError($error, $redir);
                 return;
             }
-            $this->view->showClientForm($client, true);
+            $clients = $this->model->getClients();
+            // Mostrar el formulario de edición, pasando el cliente y todos los clientes
+            $this->view->showClientForm($client, true, $clients);
         } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Validar los datos del cliente
             $clientData = $this->getValidatedClientData();
+            
             if (!$clientData) {
                 $error = "Error: completar todos los campos obligatorios";
                 $redir = "clientes";
                 $this->error->showError($error, $redir);
             } else {
-                // Actualizo el producto
-                $result = $this->model->updateClient($id, $clientData['name'],  $clientData['dni'],  $clientData['telefono']);
-                if($result)
-                header('Location: ' . BASE_URL . 'realizado');
-            else
-                $this->error->showError('Error en la base de datos', 'clientes');
-            return;
+                // Actualizar el cliente en la base de datos
+                $result = $this->model->updateClient($id, $clientData['name'], $clientData['dni'], $clientData['telefono']);
+                
+                // Redirigir si la actualización es exitosa
+                if ($result) {
+                    header('Location: ' . BASE_URL . 'clientes');
+                } else {
+                    $this->error->showError('Error en la base de datos', 'clientes');
+                }
             }
         }
     }
+    
 }
