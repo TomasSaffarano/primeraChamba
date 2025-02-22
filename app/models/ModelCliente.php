@@ -51,5 +51,10 @@ class ModelCliente {
                 return true; 
      } 
 
-}
+     public function getClienteNombre($nombre) {
+        $query = $this->db->prepare("SELECT * FROM cliente WHERE nombre LIKE ?");
+        $query->execute(["%$nombre%"]);  // Se pasa el valor correctamente con los % dentro del array
+        return $query->fetchAll(PDO::FETCH_OBJ);
+    }
+}   
 ?>

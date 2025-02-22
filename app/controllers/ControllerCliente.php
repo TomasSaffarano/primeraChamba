@@ -122,4 +122,15 @@ class ControllerCliente {
         }
     }
     
+    public function mostrarCliente($client) {
+        $client = htmlspecialchars(trim($client));
+        $clients = $this->model->getClienteNombre($client);
+        if (!empty($clients)) {
+            $this->view->showClients($clients);
+        } else {
+            $error = "No existe el cliente con el nombre=$client";
+            $redir = "clientes";
+            $this->error->showError($error, $redir);
+        }
+    }
 }
