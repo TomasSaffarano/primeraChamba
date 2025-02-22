@@ -3,7 +3,6 @@
 require_once 'app/controllers/ControllerTurno.php';
 require_once 'app/controllers/ControllerCliente.php';
 require_once 'app/controllers/errorController.php';
-require_once 'app/controllers/succesController.php';
 require_once 'app/controllers/ControllerMoto.php';
 
 define('BASE_URL', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/');
@@ -61,11 +60,6 @@ switch ($params[0]) {
         $controller = new ControllerCliente();
         $controller->updateClient($params[1]);
         break;
-
-    //case 'realizado': 
-      //  $controller = new SuccessControler();
-       // $controller->showSuccess();
-        //break; 
 
     case 'eliminarCliente':
         $controller = new ControllerCliente();
