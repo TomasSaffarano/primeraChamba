@@ -51,10 +51,10 @@ switch ($params[0]) {
             }
             break;
 
- case 'agregarCliente':
-        $controller = new ControllerCliente(); 
-        $controller->addClient();
-        break;
+    case 'agregarCliente':
+            $controller = new ControllerCliente(); 
+            $controller->addClient();
+            break;
 
     case 'modificarCliente':
         $controller = new ControllerCliente();
@@ -66,22 +66,28 @@ switch ($params[0]) {
         $controller->deleteClient($params[1]);
         break;
 
-        case 'clienteNombre':
-            $controller = new ControllerCliente();
-            
-            // Verificar si el parámetro 'nombre' está presente en la URL
-            if (!empty($_GET['nombre'])) {
-                $client = trim($_GET['nombre']); // Eliminar espacios en blanco
-                $controller->mostrarCliente($client);
-            } else {
-                echo "Error: Nombre no especificado.";
-            }
-            break;
+    case 'clienteNombre':
+        $controller = new ControllerCliente();
+        if (!empty($_GET['nombre'])) {
+            $client = trim($_GET['nombre']); // Eliminar espacios en blanco
+            $controller->mostrarCliente($client);
+        } else {
+            echo "Error: Nombre no especificado.";
+        }
+        break;
 
     case 'editarMoto':
         if (!empty($params[1])) { 
             $controller = new ControllerMoto();
             $controller->editarMoto($params[1]);
+        } else {
+            echo "Error: Falta el ID de la moto";
+        }
+        break;
+    case 'verMoto':
+        if (!empty($params[1])) { 
+            $controller = new ControllerMoto();
+            $controller->verMoto($params[1]);
         } else {
             echo "Error: Falta el ID de la moto";
         }

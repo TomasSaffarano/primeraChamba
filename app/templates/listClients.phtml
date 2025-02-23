@@ -14,7 +14,7 @@ $isEdit = isset($client);
 
 <div class="container">
     <div class="form-section">
-        <h2><?= $isEdit ? "Editar cliente" : "Agregar nuevo cliente" ?></h2>
+        <h2><?= $isEdit ? "Editar cliente" : "Ingresar cliente al sistema" ?></h2>
         <form action="<?= $isEdit ? BASE_URL . 'modificarCliente/' . $client->id : BASE_URL . 'agregarCliente' ?>" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="nameInput">Nombre del cliente</label>
@@ -40,29 +40,32 @@ $isEdit = isset($client);
         <input type="text" name="nombre" class="form-control me-2" placeholder="Ingrese el nombre del cliente..." required>
         <button type="submit" class="btn btn-secondary">Buscar</button>
         </form>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>DNI</th>
-                    <th>Teléfono</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach($clients as $client) :?>
+        <h2>Listado de clientes en el sistema</h2>
+        <div class="table-container">
+            <table class="table">
+                <thead>
                     <tr>
-                        <td><?php echo $client->nombre?></td>
-                        <td><?php echo $client->dni ?></td>
-                        <td><?php echo $client->telefono ?></td>
-                        <td>
-                            <a href="<?php echo BASE_URL . "modificarCliente/" . $client->id; ?>" class="icon-btn" title="Editar">✏️</a>
-                            <a href="<?php echo BASE_URL . "eliminarCliente/" . $client->id; ?>" class="icon-btn delete-btn" title="Borrar" onclick="return confirm('¿Seguro que quieres borrar este cliente?');">🗑️</a>
-                        </td>
+                        <th>Nombre</th>
+                        <th>DNI</th>
+                        <th>Teléfono</th>
+                        <th>Acciones</th>
                     </tr>
-                <?php endforeach ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php foreach($clients as $client) :?>
+                        <tr>
+                            <td><?php echo $client->nombre?></td>
+                            <td><?php echo $client->dni ?></td>
+                            <td><?php echo $client->telefono ?></td>
+                            <td>
+                                <a href="<?php echo BASE_URL . "modificarCliente/" . $client->id; ?>" class="icon-btn" title="Editar">✏️</a>
+                                <a href="<?php echo BASE_URL . "eliminarCliente/" . $client->id; ?>" class="icon-btn delete-btn" title="Borrar" onclick="return confirm('¿Seguro que quieres borrar este cliente?');">🗑️</a>
+                            </td>
+                        </tr>
+                    <?php endforeach ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 

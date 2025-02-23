@@ -106,6 +106,16 @@ class ControllerMoto {
             header("Location: " . BASE_URL . "motos");
         }
     }
+
+    public function verMoto($id) {
+        $id = (int) $id;
+        $moto = $this->model->getMotoByIdInfo($id);
+        if ($moto) {
+            $this->view->showMoto($moto);
+        } else {
+            $this->view->showError("No se encontraron motos $moto.");
+        }
+    }
 }
 
 ?>

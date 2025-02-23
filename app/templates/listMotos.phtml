@@ -58,7 +58,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary">
-                <?php echo isset($motoAEditar) ? "Actualizar Moto" : "Agregar Moto"; ?>
+                <?php echo isset($motoAEditar) ? "Actualizar" : "Guardar"; ?>
             </button>
         </form>
     </div>
@@ -83,6 +83,7 @@
                                 <th scope="col">Patente</th>
                                 <th scope="col">Estado</th>
                                 <th scope="col">Kilómetros</th>
+                                <th scope="col">DNI</th>
                                 <th scope="col">Acción</th>
                             </tr>
                         </thead>
@@ -93,6 +94,7 @@
                                     <td><?php echo htmlspecialchars($moto->patente); ?></td>
                                     <td><?php echo htmlspecialchars($moto->estado); ?></td>
                                     <td><?php echo isset($moto->kilometros) ? htmlspecialchars($moto->kilometros) : 'N/A'; ?></td>
+                                    <td><?php echo htmlspecialchars($moto->dni); ?></td>
                                     <td>
                                         <a href="<?php echo BASE_URL . "verMoto/" . $moto->id; ?>" class="icon-btn" title="Ver detalles">🔍</a>
                                         <a href="<?php echo BASE_URL . "editarMoto/" . $moto->id; ?>" class="icon-btn" title="Editar">✏️</a>
@@ -118,6 +120,7 @@
                         <th scope="col">Patente</th>
                         <th scope="col">Estado</th>
                         <th scope="col">Kilómetros</th>
+                        <th scope="col">DNI</th>
                         <th scope="col">Acción</th>
                     </tr>
                 </thead>
@@ -128,6 +131,7 @@
                             <td><?php echo htmlspecialchars($moto->patente); ?></td>
                             <td><?php echo htmlspecialchars($moto->estado); ?></td>
                             <td><?php echo isset($moto->kilometros) ? htmlspecialchars($moto->kilometros) : 'N/A'; ?></td>
+                            <td><?php echo htmlspecialchars($moto->dni); ?></td>
                             <td>
                                 <a href="<?php echo BASE_URL . "verMoto/" . $moto->id; ?>" class="icon-btn" title="Ver detalles">🔍</a>
                                 <a href="<?php echo BASE_URL . "editarMoto/" . $moto->id; ?>" class="icon-btn" title="Editar">✏️</a>

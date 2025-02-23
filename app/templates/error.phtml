@@ -1,28 +1,10 @@
-
-
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/primerachamba/estilos/home.css">
-    <title>Home</title>
-</head>
-
-<body>
-<?php require 'app/templates/header.phtml'; ?>
-    <header>
-        <img src="\primeraChamba\static\Logo2.png" alt="Logo" class="logo">
-    </header>
 <div class="container mt-5">
-    
-        <div class="alert alert-danger" role="alert">
-            <?php echo ($error); ?>
-        </div>
+    <div class="alert alert-danger" role="alert">
+        <?php echo ($error); ?>
+    </div>
 
     <div class="text-center mt-4">
+        <!-- Vuelve a la página de motos -->
         <a href="<?php echo BASE_URL . $redir; ?>" class="btn btn-primary">VOLVER</a>
     </div>
 </div>
-
-<?php require 'app/templates/footer.phtml'; ?>
-

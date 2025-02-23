@@ -12,6 +12,16 @@ class ModelMoto {
         $query->execute();
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
+    public function getMotoByIdInfo($id) {
+        $query = $this->db->prepare("
+            SELECT m.*, c.nombre AS nombre_cliente, c.telefono AS telefono_cliente
+            FROM moto m
+            JOIN cliente c ON m.dni = c.dni
+            WHERE m.id = ?
+        ");
+        $query->execute([$id]);
+        return $query->fetch(PDO::FETCH_OBJ); // Devuelve un objeto en lugar de un array
+    }
 
     public function insertMoto($modelo, $patente, $estado, $kilometros, $descripcion, $observaciones,$dni) {
         $query = $this->db->prepare("INSERT INTO moto (modelo, patente, estado, kilometros, descripcion, observaciones, dni) 
@@ -28,8 +38,14 @@ class ModelMoto {
         $query = $this->db->prepare("DELETE FROM moto WHERE id = ?");
         $query->execute([$id]);
     }
+    public function existePatente($patente) {
+        $query = $this->db->prepare("SELECT COUNT(*) FROM moto WHERE patente = ?");
+        $query->execute([$patente]);
+        return $query->fetchColumn() > 0; 
+    }
+    
 
-    // Obtener moto por ID
+
     public function getMotoByID($id) {
         $id = (int) $id; 
         $query = $this->db->prepare("SELECT * FROM moto WHERE id = ?");
@@ -37,7 +53,6 @@ class ModelMoto {
         return $query->fetch(PDO::FETCH_OBJ);
     }
     
-    // Método para actualizar la moto en la base de datos
     public function updateMoto($id, $modelo, $patente, $estado, $dni, $kilometros, $descripcion, $observaciones) {
         $query = $this->db->prepare("UPDATE moto SET modelo = ?, patente = ?, estado = ?, dni = ?, kilometros = ?, descripcion = ?, observaciones = ? WHERE id = ?");
         return $query->execute([$modelo, $patente, $estado, $dni, $kilometros, $descripcion, $observaciones, $id]);

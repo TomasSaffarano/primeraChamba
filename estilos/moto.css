@@ -12,6 +12,7 @@ body {
     align-items: center; /* Alinea todo verticalmente */
     height: 100vh; /* Hace que el body ocupe el 100% de la altura de la ventana */
     flex-direction: column; /* Alinea los elementos en columna */
+    min-height: calc(100vh - 17px);
 }
 
 /* Contenedor principal */
@@ -110,8 +111,9 @@ textarea.form-control {
 
 /* Tabla de Motos */
 .table-container {
-    margin-top: 20px;
-    width: 600px;
+    max-height: 600px; /* Ajusta la altura según tu preferencia */
+    overflow-y: auto;  /* Agrega un scroll vertical si la lista de motos es muy grande */
+    padding: 10px; /* Opcional: Espaciado interno */
 }
 
 .table {
@@ -141,4 +143,10 @@ textarea.form-control {
     text-decoration: underline;
 }
 
-
+.container-moto{
+    padding: 20px;
+    background-color:rgba(83, 83, 83, 0.7);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+    border-radius: 8px;
+}
