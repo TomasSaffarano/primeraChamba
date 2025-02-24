@@ -25,5 +25,12 @@ class ModelTurno {
         $query->execute([$idCliente]);
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
+
+    public function getTurns(){
+        $query = $this->db->prepare("SELECT * FROM turno");
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_OBJ);
+    }
+
 }
 ?>

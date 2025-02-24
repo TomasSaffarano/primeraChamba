@@ -54,5 +54,9 @@ class ViewTurno {
         echo '<p>Fecha de Entrega: ' . $turno['fecha_entrega'] . '</p>';
         echo '<p>ID Cliente: ' . $turno['id_cliente'] . '</p>';
     }
+
+    public function showTurns($turns) {
+        require_once './app/templates/listTurns.phtml';
+    }
 }
 ?>

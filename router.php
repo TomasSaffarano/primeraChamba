@@ -4,7 +4,7 @@ require_once 'app/controllers/ControllerTurno.php';
 require_once 'app/controllers/ControllerCliente.php';
 require_once 'app/controllers/errorController.php';
 require_once 'app/controllers/ControllerMoto.php';
-
+require_once 'app/controllers/ControllerTurno.php';
 define('BASE_URL', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/');
 
 if (isset($_GET['action']) && !empty($_GET['action'])) {
@@ -25,6 +25,12 @@ switch ($params[0]) {
         $controller = new ControllerCliente(); 
         $controller->getAllClientes();
         break;
+    
+    case 'historial':
+        $controller = new ControllerTurno(); 
+        $controller->getAllTurnos();
+        break;
+
     case 'motos':
         $controller = new ControllerMoto(); 
         $controller->getAllMotos();
