@@ -32,5 +32,42 @@ class ModelTurno {
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
 
+    public function insertTurn($ingreso, $entrega, $patente){
+        $query = $this->db->prepare('INSERT INTO turno(ingreso,entrega,patente) VALUES (?, ?, ?)');
+        $query->execute([$ingreso,$entrega, $patente]);
+        $id = $this->db->lastInsertId();
+        return $id;
+    }
+
+    public function checkIDExists($id_turn){
+        $query = $this->db->prepare("SELECT * FROM turno WHERE id = ?");
+        $result = $query->execute([$id_turn]);
+        return $query->fetchColumn() > 0;
+    }
+
+    
+    public function eraseTurn($id){
+        $query = $this->db->prepare('DELETE FROM turno WHERE id = ?');
+        $result = $query->execute([$id]);
+        return $result;
+    }
+
+    public function getTurn($id) {
+        $query = $this->db->prepare("SELECT * FROM turno WHERE id = ?");
+        $result = $query->execute([$id]);
+        return $query->fetch(PDO::FETCH_OBJ);
+    }
+
+    public function updateTurn($id, $ingreso, $entrega, $patente) {
+        $query = $this->db->prepare('UPDATE turno SET ingreso = ?, entrega = ?, patente = ? WHERE id = ?');
+        $query->execute([$ingreso, $entrega, $patente,$id]);
+            return true; 
+     } 
+
+    public function getTurnPatent($patent) {
+        $query = $this->db->prepare("SELECT * FROM turno WHERE patente = ?");
+        $result = $query->execute([$patent]);
+        return $query->fetchAll(PDO::FETCH_OBJ);
+    }
 }
 ?>

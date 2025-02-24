@@ -62,14 +62,29 @@ switch ($params[0]) {
             $controller->addClient();
             break;
 
+        case 'agregarTurno':
+            $controller = new ControllerTurno(); 
+            $controller->addTurn();
+            break;
+
     case 'modificarCliente':
         $controller = new ControllerCliente();
         $controller->updateClient($params[1]);
         break;
 
+    case 'modificarTurno':
+        $controller = new ControllerTurno();
+        $controller->updateTurn($params[1]);
+        break;
+
     case 'eliminarCliente':
         $controller = new ControllerCliente();
         $controller->deleteClient($params[1]);
+        break;
+
+    case 'eliminarTurno':
+        $controller = new ControllerTurno();
+        $controller->deleteTurn($params[1]);
         break;
 
     case 'clienteNombre':
@@ -79,6 +94,16 @@ switch ($params[0]) {
             $controller->mostrarCliente($client);
         } else {
             echo "Error: Nombre no especificado.";
+        }
+        break;
+
+    case 'turnoPatente':
+        $controller = new ControllerTurno();
+        if (!empty($_GET['patente'])) {
+            $turn = trim($_GET['patente']); // Eliminar espacios en blanco
+            $controller->mostrarTurno($turn);
+        } else {
+            echo "Error: Patente no especificado.";
         }
         break;
 

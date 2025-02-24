@@ -58,5 +58,13 @@ class ViewTurno {
     public function showTurns($turns) {
         require_once './app/templates/listTurns.phtml';
     }
+
+    public function addTurn() {
+        require_once './app/templates/listTurns.phtml';
+    }
+
+    public function showTurnForm($turn = null, $isEdit = false, $turns = []) {
+        require_once './app/templates/listTurns.phtml';
+    }
 }
 ?>
