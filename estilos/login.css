@@ -1,0 +1,100 @@
+body {
+    background: url('/primeraChamba/static/fondologin.png') no-repeat center center fixed;
+    background-size: cover;
+}
+/* Contenedor del login */
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 29px 30px;
+    gap: 18px;
+    position: absolute;
+    width: 506px;
+    height: 323px;
+    left: 836px;
+    top: 150px;
+    background: #191919;
+    border-radius: 10px;
+}
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* Espacio entre los inputs */
+}
+/* Título */
+h2 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 900;
+    font-size: 24px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+/* Estilos de los inputs */
+input {
+    box-sizing: border-box;
+    width: 446px;
+    height: 50px;
+    background: #18181B;
+    border: 1px solid #2C2C2C;
+    border-radius: 6px;
+    padding: 10px;
+    color: #FFFFFF;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 29px;
+}
+
+/* Para que el placeholder también tenga esos estilos */
+input::placeholder {
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 29px;
+    color: #636363; /* Puedes cambiarlo si prefieres otro tono */
+}
+
+
+/* Botón de ingreso */
+.btn-primary {
+    width: 446px;
+    height: 45px;
+    background: #9D9D9D;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    color: #FFFFFF;
+    text-align: center;
+    letter-spacing: 0.02em;
+}
+
+
+/* Mensaje de error */
+.alert-danger {
+    width: 446px;
+    text-align: center;
+    background: rgba(255, 0, 0, 0.2);
+    color: red;
+    border-radius: 6px;
+}
+
+/* Texto de bienvenida */
+.welcome-text {
+    position: absolute;
+    width: 679px;
+    height: 110px;
+    left: 62px;
+    top: 250px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 40px;
+    letter-spacing: 0.02em;
+    color: #FFFFFF;
+}

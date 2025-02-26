@@ -17,14 +17,14 @@
             <!-- Datos del Propietario -->
             <div class="cliente-info">
                 <h2>Propietario</h2>
-                <p class="cliente-nombre"><?= htmlspecialchars($moto->nombre_cliente) ?></p>
+                <p class="cliente-nombre">
+                <p><strong>Nombre:</strong> <?= htmlspecialchars($moto->nombre_cliente) ?></p>
                 <p><strong>Teléfono:</strong> <?= htmlspecialchars($moto->telefono_cliente) ?></p>
             </div>
 
             <!-- Información de la Moto -->
             <div class="moto-info">
                 <h2 class="titulo-moto"><?= htmlspecialchars($moto->modelo) ?></h2>
-                <p><strong>Patente:</strong><?= htmlspecialchars($moto->patente) ?>
                 <p><strong>Estado:</strong> <?= htmlspecialchars($moto->estado) ?></p>
                 <p><strong>Kilómetros:</strong> <?= htmlspecialchars($moto->kilometros) ?></p>
                 <p><strong>Observaciones:</strong> <?= htmlspecialchars($moto->observaciones) ?></p>

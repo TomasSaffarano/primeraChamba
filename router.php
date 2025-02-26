@@ -5,6 +5,8 @@ require_once 'app/controllers/ControllerCliente.php';
 require_once 'app/controllers/errorController.php';
 require_once 'app/controllers/ControllerMoto.php';
 require_once 'app/controllers/ControllerTurno.php';
+require_once 'app/controllers/ControllerLogin.php';
+
 define('BASE_URL', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/');
 
 if (isset($_GET['action']) && !empty($_GET['action'])) {
@@ -20,7 +22,6 @@ switch ($params[0]) {
         $controller = new ControllerTurno(); 
         $controller->showHome();
         break;
-
     case 'clientes':
         $controller = new ControllerCliente(); 
         $controller->getAllClientes();
@@ -62,11 +63,19 @@ switch ($params[0]) {
             $controller->addClient();
             break;
 
-        case 'agregarTurno':
-            $controller = new ControllerTurno(); 
-            $controller->addTurn();
-            break;
-
+    case 'agregarTurno':
+        $controller = new ControllerTurno(); 
+        $controller->addTurn();
+        break;
+    case 'login':
+        $controller = new ControllerLogin();
+        $controller->showLogin();
+        break;
+    case 'verificarLogin':
+        $controller = new ControllerLogin();
+        $controller->login();
+        break;
+    
     case 'modificarCliente':
         $controller = new ControllerCliente();
         $controller->updateClient($params[1]);
