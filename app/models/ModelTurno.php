@@ -26,8 +26,12 @@ class ModelTurno {
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function getTurns(){
-        $query = $this->db->prepare("SELECT * FROM turno");
+    public function getTurns() {
+        $query = $this->db->prepare("SELECT id, 
+                                            DATE_FORMAT(ingreso, '%d/%m/%Y') AS ingreso, 
+                                            DATE_FORMAT(entrega, '%d/%m/%Y') AS entrega, 
+                                            patente 
+                                     FROM turno");
         $query->execute();
         return $query->fetchAll(PDO::FETCH_OBJ);
     }

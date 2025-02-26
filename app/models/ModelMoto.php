@@ -57,5 +57,7 @@ class ModelMoto {
         $query = $this->db->prepare("UPDATE moto SET modelo = ?, patente = ?, estado = ?, dni = ?, kilometros = ?, descripcion = ?, observaciones = ? WHERE id = ?");
         return $query->execute([$modelo, $patente, $estado, $dni, $kilometros, $descripcion, $observaciones, $id]);
     }
+
+    
 }
 ?>

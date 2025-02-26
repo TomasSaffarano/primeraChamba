@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-02-2025 a las 01:01:07
+-- Tiempo de generación: 26-02-2025 a las 23:46:20
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -99,15 +99,8 @@ CREATE TABLE `turno` (
   `id` int(11) NOT NULL,
   `ingreso` date NOT NULL,
   `entrega` date NOT NULL,
-  `patente` varchar(20) DEFAULT NULL
+  `patente` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `turno`
---
-
-INSERT INTO `turno` (`id`, `ingreso`, `entrega`, `patente`) VALUES
-(2, '2025-02-11', '2025-02-12', '5675');
 
 --
 -- Índices para tablas volcadas
@@ -138,9 +131,7 @@ ALTER TABLE `moto`
 -- Indices de la tabla `turno`
 --
 ALTER TABLE `turno`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `patente` (`patente`),
-  ADD KEY `id_cliente` (`patente`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -179,12 +170,6 @@ ALTER TABLE `turno`
 --
 ALTER TABLE `moto`
   ADD CONSTRAINT `moto_ibfk_1` FOREIGN KEY (`dni`) REFERENCES `cliente` (`dni`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `turno`
---
-ALTER TABLE `turno`
-  ADD CONSTRAINT `turno_ibfk_1` FOREIGN KEY (`patente`) REFERENCES `moto` (`patente`) ON DELETE SET NULL ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

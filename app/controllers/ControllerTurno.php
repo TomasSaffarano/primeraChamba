@@ -2,16 +2,20 @@
 
 require_once 'app/views/ViewTurno.php';
 require_once 'app/models/ModelTurno.php';
+require_once 'app/controllers/errorController.php';
+require_once 'app/models/modelMoto.php';
 
 class ControllerTurno {
     private $view;
     private $model;
     private $error;
+    private $motoModel;
 
     public function __construct() {
         $this->view = new ViewTurno();
         $this->model = new ModelTurno();
         $this->error = new ErrorController();
+        $this->motoModel = new ModelMoto();
     }
 
     public function showHome() {
@@ -24,27 +28,42 @@ class ControllerTurno {
     }
 
     public function addTurn()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $turnData = $this->getValidatedTurnData();
+{
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $turnData = $this->getValidatedTurnData();
 
-            // Si la validación falla, manejar el error
-            if (!$turnData) {
-                $error = "Error: completar todos los campos obligatorios";
-                $redir = "historial";
-                $this->error->showError($error, $redir);
-            }
-                $result = $this->model->insertTurn( $turnData['ingreso'],  $turnData['entrega'],  $turnData['patente']);
-                if($result)
-                header('Location: ' . BASE_URL . 'historial');
-            else
-                $this->error->showError('Error en la base de datos', 'historial');
+        // Primero verificamos si la validación falló
+        if (!$turnData) {
+            $error = "Error: completar todos los campos obligatorios";
+            $redir = "historial";
+            $this->error->showError($error, $redir);
             return;
-            
-        } else {
-            $this->view->showTurn();
         }
+
+        // Ahora podemos acceder con seguridad a ['patente']
+        $patente = $this->motoModel->existePatente($turnData['patente']);
+
+        if (!$patente) {
+            $error = "Error: no existe la patente";
+            $redir = "historial";
+            $this->error->showError($error, $redir);
+            return;
+        }
+
+        // Insertar en la base de datos
+        $result = $this->model->insertTurn($turnData['ingreso'], $turnData['entrega'], $turnData['patente']);
+
+        if ($result) {
+            header('Location: ' . BASE_URL . 'historial');
+        } else {
+            $this->error->showError('Error en la base de datos', 'historial');
+        }
+        return;
+
+    } else {
+        $this->view->showTurn();
     }
+}
 
     private function getValidatedTurnData()
     {
@@ -106,6 +125,15 @@ class ControllerTurno {
                 $redir = "historial";
                 $this->error->showError($error, $redir);
             } else {
+
+            $patente = $this->motoModel->existePatente($turnData['patente']);
+
+            if (!$patente) {
+                $error = "Error: no existe la patente";
+                $redir = "historial";
+                $this->error->showError($error, $redir);
+                return;
+            }
                 // Actualizar el cliente en la base de datos
                 $result = $this->model->updateTurn($id, $turnData['ingreso'], $turnData['entrega'], $turnData['patente']);
                 

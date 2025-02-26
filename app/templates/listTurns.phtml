@@ -18,7 +18,7 @@ $isEdit = isset($turn);
         <form action="<?= $isEdit ? BASE_URL . 'modificarTurno/' . $turn->id : BASE_URL . 'agregarTurno' ?>" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="ingreso">Ingreso</label>
-                <input name="ingreso" type="date" class="form-control" id="ingreso" placeholder="Fecha ingreso" value="<?= $isEdit ? $tunr->ingreso : '' ?>">
+                <input name="ingreso" type="date" class="form-control" id="ingreso" placeholder="Fecha ingreso" value="<?= $isEdit ? $turn->ingreso : '' ?>">
             </div>
             <div class="form-group">
                 <label for="dniInput">Entrega</label>
