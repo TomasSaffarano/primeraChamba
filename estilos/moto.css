@@ -1,23 +1,22 @@
 /* General */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 body {
     background: url('/primeraChamba/static/fondo.png') no-repeat center center fixed;
     background-size: cover; /* Hace que la imagen cubra todo el fondo */
     background-attachment: fixed; /* Asegura que el fondo no se mueva al hacer scroll */
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
     display: flex;
     color: rgb(248, 246, 246);
     justify-content: center;
     align-items: center; /* Alinea todo verticalmente */
-    height: 100vh; /* Hace que el body ocupe el 100% de la altura de la ventana */
     flex-direction: column; /* Alinea los elementos en columna */
-    min-height: calc(100vh - 17px);
 }
 
 /* Contenedor principal */
 .container {
-    margin-top: 350px;
+    margin-top: 100px;
     display: flex;
     flex-direction: row; /* Alinea las secciones de izquierda a derecha */
     width: 80%;
@@ -44,6 +43,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 }
+
 
 /* Formulario de Agregar Moto */
 .form-group {
@@ -111,9 +111,9 @@ textarea.form-control {
 
 /* Tabla de Motos */
 .table-container {
-    max-height: 600px; /* Ajusta la altura según tu preferencia */
+    max-height: 500px;
     overflow-y: auto;  /* Agrega un scroll vertical si la lista de motos es muy grande */
-    padding: 10px; /* Opcional: Espaciado interno */
+    
 }
 
 .table {
@@ -143,10 +143,27 @@ textarea.form-control {
     text-decoration: underline;
 }
 
-.container-moto{
+.container-moto {
     padding: 20px;
-    background-color:rgba(83, 83, 83, 0.7);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 110px;
     margin-right: 20px;
-    border-radius: 8px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+   
+}
+ 
+
+/* Footer */
+footer {
+    background-color: #333;
+    opacity: 0.8;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
+    margin-top: 20px;
+    flex-shrink: 0; /* Asegura que el footer no se encoja */
+    position: relative;
+    bottom: 0;
 }

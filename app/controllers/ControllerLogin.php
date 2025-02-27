@@ -22,28 +22,28 @@ class ControllerLogin {
         if (!isset($_POST['contraseña']) || empty($_POST['contraseña'])) {
             return $this->view->showLogin('Falta completar la contraseña');
         }
-        
+    
         $user_name = $_POST['usuario'];
         $password = $_POST['contraseña'];
     
         $userFromDB = $this->model->getUserByUserName($user_name);
     
         if ($userFromDB) {
-            if (password_verify($password, $userFromDB->contraseña)) {
-                session_start();
-                $_SESSION['ID_USER'] = $userFromDB->id;
-                $_SESSION['NAME_USER'] = $userFromDB->usuario;
-                header('Location: ' . BASE_URL);
-                exit();
-            } else {
+            if (!password_verify($password, $userFromDB->contraseña)) {
                 return $this->view->showLogin('Contraseña incorrecta');
             }
+    
+            // Iniciar sesión si la contraseña es correcta
+            session_start();
+            $_SESSION['ID_USER'] = $userFromDB->id;
+            $_SESSION['NAME_USER'] = $userFromDB->usuario;
+            header('Location: ' . BASE_URL);
+            exit();
         } else {
             return $this->view->showLogin('El usuario no existe');
         }
     }
-    
-    
+        
 
     public function logout() {
         session_start(); 

@@ -1,4 +1,4 @@
-/* General */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 body {
     background: url('/primeraChamba/static/fondo.png') no-repeat center center fixed;
     background-size: cover;
@@ -10,6 +10,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh; /* Asegura que el body ocupe todo el alto de la ventana */
+    font-family: 'Poppins', sans-serif;
     flex-direction: column;
 }
 

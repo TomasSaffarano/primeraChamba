@@ -1,0 +1,76 @@
+/* Estilos generales */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor principal */
+.container-moto {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Título principal */
+h1 {
+    font-size: 28px;
+    color: #6c63ff;
+    margin-bottom: 20px;
+}
+
+/* Secciones de información */
+.info-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Bloques de información */
+.cliente-info, .moto-info {
+    background: #f0f0f5;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+/* Subtítulos */
+h2 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Información del propietario */
+.cliente-info p, .moto-info p {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Título de la moto */
+.titulo-moto {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Resaltado para datos */
+p strong {
+    color: #555;
+}
+
+/* Mensaje cuando no hay información */
+p.no-info {
+    font-size: 18px;
+    color: #ff4d4d;
+    font-weight: bold;
+}

@@ -1,4 +1,4 @@
-/* Estilos para la barra de navegación */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 .navbar {
     position: fixed; /* Fija la barra en la parte superior */
     width: 100%;
@@ -11,6 +11,7 @@
     display: flex;
     align-items: center; /* Centra verticalmente los elementos */
     z-index: 1000; /* Asegura que esté por encima del contenido */
+    font-family: 'Poppins', sans-serif;
 }
 
 /* Contenedor principal (flex) para logo y navbar-nav */

@@ -40,13 +40,13 @@ switch ($params[0]) {
             $controller = new ControllerMoto(); 
             $controller->agregarMoto();
             break; 
-    case 'motosPorDni':
+    case 'motosPorModelo':
             $controller = new ControllerMoto();
-            if (isset($_GET['dni'])) {
-                $dni = $_GET['dni'];
-                $controller->mostrarMotosCliente($dni);
+            if (isset($_GET['modelo'])) {
+                $modelo = $_GET['modelo'];
+                $controller->mostrarMotosModelo($modelo);
             } else {
-                echo "DNI no especificado";
+                echo "No hay motos con ese modelo";
             }
             break;
     case 'borrarMoto':

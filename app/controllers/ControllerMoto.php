@@ -57,13 +57,13 @@ class ControllerMoto {
         }
     }
 
-    public function mostrarMotosCliente($dni) {
-        $dni = htmlspecialchars(trim($dni));
-        $motos = $this->model->getMotosByDNI($dni);
+    public function mostrarMotosModelo($modelo) {
+        $modelo = htmlspecialchars(trim($modelo));
+        $motos = $this->model->getMotosByModelo($modelo);
         if (!empty($motos)) {
             $this->view->showMotos($motos);
         } else {
-            $this->view->showError("No se encontraron motos para el cliente con DNI $dni.");
+            $this->view->showError("No se encontraron motos con el modelo $modelo.");
         }
     }
 

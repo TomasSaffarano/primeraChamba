@@ -29,9 +29,9 @@ class ModelMoto {
         $query->execute([$modelo, $patente, $estado, $kilometros, $descripcion, $observaciones, $dni]);
     }
 
-    public function getMotosByDNI($dni) {
-        $query = $this->db->prepare("SELECT *  FROM moto WHERE dni = ?");
-        $query->execute([$dni]);
+    public function getMotosByModelo($modelo) {
+        $query = $this->db->prepare("SELECT *  FROM moto WHERE modelo = ?");
+        $query->execute([$modelo]);
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
     public function eliminarMoto($id) {
