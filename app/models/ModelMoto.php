@@ -58,6 +58,10 @@ class ModelMoto {
         return $query->execute([$modelo, $patente, $estado, $dni, $kilometros, $descripcion, $observaciones, $id]);
     }
 
-    
+    public function getMotoByPatente($patente) {
+        $query = $this->db->prepare("SELECT * FROM moto WHERE patente = ?");
+        $query->execute([$patente]);
+        return $query->fetch(PDO::FETCH_OBJ);
+    }
 }
 ?>
