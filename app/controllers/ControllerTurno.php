@@ -4,18 +4,21 @@ require_once 'app/views/ViewTurno.php';
 require_once 'app/models/ModelTurno.php';
 require_once 'app/controllers/errorController.php';
 require_once 'app/models/modelMoto.php';
+require_once 'app/models/modelCliente.php';
 
 class ControllerTurno {
     private $view;
     private $model;
     private $error;
     private $motoModel;
+    private $clienteModel;
 
     public function __construct() {
         $this->view = new ViewTurno();
         $this->model = new ModelTurno();
         $this->error = new ErrorController();
         $this->motoModel = new ModelMoto();
+        $this->clienteModel = new ModelCliente();
     }
 
     public function showHome() {
@@ -158,5 +161,35 @@ class ControllerTurno {
             $this->error->showError($error, $redir);
         }
     }
+
+    public function verTurno($id){
+        $id = (int) $id;
+        $turno = $this->model->getTurn($id);
+        if (!$turno) {
+            $error = "No existe el turno con el id=$id";
+            $redir = "historial";
+            $this->error->showError($error, $redir);
+        } 
+        
+        $moto = $this->motoModel->getMotoByPatente($turno->patente);
+
+        if (!$moto) {
+            $error = "No existe la moto con la patente=$turno->patente";
+            $redir = "historial";
+            $this->error->showError($error, $redir);
+        } 
+
+        $cliente = $this->clienteModel->obtenerClientePorDNI($moto->dni);
+
+        if (!$cliente) {
+            $error = "No existe el cliente con el dni=$$moto->dni";
+            $redir = "historial";
+            $this->error->showError($error, $redir);
+        } 
+
+        $this->view->showTurn($turno,$moto,$cliente);
+
+    }
+    
 }
 

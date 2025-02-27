@@ -132,6 +132,16 @@ switch ($params[0]) {
             echo "Error: Falta el ID de la moto";
         }
         break;
+
+    case 'verTurno':
+            if (!empty($params[1])) { 
+                $controller = new ControllerTurno();
+                $controller->verTurno($params[1]);
+            } else {
+                echo "Error: Falta el ID del turno";
+            }
+            break;
+
     case 'actualizarMoto':
         if (!empty($params[1])) { 
             $controller = new ControllerMoto();
