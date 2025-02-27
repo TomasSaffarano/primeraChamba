@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Clientes</title>
     <link rel="stylesheet" href="/primeraChamba/estilos/turno.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
 <?php require './app/templates/header.phtml';
@@ -122,12 +123,24 @@
                     <option value="no">no</option>
                 </select>
             </div>
-
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Guardar</button>
-            </div>
-
         </form>
+     
+            <button id="guardarImagen" class="btn btn-primary">Guardar como Imagen</button>
+        
     </div>
 
 <?php require './app/templates/footer.phtml'; ?>
+
+<script>
+document.getElementById("guardarImagen").addEventListener("click", function() {
+    let formulario = document.querySelector(".form-section"); // Selecciona el formulario
+    html2canvas(formulario).then(canvas => {
+        let link = document.createElement("a");
+        link.href = canvas.toDataURL("image/png"); // Convierte el formulario en imagen
+        link.download = "formulario.png"; // Nombre del archivo
+        link.click(); // Descarga automática
+    });
+});
+</script>
+
+</body>
