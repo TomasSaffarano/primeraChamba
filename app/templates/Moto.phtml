@@ -17,7 +17,6 @@
             <!-- Datos del Propietario -->
             <div class="cliente-info">
                 <h2>Propietario</h2>
-                <p class="cliente-nombre">
                 <p><strong>Nombre:</strong> <?= htmlspecialchars($moto->nombre_cliente) ?></p>
                 <p><strong>Teléfono:</strong> <?= htmlspecialchars($moto->telefono_cliente) ?></p>
             </div>
@@ -30,6 +29,11 @@
                 <p><strong>Observaciones:</strong> <?= htmlspecialchars($moto->observaciones) ?></p>
                 <p><strong>Descripción:</strong> <?= htmlspecialchars($moto->descripcion) ?></p>
             </div>
+        </div>
+
+     <!-- Botón para regresar a la lista de motos -->
+        <div class="boton-regresar">
+            <a href="<?= BASE_URL . "motos" ?>">Volver a Motos</a>
         </div>
     <?php else: ?>
         <p>No se encontró información de la moto.</p>

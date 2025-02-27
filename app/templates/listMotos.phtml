@@ -64,86 +64,65 @@
     </div>
 
     <!-- Sección derecha: Búsqueda y lista de motos -->
-    <div class="col-md-6 right-section">
-        <h2>Buscar moto</h2>
-        <form action="<?php echo BASE_URL . 'motosPorDni'; ?>" method="GET" class="d-flex">
-            <input type="text" name="dni" class="form-control me-2" placeholder="Ingrese el DNI del cliente..." required>
-            <button type="submit" class="btn btn-secondary">Buscar</button>
-        </form>
+<div class="col-md-6 right-section">
+    <h2>Buscar moto</h2>
+    <form action="<?php echo BASE_URL . 'motosPorModelo'; ?>" method="GET" class="d-flex">
+        <input type="text" name="modelo" class="form-control me-2" placeholder="Ingrese el modelo de la moto..." required>
+        <button type="submit" class="btn btn-secondary">Buscar</button>
+    </form>
 
-        <?php if (isset($motosCliente)) : ?>
-            <div class="table-container mt-4">
-                <h2>Motos del Cliente con DNI: <?php echo isset($_GET['dni']) ? htmlspecialchars($_GET['dni']) : ''; ?></h2>
-                
-                <?php if (count($motosCliente) > 0) : ?>
-                    <table class="table">
-                        <thead>
+    <div class="table-container mt-4">
+        <h2>
+            <?php 
+                if (isset($_GET['modelo']) && !empty($_GET['modelo'])) {
+                    echo "Motos encontradas para: " . htmlspecialchars($_GET['modelo']);
+                } else {
+                    echo "Listado de motos en el sistema";
+                }
+            ?>
+        </h2>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Modelo</th>
+                    <th scope="col">Patente</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Kilómetros</th>
+                    <th scope="col">DNI</th>
+                    <th scope="col">Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php 
+                    $listaMotos = isset($motosCliente) ? $motosCliente : $motos;
+
+                    if (!empty($listaMotos)) {
+                        foreach ($listaMotos as $moto) : ?>
                             <tr>
-                                <th scope="col">Modelo</th>
-                                <th scope="col">Patente</th>
-                                <th scope="col">Estado</th>
-                                <th scope="col">Kilómetros</th>
-                                <th scope="col">DNI</th>
-                                <th scope="col">Acción</th>
+                                <td><?php echo htmlspecialchars($moto->modelo); ?></td>
+                                <td><?php echo htmlspecialchars($moto->patente); ?></td>
+                                <td><?php echo htmlspecialchars($moto->estado); ?></td>
+                                <td><?php echo isset($moto->kilometros) ? htmlspecialchars($moto->kilometros) : 'N/A'; ?></td>
+                                <td><?php echo htmlspecialchars($moto->dni); ?></td>
+                                <td>
+                                    <a href="<?php echo BASE_URL . "verMoto/" . $moto->id; ?>" class="icon-btn" title="Ver detalles">🔍</a>
+                                    <a href="<?php echo BASE_URL . "editarMoto/" . $moto->id; ?>" class="icon-btn" title="Editar">✏️</a>
+                                    <a href="<?php echo BASE_URL . "borrarMoto/" . $moto->id; ?>" class="icon-btn delete-btn" title="Borrar" onclick="return confirm('¿Seguro que quieres borrar esta moto?');">🗑️</a>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach($motosCliente as $moto) : ?>
-                                <tr>
-                                    <td><?php echo htmlspecialchars($moto->modelo); ?></td>
-                                    <td><?php echo htmlspecialchars($moto->patente); ?></td>
-                                    <td><?php echo htmlspecialchars($moto->estado); ?></td>
-                                    <td><?php echo isset($moto->kilometros) ? htmlspecialchars($moto->kilometros) : 'N/A'; ?></td>
-                                    <td><?php echo htmlspecialchars($moto->dni); ?></td>
-                                    <td>
-                                        <a href="<?php echo BASE_URL . "verMoto/" . $moto->id; ?>" class="icon-btn" title="Ver detalles">🔍</a>
-                                        <a href="<?php echo BASE_URL . "editarMoto/" . $moto->id; ?>" class="icon-btn" title="Editar">✏️</a>
-                                        <a href="<?php echo BASE_URL . "borrarMoto/" . $moto->id; ?>" class="icon-btn delete-btn" title="Borrar" onclick="return confirm('¿Seguro que quieres borrar esta moto?');">🗑️</a>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                <?php else : ?>
-                    <p>No se encontraron motos para el cliente con DNI <?php echo htmlspecialchars($_GET['dni']); ?>.</p>
-                <?php endif; ?>
-            </div>
-        <?php endif; ?>
-
-        <!-- Lista de todas las motos -->
-        <div class="table-container mt-4">
-            <h2>Listado de motos en el sistema</h2>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Modelo</th>
-                        <th scope="col">Patente</th>
-                        <th scope="col">Estado</th>
-                        <th scope="col">Kilómetros</th>
-                        <th scope="col">DNI</th>
-                        <th scope="col">Acción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach($motos as $moto) : ?>
+                        <?php endforeach; 
+                    } else { ?>
                         <tr>
-                            <td><?php echo htmlspecialchars($moto->modelo); ?></td>
-                            <td><?php echo htmlspecialchars($moto->patente); ?></td>
-                            <td><?php echo htmlspecialchars($moto->estado); ?></td>
-                            <td><?php echo isset($moto->kilometros) ? htmlspecialchars($moto->kilometros) : 'N/A'; ?></td>
-                            <td><?php echo htmlspecialchars($moto->dni); ?></td>
-                            <td>
-                                <a href="<?php echo BASE_URL . "verMoto/" . $moto->id; ?>" class="icon-btn" title="Ver detalles">🔍</a>
-                                <a href="<?php echo BASE_URL . "editarMoto/" . $moto->id; ?>" class="icon-btn" title="Editar">✏️</a>
-                                <a href="<?php echo BASE_URL . "borrarMoto/" . $moto->id; ?>" class="icon-btn delete-btn" title="Borrar" onclick="return confirm('¿Seguro que quieres borrar esta moto?');">🗑️</a>
-                            </td>
+                            <td colspan="6" class="text-center">No se encontraron motos.</td>
                         </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
+                <?php } ?>
+            </tbody>
+        </table>
     </div>
 </div>
+</div>
+
 </body>
 <?php require './app/templates/footer.phtml'; ?>
 </html>
