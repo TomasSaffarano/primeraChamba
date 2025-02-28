@@ -163,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function() {
         html2canvas(formulario, { useCORS: true }).then(canvas => {
             let link = document.createElement("a");
             link.href = canvas.toDataURL("image/png");
-            link.download = "formulario.png";
+            link.download = "formulario<?= $turno->id ?>.png";
             link.click();
 
             // Volver a mostrar el botón después de la captura
