@@ -13,9 +13,10 @@
  ?>  
 <div class="container">
     <div class="form-section">
+        <div class="border">
         <div class="header-form">
         <div class="seccion-derecha">
-            <img src="\primeraChamba\static\Logo2.png" alt="Logo" class="logonav">
+            <img src="\primeraChamba\static\logo-turno.png" alt="Logo" class="logonav">
             <p class="redes">instragram facebook</p>
             <p class="ubicacion">avenida balvin al tanto</p>
         </div>
@@ -102,28 +103,42 @@
             <div class="ultima-seccion"> 
                 <div class="seccion-derecha-inferior">
                     <label id="top" for="resumen">Resumen del acuerdo</label>
-                    <div class="form-group">
+                    <div class="form-group-2">
                         <label for="conceptos">Conceptos</label>
                         <input name="conceptos" type="text" class="form-control" id="conceptos" placeholder="Conceptos" value=" ">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group-2">
                         <label for="ManoDeObra">Mano de obra</label>
                         <input name="ManoDeObra" type="text" class="form-control" id="ManoDeObra" placeholder="Mano de obra" value=" ">
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group-2">
                         <label for="repuestos">Repuestos</label>
                         <input name="repuestos" type="text" class="form-control" id="repuestos" placeholder="Repuestos" value=" ">
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group-2">
                         <label for="terceros">Trabajo de terceros</label>
                         <input name="terceros" type="text" class="form-control" id="terceros" placeholder="Terceros" value=" ">
+                    </div>
+                    <div class="total-seccion">
+                        <div class="form-group-3">
+                        <label for="iva">IVA</label>
+                        <input name="iva" type="text" class="form-control" id="iva" placeholder="IVA" value=" ">
+                    </div>
+                    <div class="form-group-3">
+                        <label for="neto">Neto</label>
+                        <input name="neto" type="text" class="form-control" id="neto" placeholder="neto" value=" ">
+                    </div>
+                    <div class="form-group-3">
+                        <label for="TOTAL">TOTAL</label>
+                        <input name="TOTAL" type="text" class="form-control" id="total" placeholder="total" value=" ">
+                    </div>
                     </div>
                 </div>
                 <div class="seccion-izquierda-inferior">
                     <label id="top" for="combustible">Combustible</label>
-                    <div class="form-group">
+                    <div class="form-group-2">
                         <label for="combustible">Combustible</label>
                         <select name="combustible" class="form-control" id="combustible">
                             <option value="1/4">1/4</option>
@@ -133,7 +148,7 @@
                         </select>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group-2">
                         <label for="aceite">Aceite en motor</label>
                         <select name="aceite" class="form-control" id="aceite">
                             <option value="si">si</option>
@@ -143,13 +158,12 @@
                 </div>
             </div>
 
-        </form>
+        </div>
+    </form>
      
             <button id="guardarImagen" class="btn btn-primary">Guardar como Imagen</button>
         
     </div>
-
-<?php require './app/templates/footer.phtml'; ?>
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
