@@ -155,15 +155,22 @@
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("guardarImagen").addEventListener("click", function() {
         let formulario = document.querySelector(".form-section");
+        let boton = document.getElementById("guardarImagen");
+
+        // Ocultar el botón antes de la captura
+        boton.style.display = "none";
+
         html2canvas(formulario, { useCORS: true }).then(canvas => {
             let link = document.createElement("a");
             link.href = canvas.toDataURL("image/png");
             link.download = "formulario.png";
             link.click();
+
+            // Volver a mostrar el botón después de la captura
+            boton.style.display = "block";
         });
     });
 });
-
 </script>
 
 </body>
