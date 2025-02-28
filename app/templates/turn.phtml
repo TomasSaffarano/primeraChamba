@@ -88,20 +88,20 @@
                 </div>
             </div>
             <div class="descripcion">
-                <div class="form-group">
-                        <label for="descripcion">Descripcion</label>
+                <div class="form-group-1">
+                        <label id="desc" for="descripcion">Descripcion</label>
                         <input name="descripcion" type="text" class="form-control" id="descripcion" placeholder="Descripcion" value="<?= $moto->descripcion ?>">
                 </div>
             </div>
             <div class="observaciones">
-                <div class="form-group">
-                    <label for="observacion">Observacion</label>
+                <div class="form-group-1">
+                    <label id="observacion" for="observacion">Observaciones sobre el estado del vehiculo</label>
                     <input name="observaciones" type="text" class="form-control" id="observaciones" placeholder="Observaciones" value="<?= $moto->observaciones ?>">
                 </div>
             </div>
             <div class="ultima-seccion"> 
                 <div class="seccion-derecha-inferior">
-                    <h2>Resumen del acuerdo</h2>
+                    <label id="top" for="resumen">Resumen del acuerdo</label>
                     <div class="form-group">
                         <label for="conceptos">Conceptos</label>
                         <input name="conceptos" type="text" class="form-control" id="conceptos" placeholder="Conceptos" value=" ">
@@ -122,28 +122,25 @@
                     </div>
                 </div>
                 <div class="seccion-izquierda-inferior">
-                <h2>Combustible y aceite</h2>
-                <div class="form-group">
-                    <label for="combustible">Combustible</label>
-                    <select name="combustible" class="form-control" id="combustible">
-                        <option value="1/4">1/4</option>
-                        <option value="1/2">1/2</option>
-                        <option value="3/4" >3/4</option>
-                        <option value="4/4" >4/4</option>
-                    </select>
-                </div>
+                    <label id="top" for="combustible">Combustible</label>
+                    <div class="form-group">
+                        <label for="combustible">Combustible</label>
+                        <select name="combustible" class="form-control" id="combustible">
+                            <option value="1/4">1/4</option>
+                            <option value="1/2">1/2</option>
+                            <option value="3/4" >3/4</option>
+                            <option value="4/4" >4/4</option>
+                        </select>
+                    </div>
 
-                <div class="form-group">
-                    <label for="aceite">Aceite en motor</label>
-                    <select name="aceite" class="form-control" id="aceite">
-                        <option value="si">si</option>
-                        <option value="no">no</option>
-                    </select>
+                    <div class="form-group">
+                        <label for="aceite">Aceite en motor</label>
+                        <select name="aceite" class="form-control" id="aceite">
+                            <option value="si">si</option>
+                            <option value="no">no</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-           
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Guardar</button>
             </div>
 
         </form>
@@ -155,15 +152,18 @@
 <?php require './app/templates/footer.phtml'; ?>
 
 <script>
-document.getElementById("guardarImagen").addEventListener("click", function() {
-    let formulario = document.querySelector(".form-section"); // Selecciona el formulario
-    html2canvas(formulario).then(canvas => {
-        let link = document.createElement("a");
-        link.href = canvas.toDataURL("image/png"); // Convierte el formulario en imagen
-        link.download = "formulario.png"; // Nombre del archivo
-        link.click(); // Descarga automática
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("guardarImagen").addEventListener("click", function() {
+        let formulario = document.querySelector(".form-section");
+        html2canvas(formulario, { useCORS: true }).then(canvas => {
+            let link = document.createElement("a");
+            link.href = canvas.toDataURL("image/png");
+            link.download = "formulario.png";
+            link.click();
+        });
     });
 });
+
 </script>
 
 </body>
