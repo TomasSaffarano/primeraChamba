@@ -9,7 +9,7 @@ class ModelCliente {
     }
 
     public function getClients(){
-        $query = $this->db->prepare("SELECT * FROM cliente");
+         $query = $this->db->prepare("SELECT * FROM cliente ORDER BY nombre ASC");
         $query->execute();
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
