@@ -15,7 +15,29 @@ class ControllerLogin {
         return $this->view->showLogin();
     }
 
-    public function login() {
+     public function login() {
+        session_start();
+        
+        if (!isset($_SESSION['login_attempts'])) {
+            $_SESSION['login_attempts'] = 0;
+            $_SESSION['last_attempt_time'] = time();
+        }
+    
+        // Verificar si el usuario está bloqueado
+        $max_attempts = 3;  // Número máximo de intentos
+        $block_time = 60;   // Tiempo de bloqueo en segundos (1 minuto)
+        
+        if ($_SESSION['login_attempts'] >= $max_attempts) {
+            $time_since_last_attempt = time() - $_SESSION['last_attempt_time'];
+            
+            if ($time_since_last_attempt < $block_time) {
+                return $this->view->showLogin("Demasiados intentos. Intenta nuevamente en " . ($block_time - $time_since_last_attempt) . " segundos.");
+            } else {
+                // Reiniciar intentos después del período de bloqueo
+                $_SESSION['login_attempts'] = 0;
+            }
+        }
+    
         if (!isset($_POST['usuario']) || empty($_POST['usuario'])) {
             return $this->view->showLogin('Falta completar el nombre de usuario');
         }
@@ -30,20 +52,26 @@ class ControllerLogin {
     
         if ($userFromDB) {
             if (!password_verify($password, $userFromDB->contraseña)) {
-                return $this->view->showLogin('Contraseña incorrecta');
+                $_SESSION['login_attempts']++;
+                $_SESSION['last_attempt_time'] = time();
+                return $this->view->showLogin("Contraseña incorrecta. Intento " . $_SESSION['login_attempts'] . " de $max_attempts");
             }
     
+            // Restablecer intentos fallidos si el login es exitoso
+            $_SESSION['login_attempts'] = 0;
+    
             // Iniciar sesión si la contraseña es correcta
-            session_start();
             $_SESSION['ID_USER'] = $userFromDB->id;
             $_SESSION['NAME_USER'] = $userFromDB->usuario;
             header('Location: ' . BASE_URL);
             exit();
         } else {
-            return $this->view->showLogin('El usuario no existe');
+            $_SESSION['login_attempts']++;
+            $_SESSION['last_attempt_time'] = time();
+            return $this->view->showLogin("El usuario no existe. Intento " . $_SESSION['login_attempts'] . " de $max_attempts");
         }
     }
-        
+
 
     public function logout() {
         session_start(); 
