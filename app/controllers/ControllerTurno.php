@@ -169,6 +169,7 @@ class ControllerTurno {
             $error = "No existe el turno con el id=$id";
             $redir = "historial";
             $this->error->showError($error, $redir);
+            return;
         } 
         
         $moto = $this->motoModel->getMotoByPatente($turno->patente);
@@ -177,6 +178,7 @@ class ControllerTurno {
             $error = "No existe la moto con la patente=$turno->patente";
             $redir = "historial";
             $this->error->showError($error, $redir);
+            return;
         } 
 
         $cliente = $this->clienteModel->obtenerClientePorDNI($moto->dni);
@@ -185,6 +187,7 @@ class ControllerTurno {
             $error = "No existe el cliente con el dni=$$moto->dni";
             $redir = "historial";
             $this->error->showError($error, $redir);
+            return;
         } 
 
         $this->view->showTurn($turno,$moto,$cliente);
