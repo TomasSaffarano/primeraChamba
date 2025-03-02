@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información de Moto</title>
+    <link rel="stylesheet" href="/primeraChamba/estilos/moto.css">
+</head>
+<body>
+<?php require './app/templates/header.phtml'; ?>
+
+<div class="container-moto">
+    <h1>Información de la Moto</h1>
+
+    <?php if ($moto): ?>
+        <div class="info-section">
+            <!-- Datos del Propietario -->
+            <div class="cliente-info">
+                <h2>Propietario</h2>
+                <p><strong>Nombre:</strong> <?= htmlspecialchars($moto->nombre_cliente) ?></p>
+                <p><strong>Teléfono:</strong> <?= htmlspecialchars($moto->telefono_cliente) ?></p>
+            </div>
+
+            <!-- Información de la Moto -->
+            <div class="moto-info">
+                <h2 class="titulo-moto"><?= htmlspecialchars($moto->modelo) ?></h2>
+                <p><strong>Estado:</strong> <?= htmlspecialchars($moto->estado) ?></p>
+                <p><strong>Kilómetros:</strong> <?= htmlspecialchars($moto->kilometros) ?></p>
+                <p><strong>Observaciones:</strong> <?= htmlspecialchars($moto->observaciones) ?></p>
+                <p><strong>Descripción:</strong> <?= htmlspecialchars($moto->descripcion) ?></p>
+            </div>
+        </div>
+
+     <!-- Botón para regresar a la lista de motos -->
+        <div class="boton-regresar">
+            <a href="<?= BASE_URL . "motos" ?>">Volver a Motos</a>
+        </div>
+    <?php else: ?>
+        <p>No se encontró información de la moto.</p>
+    <?php endif; ?>
+</div>
+
+<?php require './app/templates/footer.phtml'; ?>
+
+</body>
+</html>
+

@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Clientes</title>
+    <link rel="stylesheet" href="/primeraChamba/estilos/verturno.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+<?php require './app/templates/header.phtml';
+ ?>  
+<div class="container">
+    <div class="form-section">
+        <div class="border">
+        <div class="header-form">
+        <div class="seccion-derecha">
+            <img src="\primeraChamba\static\logo-turno.png" alt="Logo" class="logonav">
+            <p class="redes">instragram facebook</p>
+            <p class="ubicacion">avenida balvin al tanto</p>
+        </div>
+        <div class="seccion-izquierda">
+            <h2>Orden de reparacion: 00<?= $turno->id ?></h2>
+            <h4>documento no valido como factura</h4>
+        </div>
+    </div>
+        <form action=" " method="POST" enctype="multipart/form-data">
+            <div class="parte-superior">
+                <div class="form-group-1">
+                    <label id="top" for="ingreso">Ingreso</label>
+                    <input name="ingreso" type="date" class="form-control" id="ingreso" placeholder="Fecha ingreso" value="<?= $turno->ingreso ?>">
+                </div>
+
+                <div class="form-group-1">
+                    <label id="top" for="dniInput">Entrega</label>
+                    <input name="entrega" type="date" class="form-control" id="entrega" placeholder="Fecha entrega" value="<?= $turno->ingreso ?>">
+                </div>
+
+                <div class="form-group-1">
+                    <label id="top"for="color">color</label>
+                    <input name="color" type="text" class="form-control" id="color" placeholder="Color" value=" ">
+                </div>
+                <div class="form-group-1">
+                    <label id="top" for="kilometros">kilometros</label>
+                    <input name="kilometros" type="number" class="form-control" id="kilometros" placeholder="kms" value=" ">
+                </div>
+            
+                <div class="form-group-1">
+                    <label id="top" for="motor">Motor</label>
+                    <input name="motor" type="text" class="form-control" id="motor" placeholder="Motor" value=" ">
+                </div>
+            </div>
+            <div class="parte-intermedia">
+                <div id="intermedia"class="form-group-1">
+                    <label id="top" for="chasis">Chasis</label>
+                    <input name="chasis" type="text" class="form-control" id="chasis" placeholder="Chasis" value=" ">
+                </div>
+
+                <div id="intermedia" class="form-group-1">
+                    <label id="top" for="patente">Patente</label>
+                    <input name="patente" type="text" class="form-control" id="patente" placeholder="Patente" value="<?= $turno->patente ?>">
+                </div>
+
+                <div  id="intermedia" class="form-group-1">
+                    <label id="top" for="modelo">Modelo</label>
+                    <input name="modelo" type="text" class="form-control" id="modelo" placeholder="Modelo" value="<?= $moto->modelo ?>">
+                </div>
+            </div>
+            <div class="parte-inferior">
+                <div class="form-group-1">
+                    <label id="top" for="nombre">Apellido y nombre</label>
+                    <input name="nombre" type="text" class="form-control" id="nombre" placeholder="Nombre" value="<?= $cliente->nombre ?>">
+                </div>
+
+                <div class="form-group-1">
+                    <label id="top" for="documento">Documento</label>
+                    <input name="documento" type="number" class="form-control" id="documento" placeholder="Documento" value="<?= $cliente->dni ?>">
+                </div>
+
+                <div class="form-group-1">
+                    <label id="top" for="direccion">Direccion</label>
+                    <input name="direccion" type="text" class="form-control" id="direccion" placeholder="Direccion" value=" ">
+                </div>
+
+                <div class="form-group-1">
+                    <label id="top" for="telefono">Telefono</label>
+                    <input name="telefono" type="number" class="form-control" id="telefono" placeholder="Telefono" value="<?= $cliente->telefono ?>">
+                </div>
+            </div>
+            <div class="descripcion">
+                <div class="form-group-1">
+                        <label id="desc" for="descripcion">Descripcion</label>
+                        <input name="descripcion" type="text" class="form-control" id="descripcion" placeholder="Descripcion" value="<?= $moto->descripcion ?>">
+                </div>
+            </div>
+            <div class="observaciones">
+                <div class="form-group-1">
+                    <label id="observacion" for="observacion">Observaciones sobre el estado del vehiculo</label>
+                    <input name="observaciones" type="text" class="form-control" id="observaciones" placeholder="Observaciones" value="<?= $moto->observaciones ?>">
+                </div>
+            </div>
+            <div class="ultima-seccion"> 
+                <div class="seccion-derecha-inferior">
+                    <label id="top" for="resumen">Resumen del acuerdo</label>
+                    <div class="form-group-2">
+                        <label for="conceptos">Conceptos</label>
+                        <input name="conceptos" type="text" class="form-control" id="conceptos" placeholder="Conceptos" value=" ">
+                    </div>
+                    <div class="form-group-2">
+                        <label for="ManoDeObra">Mano de obra</label>
+                        <input name="ManoDeObra" type="text" class="form-control" id="ManoDeObra" placeholder="Mano de obra" value=" ">
+                    </div>
+
+                    <div class="form-group-2">
+                        <label for="repuestos">Repuestos</label>
+                        <input name="repuestos" type="text" class="form-control" id="repuestos" placeholder="Repuestos" value=" ">
+                    </div>
+
+                    <div class="form-group-2">
+                        <label for="terceros">Trabajo de terceros</label>
+                        <input name="terceros" type="text" class="form-control" id="terceros" placeholder="Terceros" value=" ">
+                    </div>
+                    <div class="total-seccion">
+                        <div class="form-group-3">
+                        <label for="iva">IVA</label>
+                        <input name="iva" type="text" class="form-control" id="iva" placeholder="IVA" value=" ">
+                    </div>
+                    <div class="form-group-3">
+                        <label for="neto">Neto</label>
+                        <input name="neto" type="text" class="form-control" id="neto" placeholder="neto" value=" ">
+                    </div>
+                    <div class="form-group-3">
+                        <label for="TOTAL">TOTAL</label>
+                        <input name="TOTAL" type="text" class="form-control" id="total" placeholder="total" value=" ">
+                    </div>
+                    </div>
+                </div>
+                <div class="seccion-izquierda-inferior">
+                    <label id="top" for="combustible">Combustible</label>
+                    <div class="form-group-2">
+                        <label for="combustible">Combustible</label>
+                        <select name="combustible" class="form-control" id="combustible">
+                            <option value="1/4">1/4</option>
+                            <option value="1/2">1/2</option>
+                            <option value="3/4" >3/4</option>
+                            <option value="4/4" >4/4</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group-2">
+                        <label for="aceite">Aceite en motor</label>
+                        <select name="aceite" class="form-control" id="aceite">
+                            <option value="si">si</option>
+                            <option value="no">no</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+     
+            <button id="guardarImagen" class="btn btn-primary">Guardar como Imagen</button>
+        
+    </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("guardarImagen").addEventListener("click", function() {
+        let formulario = document.querySelector(".form-section");
+        let boton = document.getElementById("guardarImagen");
+
+        // Ocultar el botón antes de la captura
+        boton.style.display = "none";
+
+        html2canvas(formulario, { useCORS: true }).then(canvas => {
+            let link = document.createElement("a");
+            link.href = canvas.toDataURL("image/png");
+            link.download = "formulario<?= $turno->id ?>.png";
+            link.click();
+
+            // Volver a mostrar el botón después de la captura
+            boton.style.display = "block";
+        });
+    });
+});
+</script>
+
+</body>

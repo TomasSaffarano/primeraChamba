@@ -1,0 +1,57 @@
+
+body { 
+    background: url('/primerachamba/static/fondodefinitivo.png') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color:white;
+}
+
+.formAgregarCliente {
+    margin: 40px auto;  /* Margen de 40px en todos los lados y centrado horizontal */
+    padding: 20px;       /* Espaciado interno opcional */
+    width: 50%;          /* Ancho del formulario, ajusta según necesites */
+    box-sizing: border-box;
+}
+
+.logo {
+    border-radius: 100px;
+    margin-bottom: 100px;
+    max-width: 800px;
+    height: auto;
+}
+
+.home-container {
+display: flex;
+justify-content: center;
+gap: 20px;
+
+
+}
+
+.home-button {
+    background: linear-gradient(45deg, #23241c, #0A0B08);
+    display: inline-block;
+    padding: 12px 24px;
+    margin: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+    color: aliceblue;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.home-button:hover {
+    transform: translateY(-5px) scale(1.05); 
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5); 
+}

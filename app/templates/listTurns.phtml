@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Clientes</title>
+    <link rel="stylesheet" href="/primeraChamba/estilos/turno.css">
+</head>
+<body>
+
+<?php require './app/templates/header.phtml';
+$isEdit = isset($turn);   
+?>
+
+<div class="container">
+    <div class="form-section">
+        <h2><?= $isEdit ? "Editar cliente" : "Ingresar cliente al sistema" ?></h2>
+        <form action="<?= $isEdit ? BASE_URL . 'modificarTurno/' . $turn->id : BASE_URL . 'agregarTurno' ?>" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="ingreso">Ingreso</label>
+                <input name="ingreso" type="date" class="form-control" id="ingreso" placeholder="Fecha ingreso" value="<?= $isEdit ? $turn->ingreso : '' ?>">
+            </div>
+            <div class="form-group">
+                <label for="dniInput">Entrega</label>
+                <input name="entrega" type="date" class="form-control" id="entrega" placeholder="Fecha entrega" value="<?= $isEdit ? $turn->entrega : '' ?>">
+            </div>
+            <div class="form-group">
+                <label for="cellInput">Patente</label>
+                <input name="patente" type="number" class="form-control" id="patente" placeholder="Patente" value="<?= $isEdit ? $turn->patente : '' ?>">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="right-section">
+        <h2>Buscar Turno</h2>
+        <form action="<?php echo BASE_URL . 'turnoPatente'; ?>" method="GET" class="d-flex">
+        <input type="text" name="patente" class="form-control me-2" placeholder="Ingrese la patente del turno..." required>
+        <button type="submit" class="btn btn-secondary">Buscar</button>
+        </form>
+        <h2>Listado de Turnos en el sistema</h2>
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Ingreso</th>
+                        <th>Entrega</th>
+                        <th>Patente</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($turns as $turn) :?>
+                        <tr>
+                            <td><?php echo $turn->entrega?></td>
+                            <td><?php echo $turn->ingreso ?></td>
+                            <td><?php echo $turn->patente ?></td>
+                            <td>
+                                <a href="<?php echo BASE_URL . "verTurno/" . $turn->id; ?>" class="icon-btn" title="Ver detalles">🔍</a>
+                                <a href="<?php echo BASE_URL . "modificarTurno/" . $turn->id; ?>" class="icon-btn" title="Editar">✏️</a>
+                                <a href="<?php echo BASE_URL . "eliminarTurno/" . $turn->id; ?>" class="icon-btn delete-btn" title="Borrar" onclick="return confirm('¿Seguro que quieres borrar este turno?');">🗑️</a>
+                            </td>
+                        </tr>
+                    <?php endforeach ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<?php require './app/templates/footer.phtml'; ?>
+
+</body>
+</html>

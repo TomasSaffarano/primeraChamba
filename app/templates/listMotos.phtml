@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Motos</title>
+    <link rel="stylesheet" href="/primeraChamba/estilos/moto.css">
+</head>
+<body>
+
+<?php require './app/templates/header.phtml'; ?>
+<div class="container row">
+    <!-- Sección izquierda: Formulario Agregar Moto -->
+    <div class="col-md-6 form-section <?php echo isset($motoAEditar) ? 'edit-mode' : ''; ?>">
+        <h2><?php echo isset($motoAEditar) ? "Editar Moto" : "Ingresar moto al sistema"; ?></h2>
+        <form action="<?php echo isset($motoAEditar) ? BASE_URL . 'actualizarMoto/' . $motoAEditar->id : BASE_URL . 'agregarMoto'; ?>" method="POST">
+            <div class="form-group">
+                <label for="modelo">Modelo</label>
+                <input type="text" name="modelo" class="form-control" id="modelo"
+                       value="<?php echo isset($motoAEditar) ? htmlspecialchars($motoAEditar->modelo) : ''; ?>"
+                       placeholder="Ingresa el modelo de la moto" required>
+            </div>
+            <div class="form-group">
+                <label for="patente">Patente</label>
+                <input type="text" name="patente" class="form-control" id="patente"
+                       value="<?php echo isset($motoAEditar) ? htmlspecialchars($motoAEditar->patente) : ''; ?>"
+                       placeholder="Ingresa la patente de la moto" required>
+            </div>
+            <div class="form-group">
+                <label for="estado">Estado</label>
+                <select name="estado" class="form-control" id="estado" required>
+                    <option value="en_reparacion" <?php echo isset($motoAEditar) && $motoAEditar->estado == 'en_reparacion' ? 'selected' : ''; ?>>En reparación</option>
+                    <option value="terminada" <?php echo isset($motoAEditar) && $motoAEditar->estado == 'terminada' ? 'selected' : ''; ?>>Terminada</option>
+                    <option value="entregada" <?php echo isset($motoAEditar) && $motoAEditar->estado == 'entregada' ? 'selected' : ''; ?>>Entregada</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="dni">DNI del Cliente</label>
+                <input type="text" name="dni" class="form-control" id="dni"
+                       value="<?php echo isset($motoAEditar) ? htmlspecialchars($motoAEditar->dni) : ''; ?>"
+                       placeholder="Ingresa el DNI del cliente" required>
+            </div>
+            <div class="form-group">
+                <label for="kilometros">Kilómetros</label>
+                <input type="number" name="kilometros" class="form-control" id="kilometros"
+                       value="<?php echo isset($motoAEditar) ? htmlspecialchars($motoAEditar->kilometros) : ''; ?>"
+                       placeholder="Ingresa los kilómetros" min="0" step="1">
+            </div>
+            <div class="form-group">
+                <label for="descripcion">Descripción</label>
+                <textarea name="descripcion" class="form-control" id="descripcion"
+                          placeholder="Ingresa una descripción de los arreglos"><?php echo isset($motoAEditar) ? htmlspecialchars($motoAEditar->descripcion) : ''; ?></textarea>
+            </div>
+            <div class="form-group">
+                <label for="observaciones">Observaciones</label>
+                <textarea name="observaciones" class="form-control" id="observaciones"
+                          placeholder="Agrega observaciones adicionales"><?php echo isset($motoAEditar) ? htmlspecialchars($motoAEditar->observaciones) : ''; ?></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                <?php echo isset($motoAEditar) ? "Actualizar" : "Guardar"; ?>
+            </button>
+        </form>
+    </div>
+
+    <!-- Sección derecha: Búsqueda y lista de motos -->
+<div class="col-md-6 right-section">
+    <h2>Buscar moto</h2>
+    <form action="<?php echo BASE_URL . 'motosPorModelo'; ?>" method="GET" class="d-flex">
+        <input type="text" name="modelo" class="form-control me-2" placeholder="Ingrese el modelo de la moto..." required>
+        <button type="submit" class="btn btn-secondary">Buscar</button>
+    </form>
+
+    <div class="table-container mt-4">
+        <h2>
+            <?php 
+                if (isset($_GET['modelo']) && !empty($_GET['modelo'])) {
+                    echo "Motos encontradas para: " . htmlspecialchars($_GET['modelo']);
+                } else {
+                    echo "Listado de motos en el sistema";
+                }
+            ?>
+        </h2>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Modelo</th>
+                    <th scope="col">Patente</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Kilómetros</th>
+                    <th scope="col">DNI</th>
+                    <th scope="col">Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php 
+                    $listaMotos = isset($motosCliente) ? $motosCliente : $motos;
+
+                    if (!empty($listaMotos)) {
+                        foreach ($listaMotos as $moto) : ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($moto->modelo); ?></td>
+                                <td><?php echo htmlspecialchars($moto->patente); ?></td>
+                                <td><?php echo htmlspecialchars($moto->estado); ?></td>
+                                <td><?php echo isset($moto->kilometros) ? htmlspecialchars($moto->kilometros) : 'N/A'; ?></td>
+                                <td><?php echo htmlspecialchars($moto->dni); ?></td>
+                                <td>
+                                    <a href="<?php echo BASE_URL . "verMoto/" . $moto->id; ?>" class="icon-btn" title="Ver detalles">🔍</a>
+                                    <a href="<?php echo BASE_URL . "editarMoto/" . $moto->id; ?>" class="icon-btn" title="Editar">✏️</a>
+                                    <a href="<?php echo BASE_URL . "borrarMoto/" . $moto->id; ?>" class="icon-btn delete-btn" title="Borrar" onclick="return confirm('¿Seguro que quieres borrar esta moto?');">🗑️</a>
+                                </td>
+                            </tr>
+                        <?php endforeach; 
+                    } else { ?>
+                        <tr>
+                            <td colspan="6" class="text-center">No se encontraron motos.</td>
+                        </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+
+</body>
+<?php require './app/templates/footer.phtml'; ?>
+</html>

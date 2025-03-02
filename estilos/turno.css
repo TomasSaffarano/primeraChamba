@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+body {
+    background: url('/primeraChamba/static/fondo.png') no-repeat center center fixed;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    color: rgb(248, 246, 246);
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Asegura que el body ocupe todo el alto de la ventana */
+    font-family: 'Poppins', sans-serif;
+    flex-direction: column;
+}
+
+/* Contenedor principal */
+.container {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    max-width: 1200px;
+    justify-content: center;
+    gap: 20px;
+    flex-grow: 1; /* Permite que el contenedor principal ocupe el espacio disponible */
+}
+
+/* Sección izquierda (Formulario) */
+.form-section {
+    flex: 1;
+    padding: 20px;
+    background-color: rgba(83, 83, 83, 0.7);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Sección derecha (Lista de Clientes) */
+.right-section {
+    flex: 1.5;
+    padding: 20px;
+    background-color: rgba(83, 83, 83, 0.7);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Formulario */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    background-color: rgba(50, 50, 50, 0.9);
+    border: 1px solid #555;
+    color: #ddd;
+    box-sizing: border-box;
+}
+
+.form-control::placeholder {
+    color: #959494;
+}
+
+/* Botón */
+.btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.table-container {
+    max-height: 600px; /* Ajusta la altura según tu preferencia */
+    overflow-y: auto;  /* Agrega un scroll vertical si la lista de motos es muy grande */
+    padding: 10px; /* Opcional: Espaciado interno */
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+
+.table th, .table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #555;
+    color: #ddd;
+}
+
+.table th {
+    background-color: rgba(71, 71, 71, 0.9);
+    font-weight: bold;
+}
+
+/* Íconos */
+.icon-btn {
+    font-size: 1.2rem;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.delete-btn {
+    color: red;
+}
+
+.delete-btn:hover {
+    color: darkred;
+}
+
+.d-flex {
+    display: flex;
+    align-items: center;  /* Alinea los elementos verticalmente en el centro */
+}
+
+.form-control {
+    width: 100%;  /* Esto asegura que el input ocupe el máximo espacio disponible */
+}
+
+.btn {
+    margin-left: 10px; /* Espacio entre el input y el botón */
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    opacity: 0.8;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
+    margin-top: 20px;
+    flex-shrink: 0; /* Asegura que el footer no se encoja */
+    position: relative;
+    bottom: 0;
+}

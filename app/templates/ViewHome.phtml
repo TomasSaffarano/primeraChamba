@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/primerachamba/estilos/home.css">
+    <title>Home</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+<?php require './app/templates/headerLogin.phtml';?>
+    <header>
+        <img src="/primeraChamba/static/Logo2.png" alt="Logo" class="logo">
+    </header>
+    <main class="home-container">
+        <a href="/primerachamba/clientes">
+            <button class="home-button">Clientes</button>
+        </a>
+        <a href="/primerachamba/motos"> 
+            <button class="home-button">Motos</button>
+        </a>
+        <a href="/primerachamba/historial">
+            <button class="home-button">Historial de turnos</button>
+        </a>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            gsap.from("body", {
+                opacity: 0,
+                filter: "blur(10px)",
+                duration: 0.8,
+                ease: "power2.out"
+            });
+        });
+    </script>
+</body>
+</html>

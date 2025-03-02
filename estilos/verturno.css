@@ -1,0 +1,144 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background: white;
+    margin-top:100px;
+    padding: 20px; /* Espaciado interno */
+    width: 60%;
+    max-width: 800px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.border {
+    border: 2px solid #000; /* Borde que rodea la planilla */
+    padding: 10px; /* Espacio entre el borde y el contenido */
+    border-radius: 5px; /* Esquinas redondeadas */
+    width: calc(100% - 20px); /* Para que llegue hasta el borde sin sobresalir */
+    box-sizing: border-box;
+}
+
+/* Asegurar que todas las secciones lleguen al borde */
+.parte-superior,
+.parte-intermedia,
+.parte-inferior,
+.form-control,
+.ultima-seccion,
+.header-form {
+    width: 100%; 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+}
+
+.resumen {
+    background-color: #2a66a540;
+    font-size: 20px;
+    width: 100%;
+}
+
+#top {
+    background-color: #2a66a540;
+    width: 100%;
+}
+
+.descripcion .form-control,
+.observaciones .form-control {
+    height: 100px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+label {
+    width: 100%;
+}
+
+#observacion {
+    width: 100%;
+    background-color: #0057b340;
+}
+
+.total-seccion {
+    justify-content: end;
+}
+
+.form-group-1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.form-group-2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    text-align: start;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.form-group input,
+.form-group select {
+    padding: 8px;
+    border: 1px solid #010101;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 100%;
+}
+
+.btn-primary {
+    background: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 200px;
+    margin-top: 10px;
+}
+
+.btn-primary:hover {
+    background: #0056b3;
+}
+
+.ultima-seccion {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.seccion-izquierda-inferior,
+.seccion-derecha-inferior {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form-group-2 label {
+    width: 100%;
+}

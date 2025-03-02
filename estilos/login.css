@@ -1,0 +1,130 @@
+body {
+    background: url('/primeraChamba/static/fondologin8.png') no-repeat center center fixed;
+    background-size: cover;
+}
+/* Contenedor del login */
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 29px 30px;
+    gap: 18px;
+    position: absolute;
+    width: 496px;
+    height: 304px;
+    left: 851px;
+    top: 180px;
+    border-radius: 10px; /* Ajustado */
+}
+
+/* Formulario */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* Espacio entre los inputs */
+}
+
+/* Título */
+h2 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+/* Estilos de los inputs */
+input {
+    box-sizing: border-box;
+    width: 446px;
+    height: 50px;
+    background: #1D201A;
+    border: 1px solid #2C2C2C;
+    border-radius: 6px;
+    padding: 10px;
+    color: #FFFFFF;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 29px;
+}
+
+/* Placeholder */
+input::placeholder {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 29px;
+    color: #636363;
+}
+.btn-primary {
+    width: 200px;
+    height: 45px;
+    background: #b0aa02;
+    font-weight: 700;
+    font-size: 16px;
+    color: #FFFFFF;
+    border-radius: 6px;
+    text-align: center;
+    letter-spacing: 0.02em;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition:  0.3s ease, transform 0.2s ease;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto; /* Centrado horizontal */
+}
+
+
+/* Efecto hover */
+.btn-primary:hover {
+    background: #000000; /* Un tono más oscuro al pasar el mouse */
+    transform: scale(1.05); /* Ligero aumento de tamaño */
+}
+
+/* Efecto activo (clic) */
+.btn-primary:active {
+    transform: scale(0.98); /* Pequeña reducción para dar sensación de clic */
+}
+
+/* Texto de bienvenida */
+.welcome-text {
+    position: absolute;
+    width: 679px;
+    height: 110px;
+    left: 64px;
+    top: 242px;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 44px;
+    line-height: 50px;
+    letter-spacing: 0.02em;
+    color: #FFFFFF;
+    text-shadow: 9px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.subtitulo{
+    position: absolute;
+    left: 64px;
+    top: 342px;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 800;
+    color: #FFFFFF;
+    font-size: 24px;
+    text-shadow: 9px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.error-message {
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    top: 30px;  /* Ajusta según necesites */
+    color: #e0e004;  /* Amarillo oscuro */
+    padding: 10px;
+    font-size: 18px; /* Agregado px */
+    margin-bottom: 15px;
+    border-radius: 5px;
+    text-align: center;
+}
