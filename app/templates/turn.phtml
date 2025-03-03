@@ -171,8 +171,8 @@ document.addEventListener("DOMContentLoaded", function() {
         let formulario = document.querySelector(".form-section");
         let boton = document.getElementById("guardarImagen");
 
-        // Ocultar el botón antes de la captura
-        boton.style.display = "none";
+        // Ocultar el botón antes de la captura sin afectar el diseño
+        boton.style.visibility = "hidden";
 
         html2canvas(formulario, { useCORS: true }).then(canvas => {
             let link = document.createElement("a");
@@ -181,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function() {
             link.click();
 
             // Volver a mostrar el botón después de la captura
-            boton.style.display = "block";
+            boton.style.visibility = "visible";
         });
     });
 });
