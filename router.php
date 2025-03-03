@@ -22,6 +22,8 @@ $params = explode('/', $action);
 
 switch ($params[0]) {
     case 'home':
+         sessionAuthMiddleware($res);
+        verifyAuthMiddleware($res);
         $controller = new ControllerTurno(); 
         $controller->showHome();
         break;
