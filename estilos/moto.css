@@ -16,7 +16,7 @@ body {
 
 /* Contenedor principal */
 .container {
-    margin-top: 100px;
+    padding-top: 100px; /* En lugar de margin-top */
     display: flex;
     flex-direction: row; /* Alinea las secciones de izquierda a derecha */
     width: 80%;
@@ -102,7 +102,6 @@ textarea.form-control {
 .d-flex {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
 }
 
 .form-control.me-2 {

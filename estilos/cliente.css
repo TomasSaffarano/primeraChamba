@@ -80,8 +80,6 @@ body {
 
 .table-container {
     max-height: 600px; /* Ajusta la altura según tu preferencia */
-    overflow-y: auto;  /* Agrega un scroll vertical si la lista de motos es muy grande */
-    padding: 10px; /* Opcional: Espaciado interno */
 }
 
 .table {

@@ -14,7 +14,7 @@ $isEdit = isset($turn);
 
 <div class="container">
     <div class="form-section">
-        <h2><?= $isEdit ? "Editar cliente" : "Ingresar cliente al sistema" ?></h2>
+        <h2><?= $isEdit ? "Editar turno" : "Ingresar turno al sistema" ?></h2>
         <form action="<?= $isEdit ? BASE_URL . 'modificarTurno/' . $turn->id : BASE_URL . 'agregarTurno' ?>" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="ingreso">Ingreso</label>
