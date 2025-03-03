@@ -143,3 +143,12 @@ footer {
     position: relative;
     bottom: 0;
 }
+.alert{
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    color: #e0e004;  /* Amarillo oscuro */
+    font-size: 17px; /* Agregado px */
+    margin-bottom: 15px;
+    border-radius: 5px;
+    text-align: center;
+}

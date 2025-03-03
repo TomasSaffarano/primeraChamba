@@ -11,9 +11,16 @@
 <?php require './app/templates/header.phtml';
 $isEdit = isset($client);   
 ?>
-
 <div class="container">
     <div class="form-section">
+    <?php if (isset($_SESSION['error_message'])): ?>
+    <div class="alert alert-danger">
+        <?php 
+            echo $_SESSION['error_message']; 
+            unset($_SESSION['error_message']); // Eliminar después de mostrar
+        ?>
+    </div>
+<?php endif; ?>
         <h2><?= $isEdit ? "Editar cliente" : "Ingresar cliente al sistema" ?></h2>
         <form action="<?= $isEdit ? BASE_URL . 'modificarCliente/' . $client->id : BASE_URL . 'agregarCliente' ?>" method="POST" enctype="multipart/form-data">
             <div class="form-group">

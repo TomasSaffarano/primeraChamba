@@ -14,6 +14,14 @@ $isEdit = isset($turn);
 
 <div class="container">
     <div class="form-section">
+    <?php if (isset($_SESSION['error_message'])): ?>
+    <div class="alert alert-danger">
+        <?php 
+            echo $_SESSION['error_message']; 
+            unset($_SESSION['error_message']); // Eliminar después de mostrar
+        ?>
+    </div>
+<?php endif; ?>
         <h2><?= $isEdit ? "Editar turno" : "Ingresar turno al sistema" ?></h2>
         <form action="<?= $isEdit ? BASE_URL . 'modificarTurno/' . $turn->id : BASE_URL . 'agregarTurno' ?>" method="POST" enctype="multipart/form-data">
             <div class="form-group">

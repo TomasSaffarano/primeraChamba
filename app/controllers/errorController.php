@@ -10,6 +10,6 @@ class ErrorController {
 
     public function showError($error, $redir) {
         // No se redirige, solo muestra el error
-        $this->view->seeError($error, $redir);
+        $this->view->showError($error, $redir);
     }
 }

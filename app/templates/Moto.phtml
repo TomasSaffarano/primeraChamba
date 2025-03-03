@@ -10,18 +10,16 @@
 <?php require './app/templates/header.phtml'; ?>
 
 <div class="container-moto">
-    <h1>Información de la Moto</h1>
-
+    <h3>Información del propietario</h3>
     <?php if ($moto): ?>
         <div class="info-section">
             <!-- Datos del Propietario -->
             <div class="cliente-info">
-                <h2>Propietario</h2>
                 <p><strong>Nombre:</strong> <?= htmlspecialchars($moto->nombre_cliente) ?></p>
                 <p><strong>Teléfono:</strong> <?= htmlspecialchars($moto->telefono_cliente) ?></p>
             </div>
 
-            <!-- Información de la Moto -->
+            <h3>Información del vehiculo</h3>
             <div class="moto-info">
                 <h2 class="titulo-moto"><?= htmlspecialchars($moto->modelo) ?></h2>
                 <p><strong>Estado:</strong> <?= htmlspecialchars($moto->estado) ?></p>

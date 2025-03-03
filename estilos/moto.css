@@ -167,3 +167,105 @@ footer {
     position: relative;
     bottom: 0;
 }
+/* Contenedor principal */
+.container-moto {
+    max-width: 600px;
+    padding: 30px;
+    background: rgba(83, 83, 83, 0.7);
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+}
+
+.container-moto:hover {
+    transform: translateY(-5px);
+}
+
+/* Título principal */
+h1 {
+    font-size: 30px;
+    color: #d7dc47;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+/* Secciones de información */
+.info-section {
+    display: flex;
+    flex-direction: column;
+   
+}
+
+/* Bloques de información */
+.cliente-info, .moto-info {
+    background: rgb(50 50 50 / 50%);
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    text-align: left;
+    transition: all 0.3s ease-in-out;
+}
+
+.cliente-info:hover, .moto-info:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Subtítulos */
+h3{
+    font-size: 22px;
+    margin-bottom: 12px;
+    font-weight: 500;
+    color: #e7dede;
+}
+
+/* Título de la moto */
+.titulo-moto {
+    font-size: 24px;
+    font-weight: bold;
+    color:#e8ed11;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Información del propietario y moto */
+.cliente-info p, .moto-info p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #a7a5a5;
+}
+
+/* Resaltado para datos */
+p strong {
+    color: #c4c1c1;
+}
+
+/* Mensaje cuando no hay información */
+p.no-info {
+    font-size: 18px;
+    color: #ff4d4d;
+    font-weight: bold;
+}
+
+/* Botón para regresar */
+.boton-regresar {
+    margin-top: 30px;
+}
+
+.boton-regresar a {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background: #007bff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.boton-regresar a:hover {
+    background: #024790;
+    transform: translateY(-2px);
+}

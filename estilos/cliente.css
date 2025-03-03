@@ -80,6 +80,7 @@ body {
 
 .table-container {
     max-height: 600px; /* Ajusta la altura según tu preferencia */
+   
 }
 
 .table {
@@ -141,4 +142,13 @@ footer {
     flex-shrink: 0; /* Asegura que el footer no se encoja */
     position: relative;
     bottom: 0;
+}
+.alert{
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    color: #e0e004;  /* Amarillo oscuro */
+    font-size: 17px; /* Agregado px */
+    margin-bottom: 15px;
+    border-radius: 5px;
+    text-align: center;
 }
