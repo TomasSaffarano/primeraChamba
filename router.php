@@ -67,12 +67,8 @@ switch ($params[0]) {
     case 'borrarMoto':
         sessionAuthMiddleware($res);
         verifyAuthMiddleware($res);
-            if (!empty($params[1])) { // Si hay un segundo parámetro en la URL
-                $controller = new ControllerMoto();
-                $controller->borrarMoto([':ID' => $params[1]]);
-            } else {
-                echo "Error: Falta el ID de la moto";
-            }
+        $controller = new ControllerMoto();
+        $controller->borrarMoto($params[1]);
             break;
 
     case 'agregarCliente':

@@ -269,3 +269,12 @@ p.no-info {
     background: #024790;
     transform: translateY(-2px);
 }
+.alert{
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    color: #e0e004;  /* Amarillo oscuro */
+    font-size: 17px; /* Agregado px */
+    margin-bottom: 15px;
+    border-radius: 5px;
+    text-align: center;
+}

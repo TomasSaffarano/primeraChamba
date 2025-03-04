@@ -23,11 +23,22 @@ class ModelMoto {
         return $query->fetch(PDO::FETCH_OBJ); // Devuelve un objeto en lugar de un array
     }
 
-    public function insertMoto($modelo, $patente, $estado, $kilometros, $descripcion, $observaciones,$dni) {
-        $query = $this->db->prepare("INSERT INTO moto (modelo, patente, estado, kilometros, descripcion, observaciones, dni) 
-                                     VALUES (?, ?, ?, ?, ?, ?, ?)");
-        $query->execute([$modelo, $patente, $estado, $kilometros, $descripcion, $observaciones, $dni]);
+    public function insertMoto($modelo, $patente, $estado, $kilometros, $descripcion, $observaciones, $dni) {
+        try {
+            $query = $this->db->prepare("INSERT INTO moto (modelo, patente, estado, kilometros, descripcion, observaciones, dni) 
+                                         VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $result = $query->execute([$modelo, $patente, $estado, $kilometros, $descripcion, $observaciones, $dni]);
+    
+            if (!$result) {
+                throw new Exception("Error al insertar la moto");
+            }
+    
+            return $result;
+        } catch (PDOException $e) {
+            die("Error en la base de datos: " . $e->getMessage()); // Muestra el error específico de SQL
+        }
     }
+    
 
     public function getMotosByModelo($modelo) {
         $query = $this->db->prepare("SELECT *  FROM moto WHERE modelo = ?");
@@ -36,8 +47,9 @@ class ModelMoto {
     }
     public function eliminarMoto($id) {
         $query = $this->db->prepare("DELETE FROM moto WHERE id = ?");
-        $query->execute([$id]);
+        return $query->execute([$id]); // Devuelve true si la eliminación fue exitosa, false si no
     }
+    
     public function existePatente($patente) {
         $query = $this->db->prepare("SELECT COUNT(*) FROM moto WHERE patente = ?");
         $query->execute([$patente]);
@@ -47,7 +59,6 @@ class ModelMoto {
 
 
     public function getMotoByID($id) {
-        $id = (int) $id; 
         $query = $this->db->prepare("SELECT * FROM moto WHERE id = ?");
         $query->execute([$id]);
         return $query->fetch(PDO::FETCH_OBJ);
