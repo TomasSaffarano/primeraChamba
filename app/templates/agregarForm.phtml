@@ -1,0 +1,56 @@
+<?php require 'app/templates/header.phtml';
+$fechaIngreso = isset($_GET['ingreso']) ? $_GET['ingreso'] : date('Y-m-d');
+$horaIngreso = isset($_GET['hora']) ? $_GET['hora'] : date('H:i'); ?>
+<link rel="stylesheet" href="/primeraChamba/estilos/formulario.css">
+
+<form action="<?= BASE_URL . 'agregarTurno' ?>" method="POST">
+    <!-- Campo para la fecha de ingreso -->
+
+    <label for="ingreso">Fecha de Ingreso:</label>
+    <input type="date" name="ingreso" id="ingreso" value="<?= $fechaIngreso ?>" required>
+
+    <label for="hora">Hora:</label>
+    <input type="time" name="hora" id="hora" value="<?= $horaIngreso ?>" required>
+
+
+    <!-- Campo para la fecha de entrega -->
+    <label for="entrega">Fecha de Entrega:</label>
+    <input type="datetime-local" name="entrega" id="entrega" required>
+
+    <!-- Campo para la hora -->
+    <label for="hora">Hora:</label>
+    <input type="time" name="hora" id="hora" required>
+
+    <!-- Campos para la información del cliente -->
+    <label for="nombre">Nombre:</label>
+    <input type="text" name="nombre" id="nombre" required>
+
+    <label for="dni">DNI:</label>
+    <input type="text" name="dni" id="dni" required>
+
+    <label for="telefono">Teléfono:</label>
+    <input type="text" name="telefono" id="telefono" required>
+
+    <!-- Campos para la información de la moto -->
+    <label for="modelo">Modelo de la moto:</label>
+    <input type="text" name="modelo" id="modelo" required>
+
+    <label for="patente">Patente:</label>
+    <input type="text" name="patente" id="patente" required>
+
+    <label for="estado">Estado:</label>
+    <input type="text" name="estado" id="estado" required>
+
+    <label for="descripcion">Descripción:</label>
+    <input type="text" name="descripcion" id="descripcion" required>
+
+    <label for="observaciones">Observaciones:</label>
+    <input type="text" name="observaciones" id="observaciones">
+
+    <label for="kilometros">Kilómetros:</label>
+    <input type="text" name="kilometros" id="kilometros" required>
+
+    <button type="submit">Registrar</button>
+</form>
+
+<?php require 'app/templates/footer.phtml'; ?>

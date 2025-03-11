@@ -70,5 +70,6 @@ class ViewTurno {
     public function showTurn($turno,$moto,$cliente) {
         require_once './app/templates/turn.phtml';
     }
+    
 }
 ?>

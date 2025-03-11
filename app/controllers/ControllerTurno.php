@@ -30,8 +30,7 @@ class ControllerTurno {
         $this->view->showTurns($turns);
     }
 
-    public function addTurn()
-{
+    public function addTurn(){
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $turnData = $this->getValidatedTurnData();
 

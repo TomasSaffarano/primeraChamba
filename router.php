@@ -5,9 +5,11 @@ require_once 'app/controllers/errorController.php';
 require_once 'app/controllers/ControllerMoto.php';
 require_once 'app/controllers/ControllerTurno.php';
 require_once 'app/controllers/ControllerLogin.php';
+require_once 'app/controllers/ControllerAgregar.php';
 require_once 'app/middlewares/session.auth.php';
 require_once 'app/middlewares/verify.auth.php';
 require_once 'app/middlewares/response.php';
+
 
 define('BASE_URL', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/');
 
@@ -19,6 +21,8 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 
 $res = new Response();
 $params = explode('/', $action);
+
+
 
 switch ($params[0]) {
     case 'home':
@@ -33,7 +37,29 @@ switch ($params[0]) {
         $controller = new ControllerCliente(); 
         $controller->getAllClientes();
         break;
-    
+   case 'calendario':
+        sessionAuthMiddleware($res);
+        verifyAuthMiddleware($res);
+        $controller = new ControllerAgregar();
+        $controller->mostrarCalendario(); // Mostrar la vista del calendario
+        break;
+    case 'formularioTurno':
+        sessionAuthMiddleware($res);
+        verifyAuthMiddleware($res);
+        $controller = new ControllerAgregar();
+        if (isset($_GET['ingreso']) && !empty($_GET['ingreso'])) {
+            $fechaIngreso = $_GET['ingreso'];
+            $controller->mostrarFormulario($fechaIngreso);
+        } else {
+            echo "No se pudo seleccionar esa fecha";
+        }
+        break;
+    case 'agregarTurno':
+        sessionAuthMiddleware($res);
+        verifyAuthMiddleware($res);
+        $controller = new ControllerAgregar();
+        $controller->registrar(); // Mostrar la vista del calendario
+        break;
     case 'historial':
         sessionAuthMiddleware($res);
         verifyAuthMiddleware($res);

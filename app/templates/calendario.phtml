@@ -1,0 +1,39 @@
+<?php require './app/templates/header.phtml'; ?>
+
+<h1>Agendar Turno</h1>
+<div id="calendar"></div>
+
+<?php require './app/templates/footer.phtml'; ?>
+
+<!-- Cargar FullCalendar -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css">
+<link rel="stylesheet" href="/primeraChamba/estilos/calendario.css">
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('#calendar').fullCalendar({
+        selectable: true,
+        selectHelper: true, // Permite seleccionar rangos de horas
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+        },
+        defaultView: 'agendaWeek', // Muestra las horas en la vista
+        select: function(start, end, jsEvent, view) {
+            var baseURL = '/primeraChamba/';
+            var selectedDate = start.format('YYYY-MM-DD'); // Fecha seleccionada
+            var selectedTime = start.format('HH:mm'); // Hora seleccionada
+
+            // Redirige al formulario con la fecha y hora en la URL
+            window.location.href = baseURL + 'formularioTurno?ingreso=' + selectedDate + '&hora=' + selectedTime;
+        }
+    });
+});
+
+
+</script>

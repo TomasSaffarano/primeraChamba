@@ -1,0 +1,10 @@
+#calendar{
+    margin-top: 100px;
+    width: 750px;
+    height: 689px; /* Ajusta el tamaño según prefieras */
+    margin: 100px auto; /* Centra horizontalmente */
+    padding: 20px;
+    background-color: #f9f9f9; /* Color opcional de fondo */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
