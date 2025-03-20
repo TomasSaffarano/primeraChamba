@@ -21,7 +21,6 @@ class ControllerAgregar {
         $this->error = new ErrorController();
     }
 
-    // Método para registrar un turno
     public function registrar() {
         if (empty($_POST['nombre']) || empty($_POST['dni']) || empty($_POST['telefono']) || 
             empty($_POST['modelo']) || empty($_POST['patente']) || empty($_POST['estado']) || 
@@ -32,7 +31,6 @@ class ControllerAgregar {
             return;
         }
 
-        // ✅ Obtener datos del formulario
         $nombre = $_POST['nombre'];
         $dni = $_POST['dni'];
         $telefono = $_POST['telefono'];
@@ -40,20 +38,18 @@ class ControllerAgregar {
         $patente = $_POST['patente'];
         $estado = $_POST['estado'];
         $descripcion = $_POST['descripcion'];
-        $observaciones = $_POST['observaciones'] ?? ''; // Observaciones opcionales
+        $observaciones = $_POST['observaciones'] ?? '';
         $kilometros = $_POST['kilometros'];
         $ingreso = $_POST['ingreso'];
         $hora = $_POST['hora'];
-        $fechaHora = $ingreso . ' ' . $hora . ':00'; // Agregamos los segundos
+        $fechaHora = $ingreso . ' ' . $hora . ':00';
         $entrega = $_POST['entrega'];
 
-        // ✅ Verificar si la moto ya tiene un turno en la misma fecha y hora
         if ($this->modelTurno->existsTurno($ingreso, $hora, $patente)) {
             $this->error->showError("Esta moto ya tiene un turno asignado para la misma fecha y hora.", "registro");
             return;
         }
 
-        // ✅ Verificar si el cliente ya existe
         $cliente = $this->modelCliente->obtenerClientePorDNI($dni);
         if (!$cliente) {
             $idCliente = $this->modelCliente->insertClient($nombre, $dni, $telefono);
@@ -65,154 +61,131 @@ class ControllerAgregar {
             $idCliente = $cliente->id;
         }
 
-        // ✅ Insertar moto
         $idMoto = $this->modelMoto->insertMoto($modelo, $patente, $estado, $descripcion, $observaciones, $kilometros, $dni);
         if (!$idMoto) {
             $this->error->showError("Error al registrar la moto.", "registro");
             return;
         }
 
-        // ✅ Insertar turno
-        $idTurno = $this->modelTurno->createTurno($ingreso,$fechaHora, $entrega, $patente);
+        $idTurno = $this->modelTurno->createTurno($ingreso, $fechaHora, $entrega, $patente);
         if (!$idTurno) {
             $this->error->showError("Error al registrar el turno.", "registro");
             return;
         }
 
-        // ✅ Redirigir con éxito
-        header('Location: ' . BASE_URL . 'turnos?success=1');
+        header('Location: ' . BASE_URL . 'calendario');
         exit();
     }
 
-    // Si no es un POST, mostrar el formulario con la fecha seleccionada
     public function mostrarFormulario($fechaIngreso) {
-        // Mostrar el formulario y pasar la fecha de ingreso para precargarla
         $this->view->mostrarFormulario($fechaIngreso); 
     }
 
     public function mostrarcalendario() {
-        // Mostrar el calendario
         $this->view->mostrarCalendario();
     }
     
     public function getTurnosJson() {
         header('Content-Type: application/json');
-
-        // Obtener turnos del modelo
         $turnos = $this->modelTurno->getTurnosForCalendar();
-        
-        // Convertir el resultado a JSON y enviarlo
         echo json_encode($turnos);
     }
-public function editar($id) {
-    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+
+    public function editar($id) {
         $turno = $this->modelTurno->getTurnoById($id);
-        if (!$turno) {
-            return;
-        }
+        if (!$turno) return;
 
         $moto = $this->modelMoto->getMotoByPatente($turno->patente);
+        $cliente = $moto && property_exists($moto, 'dni') ? $this->modelCliente->obtenerClientePorDNI($moto->dni) : null;
+        if (!$cliente || !$moto) return;
 
-        if ($moto && property_exists($moto, 'dni') && !empty($moto->dni)) {
-            $cliente = $this->modelCliente->obtenerClientePorDNI($moto->dni);
-        } else {
-            $cliente = null; // Manejo en caso de que no se encuentre
-        }
-        if (!$cliente || !$moto) {
-            return;
-        }
-
-        // Pasar datos a la vista para mostrar el formulario de edición
         $this->view->showForm("editar", [
             "turno" => $turno,
             "cliente" => $cliente,
             "moto" => $moto
         ]);
-        return;
     }
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    public function actualizarTurno()
+    {
+        // 📌 Validar datos recibidos
+        $turnoData = $this->validarDatosTurno();
+        if (!$turnoData) {
+            $this->error->showError("Todos los campos son obligatorios.", "turnos");
+            return;
+        }
+    
+        // 📌 Extraer variables
+        extract($turnoData);
+        $fechaHora = $ingreso . ' ' . $hora . ':00';
+    
+        // 📌 Verificar si la moto ya tiene un turno en ese horario (excluir turno actual)
+        if ($this->modelTurno->existsTurno($ingreso, $hora, $patente, $idTurno)) {
+            $this->error->showError("Esta moto ya tiene un turno asignado para la misma fecha y hora.", "turnos");
+            return;
+        }
+    
+        // 📌 Actualizar Cliente
+        $cliente = $this->modelCliente->obtenerClientePorDNI($dni);
+        if ($cliente) {
+            $idCliente = $cliente->id;
+            $this->modelCliente->updateClient($idCliente, $nombre, $dni, $telefono);
+        } else {
+            $this->error->showError("El cliente no existe.", "turnos");
+            return;
+        }
+    
+        // 📌 Actualizar Moto
+        $moto = $this->modelMoto->getMotoByPatente($patente);
+        if ($moto) {
+            $idMoto = $moto->id;
+            $this->modelMoto->updateMoto($idMoto, $modelo, $patente, $estado, $dni, $kilometros, $descripcion, $observaciones);
+        } else {
+            $this->error->showError("La moto no existe.", "turnos");
+            return;
+        }
+    
+        // 📌 Actualizar Turno
+        $turnoActualizado = $this->modelTurno->updateTurn($idTurno, $ingreso, $entrega, $patente, $hora);
+        if (!$turnoActualizado) {
+            $this->error->showError("Error al actualizar el turno.", "turnos");
+            return;
+        }
+    
+        // 📌 Redirigir si todo fue exitoso
+        header('Location: ' . BASE_URL . 'clientes');
+        exit();
+    }
+    
+    // 🔹 Método para validar los datos del formulario
+    private function validarDatosTurno()
+    {
         if (empty($_POST['nombre']) || empty($_POST['dni']) || empty($_POST['telefono']) || 
             empty($_POST['modelo']) || empty($_POST['patente']) || empty($_POST['estado']) || 
             empty($_POST['descripcion']) || empty($_POST['kilometros']) || 
             empty($_POST['entrega']) || empty($_POST['ingreso']) || empty($_POST['hora'])) {
-            
-            return;
+            return false;
         }
-
-        // ✅ Obtener datos del formulario
-        $nombre = $_POST['nombre'];
-        $dni = $_POST['dni'];
-        $telefono = $_POST['telefono'];
-        $modelo = $_POST['modelo'];
-        $patente = $_POST['patente'];
-        $estado = $_POST['estado'];
-        $descripcion = $_POST['descripcion'];
-        $observaciones = $_POST['observaciones'] ?? ''; // Opcional
-        $kilometros = $_POST['kilometros'];
-        $ingreso = $_POST['ingreso'];
-        $hora = $_POST['hora'];
-        $fechaHora = $ingreso . ' ' . $hora . ':00';
-        $entrega = $_POST['entrega'];
-
-        // ✅ Verificar si el turno existe
-        $turnoExistente = $this->modelTurno->getTurnoById($id);
-        if (!$turnoExistente) {
-            return;
-        }
-
-        // ✅ Verificar si la nueva fecha/hora está ocupada por otro turno
-        if ($turnoExistente->patente !== $patente || $turnoExistente->hora !== $fechaHora) {
-            if ($this->modelTurno->existsTurno($ingreso, $hora, $patente)) {
-                return;
-            }
-        }
-
-        // ✅ Verificar si el cliente ya existe
-        $cliente = $this->modelCliente->obtenerClientePorDNI($dni);
-        if (!$cliente) {
-            $idCliente = $this->modelCliente->insertClient($nombre, $dni, $telefono);
-            if (!$idCliente) {
-                return;
-            }
-        } else {
-            $idCliente = $cliente->id;
-
-            // 🔹 **Actualizar cliente**
-            $clienteActualizado = $this->modelCliente->updateClient($idCliente, $nombre, $dni, $telefono);
-            if (!$clienteActualizado) {
-                return;
-            }
-        }
-
-        // ✅ Obtener la moto asociada a la patente
-        $moto = $this->modelMoto->getMotoByPatente($patente);
-        if (!$moto) {
-            return;
-        }
-
-        // ✅ Ahora tenemos el ID de la moto
-        $idMoto = $moto->id;
-
-        // ✅ Actualizar moto
-        $motoActualizada = $this->modelMoto->updateMoto($idMoto, $modelo, $patente, $estado, $dni, $kilometros, $descripcion, $observaciones);
-        if (!$motoActualizada) {
-            return;
-        }
-
-        // ✅ Actualizar turno
-        $turnoActualizado = $this->modelTurno->updateTurn($id, $ingreso, $fechaHora, $entrega, $patente);
-        if (!$turnoActualizado) {
-            return;
-        }
-
-        // ✅ Redirigir con éxito
-        header('Location: ' . BASE_URL . 'turnos?success=2');
-        exit();
+    
+        return [
+            'idTurno' => $_POST['idTurno'] ?? null, // Asegurar que exista la ID del turno
+            'nombre' => $_POST['nombre'],
+            'dni' => $_POST['dni'],
+            'telefono' => $_POST['telefono'],
+            'modelo' => $_POST['modelo'],
+            'patente' => $_POST['patente'],
+            'estado' => $_POST['estado'],
+            'descripcion' => $_POST['descripcion'],
+            'observaciones' => $_POST['observaciones'] ?? '',
+            'kilometros' => $_POST['kilometros'],
+            'ingreso' => $_POST['ingreso'],
+            'hora' => $_POST['hora'],
+            'entrega' => $_POST['entrega']
+        ];
     }
-}
+    
+    }
+    
 
+?> 
     
-    
-}
-?>

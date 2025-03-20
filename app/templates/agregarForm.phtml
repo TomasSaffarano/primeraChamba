@@ -15,10 +15,10 @@ $horaIngreso = $isEdit ? substr($turno->hora, 11, 5) : (isset($_GET['hora']) ? $
 
 <link rel="stylesheet" href="/primeraChamba/estilos/formulario.css">
 
-<form action="<?= BASE_URL . ($isEdit ? 'modificarTurno/' . $turno->id : 'agregarTurno') ?>" method="POST">
+<form action="<?= BASE_URL . ($isEdit ? 'editar/' . $turno->id : 'agregarTurno') ?>" method="POST">
     
     <h2><?= $isEdit ? "Editar Turno" : "Registrar Turno" ?></h2>
-
+    <input type="hidden" name="id" value="<?= isset($turno->id) ? $turno->id : '' ?>">
     <!-- Campo para la fecha de ingreso -->
     <label for="ingreso">Fecha de Ingreso:</label>
     <input type="date" name="ingreso" id="ingreso" value="<?= $fechaIngreso ?>" required>
@@ -59,7 +59,7 @@ $horaIngreso = $isEdit ? substr($turno->hora, 11, 5) : (isset($_GET['hora']) ? $
     <label for="kilometros">Kilómetros:</label>
     <input type="text" name="kilometros" id="kilometros" value="<?= $isEdit ? $moto->kilometros : '' ?>" required>
 
-    <button type="submit"><?= $isEdit ? "Actualizar" : "Registrar" ?></button>
+    <button type="submit"><?= $isEdit ? "ActualizarTurno" : "Registrar" ?></button>
 </form>
 
 <?php require 'app/templates/footer.phtml'; ?>

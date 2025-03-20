@@ -80,7 +80,7 @@ $(document).ready(function() {
             // Agregar los botones dentro del div#turnoInfo
             $("#turnoInfo .turno-content").append(`
                 <div class="turno-buttons">
-                    <button class="btn-ver" data-id="${event.extendedProps.patente}">🔍 Ver</button>
+                    <button class="btn-ver" data-id="${event.extendedProps.idTurno}">🔍 Ver</button>
                     <button class="btn-editar" data-id="${event.extendedProps.idTurno}">✏️ Editar</button>
                     <button class="btn-cerrar">❌ Cerrar</button>
                 </div>
@@ -89,13 +89,16 @@ $(document).ready(function() {
             $("#turnoInfo").fadeIn();
 
             $(".btn-ver").off("click").on("click", function() {
-                window.location.href = `/primerachamba/ver_turno?patente=${$(this).data("id")}`;
+                let idTurno = $(this).data("id");
+                window.location.href = `/PrimeraChamba/verTurno?id=${idTurno}`;
             });
 
+
             $(".btn-editar").off("click").on("click", function() {
-            let idTurno = $(this).data("id"); 
-            window.location.href = `/PrimeraChamba/editar?id=${idTurno}`; 
-        });
+                let idTurno = $(this).data("id");
+                window.location.href = `/PrimeraChamba/editar?id=${idTurno}&reload=true`;
+            });
+
 
 
 
