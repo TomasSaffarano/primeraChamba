@@ -53,7 +53,7 @@ class ControllerTurno {
         }
 
         // Insertar en la base de datos
-        $result = $this->model->insertTurn($turnData['ingreso'], $turnData['entrega'], $turnData['patente']);
+        $result = $this->model->createTurno($turnData['ingreso'], $turnData['hora'], $turnData['entrega'],$turnData['patente']);
 
         if ($result) {
             header('Location: ' . BASE_URL . 'historial');
@@ -67,25 +67,23 @@ class ControllerTurno {
     }
 }
 
-    private function getValidatedTurnData()
-    {
-        // Verificar campos obligatorios
-        if (
-            !isset($_POST['ingreso']) || empty($_POST['ingreso']) ||
-            !isset($_POST['entrega']) || empty($_POST['entrega']) ||
-            !isset($_POST['patente']) || empty($_POST['patente'])
-        ) {
-            return false;
-        }
-        
-        
-        // Si todos los datos son válidos, devolver un array con los datos
-        return [
-            'ingreso' => htmlspecialchars($_POST['ingreso']),
-            'entrega' => htmlspecialchars($_POST['entrega']),
-            'patente' => htmlspecialchars($_POST['patente']),
-        ];
+private function getValidatedTurnData() {
+    if (
+        !isset($_POST['ingreso']) || empty($_POST['ingreso']) ||
+        !isset($_POST['entrega']) || empty($_POST['entrega']) ||
+        !isset($_POST['patente']) || empty($_POST['patente']) ||
+        !isset($_POST['hora']) || empty($_POST['hora']) // Asegurar que 'hora' exista
+    ) {
+        return false;
     }
+
+    return [
+        'ingreso' => htmlspecialchars($_POST['ingreso']),
+        'entrega' => htmlspecialchars($_POST['entrega']),
+        'patente' => htmlspecialchars($_POST['patente']),
+        'hora' => htmlspecialchars($_POST['hora']),
+    ];
+}
 
     
     public function deleteTurn($id)
@@ -137,7 +135,7 @@ class ControllerTurno {
                 return;
             }
                 // Actualizar el cliente en la base de datos
-                $result = $this->model->updateTurn($id, $turnData['ingreso'], $turnData['entrega'], $turnData['patente']);
+                $result = $this->model->updateTurn($id, $turnData['ingreso'], $turnData['entrega'], $turnData['patente'],$turnData['hora']);
                 
                 // Redirigir si la actualización es exitosa
                 if ($result) {
@@ -151,7 +149,7 @@ class ControllerTurno {
 
     public function mostrarTurno($turn) {
         $patent = htmlspecialchars(trim($turn));
-        $turns = $this->model->getTurnPatent($patent);
+        $turns = $this->model->getTurnoByPatente($patent);
         if (!empty($turns)) {
             $this->view->showTurns($turns);
         } else {
@@ -192,6 +190,6 @@ class ControllerTurno {
         $this->view->showTurn($turno,$moto,$cliente);
 
     }
-    
 }
+
 

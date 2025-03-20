@@ -94,5 +94,125 @@ class ControllerAgregar {
         // Mostrar el calendario
         $this->view->mostrarCalendario();
     }
+    
+    public function getTurnosJson() {
+        header('Content-Type: application/json');
+
+        // Obtener turnos del modelo
+        $turnos = $this->modelTurno->getTurnosForCalendar();
+        
+        // Convertir el resultado a JSON y enviarlo
+        echo json_encode($turnos);
+    }
+public function editar($id) {
+    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+        $turno = $this->modelTurno->getTurnoById($id);
+        if (!$turno) {
+            return;
+        }
+
+        $moto = $this->modelMoto->getMotoByPatente($turno->patente);
+
+        if ($moto && property_exists($moto, 'dni') && !empty($moto->dni)) {
+            $cliente = $this->modelCliente->obtenerClientePorDNI($moto->dni);
+        } else {
+            $cliente = null; // Manejo en caso de que no se encuentre
+        }
+        if (!$cliente || !$moto) {
+            return;
+        }
+
+        // Pasar datos a la vista para mostrar el formulario de edición
+        $this->view->showForm("editar", [
+            "turno" => $turno,
+            "cliente" => $cliente,
+            "moto" => $moto
+        ]);
+        return;
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (empty($_POST['nombre']) || empty($_POST['dni']) || empty($_POST['telefono']) || 
+            empty($_POST['modelo']) || empty($_POST['patente']) || empty($_POST['estado']) || 
+            empty($_POST['descripcion']) || empty($_POST['kilometros']) || 
+            empty($_POST['entrega']) || empty($_POST['ingreso']) || empty($_POST['hora'])) {
+            
+            return;
+        }
+
+        // ✅ Obtener datos del formulario
+        $nombre = $_POST['nombre'];
+        $dni = $_POST['dni'];
+        $telefono = $_POST['telefono'];
+        $modelo = $_POST['modelo'];
+        $patente = $_POST['patente'];
+        $estado = $_POST['estado'];
+        $descripcion = $_POST['descripcion'];
+        $observaciones = $_POST['observaciones'] ?? ''; // Opcional
+        $kilometros = $_POST['kilometros'];
+        $ingreso = $_POST['ingreso'];
+        $hora = $_POST['hora'];
+        $fechaHora = $ingreso . ' ' . $hora . ':00';
+        $entrega = $_POST['entrega'];
+
+        // ✅ Verificar si el turno existe
+        $turnoExistente = $this->modelTurno->getTurnoById($id);
+        if (!$turnoExistente) {
+            return;
+        }
+
+        // ✅ Verificar si la nueva fecha/hora está ocupada por otro turno
+        if ($turnoExistente->patente !== $patente || $turnoExistente->hora !== $fechaHora) {
+            if ($this->modelTurno->existsTurno($ingreso, $hora, $patente)) {
+                return;
+            }
+        }
+
+        // ✅ Verificar si el cliente ya existe
+        $cliente = $this->modelCliente->obtenerClientePorDNI($dni);
+        if (!$cliente) {
+            $idCliente = $this->modelCliente->insertClient($nombre, $dni, $telefono);
+            if (!$idCliente) {
+                return;
+            }
+        } else {
+            $idCliente = $cliente->id;
+
+            // 🔹 **Actualizar cliente**
+            $clienteActualizado = $this->modelCliente->updateClient($idCliente, $nombre, $dni, $telefono);
+            if (!$clienteActualizado) {
+                return;
+            }
+        }
+
+        // ✅ Obtener la moto asociada a la patente
+        $moto = $this->modelMoto->getMotoByPatente($patente);
+        if (!$moto) {
+            return;
+        }
+
+        // ✅ Ahora tenemos el ID de la moto
+        $idMoto = $moto->id;
+
+        // ✅ Actualizar moto
+        $motoActualizada = $this->modelMoto->updateMoto($idMoto, $modelo, $patente, $estado, $dni, $kilometros, $descripcion, $observaciones);
+        if (!$motoActualizada) {
+            return;
+        }
+
+        // ✅ Actualizar turno
+        $turnoActualizado = $this->modelTurno->updateTurn($id, $ingreso, $fechaHora, $entrega, $patente);
+        if (!$turnoActualizado) {
+            return;
+        }
+
+        // ✅ Redirigir con éxito
+        header('Location: ' . BASE_URL . 'turnos?success=2');
+        exit();
+    }
+}
+
+    
+    
 }
 ?>

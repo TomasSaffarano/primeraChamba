@@ -1,7 +1,15 @@
 <?php require './app/templates/header.phtml'; ?>
-
-<h1>Agendar Turno</h1>
 <div id="calendar"></div>
+<div id="turnoInfo" class="turno-card">
+    <div class="turno-content">
+        <span id="cerrarTurno" class="cerrar">&times;</span>
+        <h2>Detalles del Turno</h2>
+        <p><strong>📅 Fecha:</strong> <span id="turnoFecha"></span></p>
+        <p><strong>🕒 Hora:</strong> <span id="turnoHora"></span></p>
+        <p><strong>🚗 Patente:</strong> <span id="turnoPatente"></span></p>
+        <p><strong>Cliente:</strong> <span id="turnoCliente"></span></p>
+    </div>
+</div>
 
 <?php require './app/templates/footer.phtml'; ?>
 
@@ -12,28 +20,97 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/locale/es.js"></script>
 
 <script>
 $(document).ready(function() {
     $('#calendar').fullCalendar({
+        locale: 'es',
         selectable: true,
-        selectHelper: true, // Permite seleccionar rangos de horas
+        selectHelper: true,
         header: {
             left: 'prev,next today',
             center: 'title',
             right: 'month,agendaWeek,agendaDay'
         },
-        defaultView: 'agendaWeek', // Muestra las horas en la vista
-        select: function(start, end, jsEvent, view) {
-            var baseURL = '/primeraChamba/';
-            var selectedDate = start.format('YYYY-MM-DD'); // Fecha seleccionada
-            var selectedTime = start.format('HH:mm'); // Hora seleccionada
+        defaultView: 'agendaWeek',
 
-            // Redirige al formulario con la fecha y hora en la URL
-            window.location.href = baseURL + 'formularioTurno?ingreso=' + selectedDate + '&hora=' + selectedTime;
+        events: function(start, end, timezone, callback) {
+            $.ajax({
+                url: '/primerachamba/get_turnos',
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    let eventos = response.map(turno => ({
+                        title: `${turno.nombreCliente} - ${turno.patente}`,
+                        start: turno.hora,
+                        extendedProps: {
+                            idTurno: turno.id,  // Aseguramos que el ID se pase correctamente
+                            ingreso: turno.ingreso,
+                            hora: turno.hora,
+                            patente: turno.patente,
+                            nombreCliente: turno.nombreCliente
+                        }
+                    }));
+                    callback(eventos);
+                },
+                error: function(error) {
+                    console.error("Error cargando eventos en FullCalendar:", error);
+                }
+            });
+        },
+
+        select: function(start, end, jsEvent, view) {
+            let baseURL = '/primeraChamba/';
+            let selectedDate = start.format('YYYY-MM-DD');
+            let selectedTime = start.format('HH:mm');
+
+            window.location.href = `${baseURL}formularioTurno?ingreso=${selectedDate}&hora=${selectedTime}`;
+        },
+
+        eventClick: function(event, jsEvent, view) {
+            $("#turnoFecha").text(event.extendedProps.ingreso);
+            $("#turnoHora").text(event.extendedProps.hora.split(" ")[1]); 
+            $("#turnoPatente").text(event.extendedProps.patente);
+            $("#turnoCliente").text(event.extendedProps.nombreCliente || "No disponible");
+
+            // 🔴 Eliminamos botones previos antes de agregar nuevos
+            $("#turnoInfo .turno-buttons").remove();
+
+            // Agregar los botones dentro del div#turnoInfo
+            $("#turnoInfo .turno-content").append(`
+                <div class="turno-buttons">
+                    <button class="btn-ver" data-id="${event.extendedProps.patente}">🔍 Ver</button>
+                    <button class="btn-editar" data-id="${event.extendedProps.idTurno}">✏️ Editar</button>
+                    <button class="btn-cerrar">❌ Cerrar</button>
+                </div>
+            `);
+
+            $("#turnoInfo").fadeIn();
+
+            $(".btn-ver").off("click").on("click", function() {
+                window.location.href = `/primerachamba/ver_turno?patente=${$(this).data("id")}`;
+            });
+
+            $(".btn-editar").off("click").on("click", function() {
+            let idTurno = $(this).data("id"); 
+            window.location.href = `/PrimeraChamba/editar?id=${idTurno}`; 
+        });
+
+
+
+            $(".btn-cerrar").off("click").on("click", function() {
+                $("#turnoInfo").fadeOut();
+                $(".turno-buttons").remove();
+            });
         }
     });
-});
 
+    // Cerrar la cartilla al hacer clic en la "X"
+    $("#cerrarTurno").click(function() {
+        $("#turnoInfo").fadeOut();
+        $(".turno-buttons").remove();
+    });
+});
 
 </script>

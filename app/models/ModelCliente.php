@@ -50,6 +50,7 @@ class ModelCliente {
         $query->execute([$name, $dni, $cellphone,$id]);
                 return true; 
      } 
+     
 
      public function getClienteNombre($nombre) {
         $query = $this->db->prepare("SELECT * FROM cliente WHERE nombre LIKE ?");

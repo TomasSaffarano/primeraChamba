@@ -54,6 +54,13 @@ switch ($params[0]) {
             echo "No se pudo seleccionar esa fecha";
         }
         break;
+    case 'get_turnos':
+        sessionAuthMiddleware($res);
+        verifyAuthMiddleware($res);
+        $controller = new ControllerAgregar(); 
+        $controller->getTurnosJson();
+        break;
+        
     case 'agregarTurno':
         sessionAuthMiddleware($res);
         verifyAuthMiddleware($res);
@@ -138,7 +145,19 @@ switch ($params[0]) {
         $controller = new ControllerTurno();
         $controller->updateTurn($params[1]);
         break;
-
+        case 'editar':
+            sessionAuthMiddleware($res);
+            verifyAuthMiddleware($res);
+        
+            if (!empty($_GET['id'])) {  // ✅ CAMBIO: Usamos $_GET en vez de $params[1]
+                $controller = new ControllerAgregar();
+                $controller->editar($_GET['id']);
+            } else {
+                echo "Error: Falta el ID del turno";
+            }
+            break;
+        
+    
     case 'eliminarCliente':
         sessionAuthMiddleware($res);
         verifyAuthMiddleware($res);

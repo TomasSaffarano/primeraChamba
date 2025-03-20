@@ -1,10 +1,53 @@
-#calendar{
-    margin-top: 100px;
+/* Cambia el fondo del calendario */
+#calendar {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     width: 750px;
     height: 689px; /* Ajusta el tamaño según prefieras */
     margin: 100px auto; /* Centra horizontalmente */
     padding: 20px;
-    background-color: #f9f9f9; /* Color opcional de fondo */
-    border-radius: 10px; /* Bordes redondeados */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+/* Cambia el color del título */
+.fc-toolbar h2 {
+    color: #7E5CDB;
+    font-size: 22px;
+}
+
+/* Estiliza los botones de navegación */
+.fc-button {
+    background-color: #7E5CDB !important;
+    border: none;
+    color: white !important;
+}
+
+/* Cambia el color del día actual */
+.fc-today {
+    background-color: rgba(126, 92, 219, 0.2) !important;
+}
+.turno-card {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    background: white;
+    padding: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    z-index: 1000;
+    text-align: center;
+}
+.turno-content {
+    position: relative;
+}
+.cerrar {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 18px;
+    cursor: pointer;
 }
