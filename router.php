@@ -145,51 +145,6 @@ switch ($params[0]) {
         $controller = new ControllerTurno();
         $controller->updateTurn($params[1]);
         break;
-        case 'editar':
-            sessionAuthMiddleware($res);
-            verifyAuthMiddleware($res);
-        
-            echo "<pre>";
-            print_r($_GET);
-            print_r($_POST);
-            echo "</pre>";
-        
-            // ✅ Si llega el formulario por POST, usa $_POST['id']
-            $id = $_POST['id'] ?? $_GET['id'] ?? null;
-        
-            if (!empty($id)) {  
-                $controller = new ControllerAgregar();
-        
-                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    $controller->actualizarTurno($id, $_POST);
-                } else {
-                    $controller->editar($id);
-                }
-            } else {
-                echo "Error: Falta el ID del turno";
-            }
-            break;
-        
-        
-            case 'actualizarTurno':
-                sessionAuthMiddleware($res);
-                verifyAuthMiddleware($res);
-            
-                echo "<pre>";
-                print_r($_POST);
-                echo "</pre>";
-            
-                // ✅ Ahora el ID debería venir siempre en POST
-                $id = $_POST['id'] ?? null;
-            
-                if (!empty($id)) {
-                    $controller = new ControllerAgregar();
-                    $controller->actualizarTurno($id, $_POST);
-                } else {
-                    echo "Error: Falta el ID del turno";
-                }
-                break;
-
     
     case 'eliminarCliente':
         sessionAuthMiddleware($res);
@@ -250,19 +205,62 @@ switch ($params[0]) {
         }
         break;
 
-        case 'verTurno':
-            sessionAuthMiddleware($res);
-            verifyAuthMiddleware($res);
+            case 'editar':
+                sessionAuthMiddleware($res);
+                verifyAuthMiddleware($res);
         
-            $id = isset($_GET['id']) ? (int) $_GET['id'] : null;
+                $id = isset($_GET['id']) ? (int) $_GET['id'] : (isset($params[1]) ? (int) $params[1] : null);
         
-            if (!empty($id)) { 
-                $controller = new ControllerTurno();
-                $controller->verTurno($id);
-            } else {
-                echo "Error: Falta el ID del turno";
-            }
-            break;
+                echo "<pre>";
+                print_r($_GET);
+                print_r($_POST);
+                echo "</pre>";
+        
+                if (!empty($id)) {  
+                    $controller = new ControllerAgregar();
+        
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        $controller->actualizarTurno($id, $_POST);
+                    } else {
+                        $controller->editar($id);
+                    }
+                } else {
+                    echo "Error: Falta el ID del turno";
+                }
+                break;
+        
+            case 'actualizarTurno':
+                sessionAuthMiddleware($res);
+                verifyAuthMiddleware($res);
+        
+                echo "<pre>";
+                print_r($_POST);
+                print_r($_GET);
+                echo "</pre>";
+        
+                $id = isset($_POST['id']) ? $_POST['id'] : (isset($_GET['id']) ? $_GET['id'] : null);
+        
+                if (!empty($id)) {
+                    $controller = new ControllerAgregar();
+                    $controller->actualizarTurno($id, $_POST);
+                } else {
+                    echo "Error: Falta el ID del turno";
+                }
+                break;
+        
+            case 'verTurno':
+                sessionAuthMiddleware($res);
+                verifyAuthMiddleware($res);
+        
+                $id = isset($_GET['id']) ? (int) $_GET['id'] : (isset($params[1]) ? (int) $params[1] : null);
+        
+                if (!empty($id)) { 
+                    $controller = new ControllerTurno();
+                    $controller->verTurno($id);
+                } else {
+                    echo "Error: Falta el ID del turno";
+                }
+                break;
         
 
     case 'actualizarMoto':

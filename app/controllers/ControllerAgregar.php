@@ -111,7 +111,7 @@ class ControllerAgregar {
         // 📌 Validar datos recibidos
         $turnoData = $this->validarDatosTurno();
         if (!$turnoData) {
-            $this->error->showError("Todos los campos son obligatorios.", "turnos");
+            $this->error->showError("Todos los campos son obligatorios.", "calendario");
             return;
         }
     
@@ -121,7 +121,7 @@ class ControllerAgregar {
     
         // 📌 Verificar si la moto ya tiene un turno en ese horario (excluir turno actual)
         if ($this->modelTurno->existsTurno($ingreso, $hora, $patente, $idTurno)) {
-            $this->error->showError("Esta moto ya tiene un turno asignado para la misma fecha y hora.", "turnos");
+            $this->error->showError("Esta moto ya tiene un turno asignado para la misma fecha y hora.", "calendario");
             return;
         }
     
@@ -131,7 +131,7 @@ class ControllerAgregar {
             $idCliente = $cliente->id;
             $this->modelCliente->updateClient($idCliente, $nombre, $dni, $telefono);
         } else {
-            $this->error->showError("El cliente no existe.", "turnos");
+            $this->error->showError("El cliente no existe.", "calendario");
             return;
         }
     
@@ -141,19 +141,19 @@ class ControllerAgregar {
             $idMoto = $moto->id;
             $this->modelMoto->updateMoto($idMoto, $modelo, $patente, $estado, $dni, $kilometros, $descripcion, $observaciones);
         } else {
-            $this->error->showError("La moto no existe.", "turnos");
+            $this->error->showError("La moto no existe.", "calendario");
             return;
         }
     
         // 📌 Actualizar Turno
         $turnoActualizado = $this->modelTurno->updateTurn($idTurno, $ingreso, $entrega, $patente, $hora);
         if (!$turnoActualizado) {
-            $this->error->showError("Error al actualizar el turno.", "turnos");
+            $this->error->showError("Error al actualizar el turno.", "calendario");
             return;
         }
     
         // 📌 Redirigir si todo fue exitoso
-        header('Location: ' . BASE_URL . 'clientes');
+        header('Location: ' . BASE_URL . 'calendario');
         exit();
     }
     
