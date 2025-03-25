@@ -90,10 +90,11 @@ class ModelTurno {
     $stmt = $this->db->prepare($query);
     return $stmt->execute([$ingreso, $entrega, $patente, $hora, $id]);
 }
-public function getTurnoBypatente($patente){
+public function getTurnoByPatente($patente) {
     $query = $this->db->prepare("SELECT * FROM turno WHERE patente = ?");
-    $query->execute();
+    $query->execute([$patente]); // Pasar como array
     return $query->fetchAll(PDO::FETCH_OBJ);
 }
+
 }
 ?>

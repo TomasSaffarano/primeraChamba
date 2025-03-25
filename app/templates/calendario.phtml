@@ -1,15 +1,19 @@
 <?php require './app/templates/header.phtml'; ?>
-<div id="calendar"></div>
-<div id="turnoInfo" class="turno-card">
-    <div class="turno-content">
-        <span id="cerrarTurno" class="cerrar">&times;</span>
-        <h2>Detalles del Turno</h2>
-        <p><strong>📅 Fecha:</strong> <span id="turnoFecha"></span></p>
-        <p><strong>🕒 Hora:</strong> <span id="turnoHora"></span></p>
-        <p><strong>🚗 Patente:</strong> <span id="turnoPatente"></span></p>
-        <p><strong>Cliente:</strong> <span id="turnoCliente"></span></p>
+<body class="body">
+    <div id="calendar"></div>
+    <div id="turnoInfo" class="turno-card">
+        <div class="turno-content">
+            <span id="cerrarTurno" class="cerrar">&times;</span>
+            <h2>Detalles del Turno</h2>
+            <p><strong>📅 Fecha:</strong> <span id="turnoFecha"></span></p>
+            <p><strong>🕒 Hora:</strong> <span id="turnoHora"></span></p>
+            <p><strong>🚗 Patente:</strong> <span id="turnoPatente"></span></p>
+            <p><strong>Cliente:</strong> <span id="turnoCliente"></span></p>
+        </div>
     </div>
-</div>
+
+    <?php require './app/templates/footer.phtml'; ?>
+</body>
 
 <?php require './app/templates/footer.phtml'; ?>
 
@@ -35,6 +39,37 @@ $(document).ready(function() {
         },
         defaultView: 'agendaWeek',
 
+// 🔥 Ocultar horas fuera del rango permitido
+minTime: "08:30:00",  // Comienza a mostrar desde las 08:30
+maxTime: "20:01:00",  // Oculta todo después de las 20:00
+allDaySlot: false,  // Quitar la opción de eventos "Todo el día"
+hiddenDays: [0], // Oculta los domingos
+
+// 🕒 Definir horas permitidas (solo para resaltar visualmente)
+businessHours: [
+        {
+            dow: [1, 2, 3, 4, 5, 6], // Lunes a Sábado
+            start: '08:30',
+            end: '13:00'  // 🔹 Se permite hasta las 12:30 inclusive
+        },
+        {
+            dow: [1, 2, 3, 4, 5, 6], // Lunes a Sábado
+            start: '16:00',
+            end: '21:00'
+        }
+    
+],
+
+// ⛔ Bloquear selección fuera de estos horarios
+selectAllow: function(selectInfo) {
+    let startHour = selectInfo.start.format('HH:mm');
+    let isValid =
+        (startHour >= '08:30' && startHour < '13:00') || 
+        (startHour >= '16:00' && startHour < '21:00');
+    return isValid;
+},
+
+
         events: function(start, end, timezone, callback) {
             $.ajax({
                 url: '/primerachamba/get_turnos',
@@ -45,7 +80,7 @@ $(document).ready(function() {
                         title: `${turno.nombreCliente} - ${turno.patente}`,
                         start: turno.hora,
                         extendedProps: {
-                            idTurno: turno.id,  // Aseguramos que el ID se pase correctamente
+                            id: turno.id,  // Aseguramos que el ID se pase correctamente
                             ingreso: turno.ingreso,
                             hora: turno.hora,
                             patente: turno.patente,
@@ -80,8 +115,8 @@ $(document).ready(function() {
             // Agregar los botones dentro del div#turnoInfo
             $("#turnoInfo .turno-content").append(`
                 <div class="turno-buttons">
-                    <button class="btn-ver" data-id="${event.extendedProps.idTurno}">🔍 Ver</button>
-                    <button class="btn-editar" data-id="${event.extendedProps.idTurno}">✏️ Editar</button>
+                    <button class="btn-ver" data-id="${event.extendedProps.id}">🔍 Ver</button>
+                    <button class="btn-editar" data-id="${event.extendedProps.id}">✏️ Editar</button>
                     <button class="btn-cerrar">❌ Cerrar</button>
                 </div>
             `);
@@ -89,14 +124,14 @@ $(document).ready(function() {
             $("#turnoInfo").fadeIn();
 
             $(".btn-ver").off("click").on("click", function() {
-                let idTurno = $(this).data("id");
-                window.location.href = `/PrimeraChamba/verTurno?id=${idTurno}`;
+                let id = $(this).data("id");
+                window.location.href = `/PrimeraChamba/verTurno?id=${id}`;
             });
 
 
             $(".btn-editar").off("click").on("click", function() {
-                let idTurno = $(this).data("id");
-                window.location.href = `/PrimeraChamba/editar?id=${idTurno}&reload=true`;
+                let id = $(this).data("id");
+                window.location.href = `/PrimeraChamba/editar?id=${id}&reload=true`;
             });
 
 

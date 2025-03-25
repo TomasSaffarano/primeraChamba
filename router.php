@@ -211,11 +211,6 @@ switch ($params[0]) {
         
                 $id = isset($_GET['id']) ? (int) $_GET['id'] : (isset($params[1]) ? (int) $params[1] : null);
         
-                echo "<pre>";
-                print_r($_GET);
-                print_r($_POST);
-                echo "</pre>";
-        
                 if (!empty($id)) {  
                     $controller = new ControllerAgregar();
         
@@ -232,11 +227,6 @@ switch ($params[0]) {
             case 'actualizarTurno':
                 sessionAuthMiddleware($res);
                 verifyAuthMiddleware($res);
-        
-                echo "<pre>";
-                print_r($_POST);
-                print_r($_GET);
-                echo "</pre>";
         
                 $id = isset($_POST['id']) ? $_POST['id'] : (isset($_GET['id']) ? $_GET['id'] : null);
         

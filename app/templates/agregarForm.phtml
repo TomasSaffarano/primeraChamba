@@ -15,51 +15,83 @@ $horaIngreso = $isEdit ? substr($turno->hora, 11, 5) : (isset($_GET['hora']) ? $
 
 <link rel="stylesheet" href="/primeraChamba/estilos/formulario.css">
 
+<body>
 <form action="<?= BASE_URL . ($isEdit ? 'editar/' . $turno->id : 'agregarTurno') ?>" method="POST">
-    
+    <?php if (isset($_SESSION['error_message'])): ?>
+        <div class="alert alert-danger">
+            <?php 
+                echo $_SESSION['error_message']; 
+                unset($_SESSION['error_message']); // Eliminar después de mostrar
+            ?>
+        </div>
+    <?php endif; ?>
+
     <h2><?= $isEdit ? "Editar Turno" : "Registrar Turno" ?></h2>
     <input type="hidden" name="id" value="<?= isset($turno->id) ? $turno->id : '' ?>">
-    <!-- Campo para la fecha de ingreso -->
+
+    <!-- Datos del cliente -->
+    <div class="form-group">
+        <div>
+            <label for="nombre">Nombre:</label>
+            <input type="text" name="nombre" id="nombre" value="<?= $isEdit ? $cliente->nombre : '' ?>" required>
+        </div>
+        <div>
+            <label for="dni">DNI:</label>
+            <input type="text" name="dni" id="dni" value="<?= $isEdit ? $cliente->dni : '' ?>" required>
+        </div>
+    </div>
+
+    <label for="telefono">Teléfono:</label>
+    <input type="text" name="telefono" id="telefono" value="<?= $isEdit ? $cliente->telefono : '' ?>" required>
+
+    <!-- Datos de la moto -->
+    <div class="form-group">
+        <div>
+            <label for="patente">Patente:</label>
+            <input type="text" name="patente" id="patente" value="<?= $isEdit ? $moto->patente : '' ?>" required>
+        </div>
+        <div>
+            <label for="modelo">Modelo:</label>
+            <input type="text" name="modelo" id="modelo" value="<?= $isEdit ? $moto->modelo : '' ?>" required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div>
+            <label for="descripcion">Descripción:</label>
+            <input type="text" name="descripcion" id="descripcion" value="<?= $isEdit ? $moto->descripcion : '' ?>">
+        </div>
+        <div>
+            <label for="observaciones">Observaciones:</label>
+            <input type="text" name="observaciones" id="observaciones" value="<?= $isEdit ? $moto->observaciones : '' ?>">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div>
+        <label for="estado">Estado:</label>
+        <input type="text" name="estado" id="estado" value="<?= $isEdit ? $moto->estado : '' ?>" required>
+        </div>
+        <div>
+        <label for="kilometros">Kilómetros:</label>
+        <input type="text" name="kilometros" id="kilometros" value="<?= $isEdit ? $moto->kilometros : '' ?>">
+        </div>
+    </div>
+
+
+    <!-- Fechas y horas -->
     <label for="ingreso">Fecha de Ingreso:</label>
     <input type="date" name="ingreso" id="ingreso" value="<?= $fechaIngreso ?>" required>
 
     <label for="hora">Hora:</label>
     <input type="time" name="hora" id="hora" value="<?= $horaIngreso ?>" required>
 
-    <!-- Campo para la fecha de entrega -->
     <label for="entrega">Fecha de Entrega:</label>
-    <input type="date" name="entrega" id="entrega" value="<?= $isEdit ? $turno->entrega : '' ?>" required>
+    <input type="date" name="entrega" id="entrega" value="<?= $isEdit ? $turno->entrega : '' ?>">
 
-    <!-- Campos para la información del cliente -->
-    <label for="nombre">Nombre:</label>
-    <input type="text" name="nombre" id="nombre" value="<?= $isEdit ? $cliente->nombre : '' ?>" required>
-
-    <label for="dni">DNI:</label>
-    <input type="text" name="dni" id="dni" value="<?= $isEdit ? $cliente->dni : '' ?>" required>
-
-    <label for="telefono">Teléfono:</label>
-    <input type="text" name="telefono" id="telefono" value="<?= $isEdit ? $cliente->telefono : '' ?>" required>
-
-    <!-- Campos para la información de la moto -->
-    <label for="modelo">Modelo de la moto:</label>
-    <input type="text" name="modelo" id="modelo" value="<?= $isEdit ? $moto->modelo : '' ?>" required>
-
-    <label for="patente">Patente:</label>
-    <input type="text" name="patente" id="patente" value="<?= $isEdit ? $moto->patente : '' ?>" required>
-
-    <label for="estado">Estado:</label>
-    <input type="text" name="estado" id="estado" value="<?= $isEdit ? $moto->estado : '' ?>" required>
-
-    <label for="descripcion">Descripción:</label>
-    <input type="text" name="descripcion" id="descripcion" value="<?= $isEdit ? $moto->descripcion : '' ?>" required>
-
-    <label for="observaciones">Observaciones:</label>
-    <input type="text" name="observaciones" id="observaciones" value="<?= $isEdit ? $moto->observaciones : '' ?>">
-
-    <label for="kilometros">Kilómetros:</label>
-    <input type="text" name="kilometros" id="kilometros" value="<?= $isEdit ? $moto->kilometros : '' ?>" required>
-
-    <button type="submit"><?= $isEdit ? "ActualizarTurno" : "Registrar" ?></button>
+    <button type="submit"><?= $isEdit ? "Actualizar Turno" : "Registrar" ?></button>
 </form>
+</body>
 
-<?php require 'app/templates/footer.phtml'; ?>
+
+<?php require 'app/templates/footer.phtml'; ?>  

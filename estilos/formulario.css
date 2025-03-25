@@ -1,49 +1,142 @@
 /* Estilos para el contenedor del formulario */
+body{
+    background: url('/primeraChamba/static/fondo.png') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Poppins', sans-serif;
+    color: white; /* Texto en blanco */
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    height: 100vh;
+    margin: 0;
+}
 form {
     position: absolute;
     width: 600px;
-    height: 800px;
+    height: auto;
     left: 404px;
-    top: 133px;
-
+    top: 100px;
     background: rgba(71, 71, 71, 0.53);
     border-radius: 30px;
     padding: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
 }
 
 /* Estilos para etiquetas y entradas de texto */
 form label {
-    width: 100%;
+    width: 90%;
     margin-top: 10px;
     font-size: 16px;
-    color: white;
+    color: rgb(21, 19, 19);
     font-weight: bold;
 }
 
 form input {
-    width: 100%;
+    width: 90%;
     padding: 8px;
     margin-top: 5px;
     border-radius: 5px;
     border: 1px solid #ccc;
 }
 
-/* Estilos para el botón */
-form button {
-    width: 100%;
-    margin-top: 20px;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #4CAF50;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
+.form-group {
+    display: flex;
+    gap: 10px;
+}
+.form-group div {
+    flex: 1;
 }
 
-form button:hover {
-    background-color: #45a049;
+h2 {
+    text-align: center;
+}
+button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #0056b3;
+}
+
+
+/* Título */
+h2 {
+    text-align: center;
+    width: 100%;
+}
+
+/* Agrupaciones de campos */
+.form-group {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+}
+
+.form-group div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Etiquetas */
+form label {
+    font-size: 16px;
+    color: white;
+    font-weight: bold;
+    margin-top: 10px;
+}
+form input[name="telefono"],
+form input[name="ingreso"],
+form input[name="hora"],
+form input[name="entrega"] {
+    width: 95%; /* Mismo tamaño */
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+/* Inputs */
+form input {
+    width: 90%; /* Mismo tamaño */
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+
+/* Botón */
+button {
+    width: 98%;
+    padding: 10px;
+    margin-top: 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+label[for="nombre"]::after,
+label[for="dni"]::after,
+label[for="telefono"]::after,
+label[for="modelo"]::after,
+label[for="patente"]::after,
+label[for="estado"]::after,
+label[for="ingreso"]::after,
+label[for="hora"]::after {
+    content: " *";
+    color: rgb(240, 251, 25);
+    font-weight: bold;
 }
