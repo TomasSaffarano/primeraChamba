@@ -1,49 +1,71 @@
+/* General */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 body {
     background: url('/primeraChamba/static/fondo.png') no-repeat center center fixed;
-    background-size: cover;
-    font-family:  'Poppins', sans-serif;
+    background-size: cover; /* Hace que la imagen cubra todo el fondo */
+    background-attachment: fixed; /* Asegura que el fondo no se mueva al hacer scroll */
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
     display: flex;
     color: rgb(248, 246, 246);
     justify-content: center;
-    align-items: center;
-    min-height: 100vh; /* Asegura que el body ocupe todo el alto de la ventana */
+    align-items: center; /* Alinea todo verticalmente */
+    flex-direction: column; /* Alinea los elementos en columna */
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
     flex-direction: column;
 }
 
 /* Contenedor principal */
 .container {
-    margin-top: 100px;
+    margin-top: 100px; /* En lugar de margin-top */
     display: flex;
-    flex-direction: row;
+    flex-direction: row; /* Alinea las secciones de izquierda a derecha */
     width: 80%;
     max-width: 1200px;
-    justify-content: center;
-    gap: 20px;
-    flex-grow: 1; /* Permite que el contenedor principal ocupe el espacio disponible */
+    justify-content: center; /* Centra las secciones horizontalmente */
+    gap: 5px; /* Espacio entre las secciones */
 }
 
-/* Sección izquierda (Formulario) */
+.container {
+    width: 80%;
+    max-width: 1200px;
+    text-align: center;
+}
+
+.content-section {
+    background-color: rgba(83, 83, 83, 0.7);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Sección izquierda (Formulario Agregar Moto) */
 .form-section {
     flex: 1;
     padding: 20px;
-    background-color: rgba(83, 83, 83, 0.7);
+    background-color:rgba(83, 83, 83, 0.7);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
     border-radius: 8px;
 }
 
-/* Sección derecha (Lista de Clientes) */
+/* Sección derecha (Buscar y Lista de Motos) */
 .right-section {
-    flex: 1.5;
     padding: 20px;
-    background-color: rgba(83, 83, 83, 0.7);
+    background-color:rgba(83, 83, 83, 0.7);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    height: auto;
+    width: 600px;
 }
 
-/* Formulario */
+
+/* Formulario de Agregar Moto */
 .form-group {
     margin-bottom: 15px;
 }
@@ -54,14 +76,32 @@ body {
     font-size: 1rem;
     background-color: rgba(50, 50, 50, 0.9);
     border: 1px solid #555;
-    color: #ddd;
     box-sizing: border-box;
 }
-
 .form-control::placeholder {
-    color: #959494;
+    color: #959494; /* Color uniforme para todos los placeholders */
+    font-size: 1rem; /* Tamaño de fuente igual para todos */
+    font-family: Arial, sans-serif; /* Mismo tipo de letra */
+}
+/* Cambia el color del texto del select */
+.form-control {
+    color:  #959494; /* Ajusta el color del texto */
 }
 
+/* Cambia el color de las opciones dentro del select */
+.form-control option {
+    color: black; /* Ajusta el color de las opciones */
+    background-color: rgba(118, 118, 118, 0.9); /* Ajusta el fondo de las opciones */
+}
+
+/* Cambia el color de la primera opción "placeholder" */
+.form-control option:disabled {
+    color: #959494; /* Mismo color que los placeholders */
+}
+
+textarea.form-control {
+    height: 100px;
+}
 /* Botón */
 .btn {
     background-color: #007bff;
@@ -78,9 +118,21 @@ body {
     background-color: #0056b3;
 }
 
+/* Estilos para el Formulario de Búsqueda */
+.d-flex {
+    display: flex;
+    align-items: center;
+}
+
+.form-control.me-2 {
+    margin-right: 10px;
+}
+
+/* Tabla de Motos */
 .table-container {
-    max-height: 600px; /* Ajusta la altura según tu preferencia */
-   
+    max-height: 500px;
+    overflow-y: auto;  /* Agrega un scroll vertical si la lista de motos es muy grande */
+    
 }
 
 .table {
@@ -88,7 +140,6 @@ body {
     border-collapse: collapse;
     margin-top: 20px;
 }
-
 
 .table th, .table td {
     padding: 10px;
@@ -98,50 +149,150 @@ body {
 }
 
 .table th {
-    background-color: rgba(71, 71, 71, 0.9);
+    background-color: rgba(71, 71, 71, 0.9); /* Mismo tono gris */
     font-weight: bold;
 }
 
-/* Íconos */
-.icon-btn {
-    font-size: 1.2rem;
+.table a {
+    color: #007bff;
     text-decoration: none;
-    margin-right: 10px;
 }
 
-.delete-btn {
-    color: red;
+.table a:hover {
+    text-decoration: underline;
 }
 
-.delete-btn:hover {
-    color: darkred;
+.container-moto {
+    padding: 20px;
+    margin-top: 110px;
+    margin-right: 20px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    background-color: rgba(50, 50, 50, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+   
 }
-
-.d-flex {
-    display: flex;
-    align-items: center;  /* Alinea los elementos verticalmente en el centro */
-}
-
-.form-control {
-    width: 100%;  /* Esto asegura que el input ocupe el máximo espacio disponible */
-}
-
-.btn {
-    margin-left: 10px; /* Espacio entre el input y el botón */
-}
+ 
 
 /* Footer */
 footer {
     background-color: #333;
     opacity: 0.8;
     color: white;
-    padding: 10px 0;
     text-align: center;
     width: 100%;
     margin-top: 20px;
     flex-shrink: 0; /* Asegura que el footer no se encoja */
     position: relative;
     bottom: 0;
+    background-color: #333;
+    opacity: 0.8;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
+}
+/* Contenedor principal */
+.container-moto {
+    max-width: 600px;
+    padding: 30px;
+    background: rgba(83, 83, 83, 0.7);
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+}
+
+.container-moto:hover {
+    transform: translateY(-5px);
+}
+
+/* Título principal */
+h1 {
+    font-size: 30px;
+    color: #d7dc47;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+/* Secciones de información */
+.info-section {
+    display: flex;
+    flex-direction: column;
+   
+}
+
+/* Bloques de información */
+.cliente-info, .moto-info {
+    background: rgb(50 50 50 / 50%);
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    text-align: left;
+    transition: all 0.3s ease-in-out;
+}
+
+.cliente-info:hover, .moto-info:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Subtítulos */
+h3{
+    font-size: 22px;
+    margin-bottom: 12px;
+    font-weight: 500;
+    color: #e7dede;
+}
+
+/* Título de la moto */
+.titulo-moto {
+    font-size: 24px;
+    font-weight: bold;
+    color:#e8ed11;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Información del propietario y moto */
+.cliente-info p, .moto-info p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #a7a5a5;
+}
+
+/* Resaltado para datos */
+p strong {
+    color: #c4c1c1;
+}
+
+/* Mensaje cuando no hay información */
+p.no-info {
+    font-size: 18px;
+    color: #ff4d4d;
+    font-weight: bold;
+}
+
+/* Botón para regresar */
+.boton-regresar {
+    margin-top: 30px;
+}
+
+.boton-regresar a {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background: #007bff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.boton-regresar a:hover {
+    background: #024790;
+    transform: translateY(-2px);
 }
 .alert{
     font-family: 'Poppins', sans-serif;

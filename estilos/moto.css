@@ -12,11 +12,16 @@ body {
     justify-content: center;
     align-items: center; /* Alinea todo verticalmente */
     flex-direction: column; /* Alinea los elementos en columna */
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Contenedor principal */
 .container {
-    padding-top: 100px; /* En lugar de margin-top */
+    margin-top: 100px; /* En lugar de margin-top */
     display: flex;
     flex-direction: row; /* Alinea las secciones de izquierda a derecha */
     width: 80%;
@@ -24,6 +29,22 @@ body {
     justify-content: center; /* Centra las secciones horizontalmente */
     gap: 5px; /* Espacio entre las secciones */
 }
+
+.container {
+    width: 80%;
+    max-width: 1200px;
+    text-align: center;
+}
+
+.content-section {
+    background-color: rgba(83, 83, 83, 0.7);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: auto;
+    width: 600px;
+}
+
 
 /* Sección izquierda (Formulario Agregar Moto) */
 .form-section {
@@ -37,11 +58,12 @@ body {
 
 /* Sección derecha (Buscar y Lista de Motos) */
 .right-section {
-    flex: 1.5;
     padding: 20px;
     background-color:rgba(83, 83, 83, 0.7);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    height: auto;
+    width: 600px;
 }
 
 
@@ -166,6 +188,12 @@ footer {
     flex-shrink: 0; /* Asegura que el footer no se encoja */
     position: relative;
     bottom: 0;
+    background-color: #333;
+    opacity: 0.8;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
 }
 /* Contenedor principal */
 .container-moto {

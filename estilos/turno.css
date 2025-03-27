@@ -1,52 +1,48 @@
+/* General */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 body {
     background: url('/primeraChamba/static/fondo.png') no-repeat center center fixed;
-    background-size: cover;
-    font-family: Arial, sans-serif;
+    background-size: cover; /* Hace que la imagen cubra todo el fondo */
+    background-attachment: fixed; /* Asegura que el fondo no se mueva al hacer scroll */
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
     display: flex;
     color: rgb(248, 246, 246);
     justify-content: center;
-    align-items: center;
-    min-height: 100vh; /* Asegura que el body ocupe todo el alto de la ventana */
-    font-family: 'Poppins', sans-serif;
+    align-items: center; /* Alinea todo verticalmente */
+    flex-direction: column; /* Alinea los elementos en columna */
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
     flex-direction: column;
 }
 
 /* Contenedor principal */
 .container {
-    margin-top: 100px;
+    margin-top: 100px; /* En lugar de margin-top */
     display: flex;
-    flex-direction: row;
+    flex-direction: row; /* Alinea las secciones de izquierda a derecha */
     width: 80%;
     max-width: 1200px;
-    justify-content: center;
-    gap: 20px;
-    flex-grow: 1; /* Permite que el contenedor principal ocupe el espacio disponible */
+    justify-content: center; /* Centra las secciones horizontalmente */
+    gap: 5px; /* Espacio entre las secciones */
 }
 
-/* Sección izquierda (Formulario) */
-.form-section {
-    flex: 1;
-    padding: 20px;
+.container {
+    width: 80%;
+    max-width: 1200px;
+    text-align: center;
+}
+
+.content-section {
+    height: 500px;
+    width: 500px;
     background-color: rgba(83, 83, 83, 0.7);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
-
-/* Sección derecha (Lista de Clientes) */
-.right-section {
-    flex: 1.5;
     padding: 20px;
-    background-color: rgba(83, 83, 83, 0.7);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-}
-
-/* Formulario */
-.form-group {
-    margin-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .form-control {
@@ -55,12 +51,40 @@ body {
     font-size: 1rem;
     background-color: rgba(50, 50, 50, 0.9);
     border: 1px solid #555;
-    color: #ddd;
     box-sizing: border-box;
 }
-
 .form-control::placeholder {
-    color: #959494;
+    color: #959494; /* Color uniforme para todos los placeholders */
+    font-size: 1rem; /* Tamaño de fuente igual para todos */
+    font-family: Arial, sans-serif; /* Mismo tipo de letra */
+}
+/* Cambia el color del texto del select */
+.form-control {
+    color:  #959494; /* Ajusta el color del texto */
+}
+
+/* Cambia el color de las opciones dentro del select */
+.form-control option {
+    color: black; /* Ajusta el color de las opciones */
+    background-color: rgba(118, 118, 118, 0.9); /* Ajusta el fondo de las opciones */
+}
+
+/* Cambia el color de la primera opción "placeholder" */
+.form-control option:disabled {
+    color: #959494; /* Mismo color que los placeholders */
+}
+
+textarea.form-control {
+    height: 100px;
+}
+/* Sección derecha (Buscar y Lista de Motos) */
+.right-section {
+    padding: 20px;
+    background-color:rgba(83, 83, 83, 0.7);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    height: auto;
+    width: 600px;
 }
 
 /* Botón */
@@ -79,8 +103,21 @@ body {
     background-color: #0056b3;
 }
 
+/* Estilos para el Formulario de Búsqueda */
+.d-flex {
+    display: flex;
+    align-items: center;
+}
+
+.form-control.me-2 {
+    margin-right: 10px;
+}
+
+/* Tabla de Motos */
 .table-container {
-    max-height: 400px; /* Ajusta la altura según tu preferencia */
+    max-height: 500px;
+    overflow-y: auto;  /* Agrega un scroll vertical si la lista de motos es muy grande */
+    
 }
 
 .table {
@@ -88,7 +125,6 @@ body {
     border-collapse: collapse;
     margin-top: 20px;
 }
-
 
 .table th, .table td {
     padding: 10px;
@@ -98,37 +134,20 @@ body {
 }
 
 .table th {
-    background-color: rgba(71, 71, 71, 0.9);
+    background-color: rgba(71, 71, 71, 0.9); /* Mismo tono gris */
     font-weight: bold;
 }
 
-/* Íconos */
-.icon-btn {
-    font-size: 1.2rem;
+.table a {
+    color: #007bff;
     text-decoration: none;
-    margin-right: 10px;
 }
 
-.delete-btn {
-    color: red;
+.table a:hover {
+    text-decoration: underline;
 }
 
-.delete-btn:hover {
-    color: darkred;
-}
 
-.d-flex {
-    display: flex;
-    align-items: center;  /* Alinea los elementos verticalmente en el centro */
-}
-
-.form-control {
-    width: 100%;  /* Esto asegura que el input ocupe el máximo espacio disponible */
-}
-
-.btn {
-    margin-left: 10px; /* Espacio entre el input y el botón */
-}
 
 /* Footer */
 footer {
@@ -143,12 +162,5 @@ footer {
     position: relative;
     bottom: 0;
 }
-.alert{
-    font-family: 'Poppins', sans-serif;
-    position: relative;
-    color: #e0e004;  /* Amarillo oscuro */
-    font-size: 17px; /* Agregado px */
-    margin-bottom: 15px;
-    border-radius: 5px;
-    text-align: center;
-}
+
+
