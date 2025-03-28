@@ -1,70 +1,31 @@
-/* Estilos para el contenedor del formulario */
-body{
+/* Estilos generales */
+body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background: url('/primeraChamba/static/fondo.png') no-repeat center center fixed;
     background-size: cover;
     font-family: 'Poppins', sans-serif;
-    color: white; /* Texto en blanco */
+    color: white;
     display: flex;
-    justify-content: center; /* Centrar horizontalmente */
-    align-items: center; /* Centrar verticalmente */
-    height: 100vh;
+    flex-direction: column;
+    min-height: 100vh; /* Altura mínima de la pantalla */
     margin: 0;
 }
+
+/* Estilos del formulario */
 form {
-    position: absolute;
+    position: relative; /* Ya no es absolute */
     width: 600px;
-    height: auto;
-    left: 404px;
-    top: 100px;
     background: rgba(71, 71, 71, 0.53);
     border-radius: 30px;
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: start;
+    margin-top: 110px; /* Espaciado desde la parte superior */
 }
-
-/* Estilos para etiquetas y entradas de texto */
-form label {
-    width: 90%;
-    margin-top: 10px;
-    font-size: 16px;
-    color: rgb(21, 19, 19);
-    font-weight: bold;
-}
-
-form input {
-    width: 90%;
-    padding: 8px;
-    margin-top: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-.form-group {
-    display: flex;
-    gap: 10px;
-}
-.form-group div {
-    flex: 1;
-}
-
-h2 {
-    text-align: center;
-}
-button {
-    width: 100%;
-    padding: 10px;
-    margin-top: 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-button:hover {
-    background-color: #0056b3;
-}
-
 
 /* Título */
 h2 {
@@ -92,6 +53,9 @@ form label {
     font-weight: bold;
     margin-top: 10px;
 }
+
+/* Inputs */
+form input,
 form input[name="telefono"],
 form input[name="ingreso"],
 form input[name="hora"],
@@ -102,15 +66,6 @@ form input[name="entrega"] {
     border-radius: 5px;
     border: 1px solid #ccc;
 }
-/* Inputs */
-form input {
-    width: 90%; /* Mismo tamaño */
-    padding: 8px;
-    margin-top: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
 
 /* Botón */
 button {
@@ -128,6 +83,8 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+/* Etiquetas con asterisco */
 label[for="nombre"]::after,
 label[for="dni"]::after,
 label[for="telefono"]::after,
@@ -140,3 +97,18 @@ label[for="hora"]::after {
     color: rgb(240, 251, 25);
     font-weight: bold;
 }
+
+/* Footer */
+footer {
+    background-color: #333;
+    opacity: 0.8;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
+    margin-top: 20px;
+    flex-shrink: 0; /* Asegura que el footer no se encoja */
+    position: relative;
+    bottom: 0;
+}
+
