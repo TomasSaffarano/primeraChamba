@@ -6,6 +6,8 @@
     <title>Gestión de Clientes</title>
     <link rel="stylesheet" href="/primeraChamba/estilos/verturno.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+
 </head>
 <body>
 <?php require './app/templates/header.phtml'; ?>  
@@ -194,15 +196,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
         let formulario = document.querySelector(".form-section");
 
-        html2canvas(formulario, { useCORS: true }).then(canvas => {
-            let link = document.createElement("a");
-            link.href = canvas.toDataURL("image/png");
-            link.download = "formulario<?= $turno->id ?>.png";
-            link.click();
-        });
+        // Generar el PDF usando html2pdf.js
+        html2pdf()
+            .from(formulario) // Selecciona el elemento del formulario
+            .save("formulario.pdf"); // Descarga el PDF generado
     });
 });
 </script>
+
 
 </body>
 </html>
