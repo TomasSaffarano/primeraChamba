@@ -196,10 +196,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
         let formulario = document.querySelector(".form-section");
 
+        // Aquí obtienes el valor del id del turno directamente de PHP
+        let turnoId = <?= $turno->id ?>;
+
         // Generar el PDF usando html2pdf.js
         html2pdf()
-            .from(formulario) // Selecciona el elemento del formulario
-            .save("formulario.pdf"); // Descarga el PDF generado
+            .from(formulario) // Selecciona el formulario para convertir en PDF
+            .save(`Turno_${turnoId}.pdf`); // Usar el ID del turno en el nombre del archivo
     });
 });
 </script>
