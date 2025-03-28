@@ -12,7 +12,7 @@
     padding: 20px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     width: 750px;
-    height: 600px; /* Ajusta el tamaño según prefieras */
+    height: auto; /* Ajusta el tamaño según prefieras */
     margin: 100px auto; /* Centra horizontalmente */
     color: white; /* Texto en blanco */
 }
@@ -64,8 +64,14 @@
 }
 
 .fc-button {
-    width: 74px;
-    height: 22px;
+    display: flex; 
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; /* Centra horizontalmente */
+    text-align: center; /* Asegura que el texto esté centrado */
+    padding: 5px 15px;
+    min-width: 80px;
+    height: 35px; /* Asegura una altura fija para centrar mejor */
+    white-space: nowrap;
     border: 1px solid #CAC4D0;
     border-radius: 70px;
     background: #1616169c;
@@ -75,11 +81,11 @@
     font-size: 14px;
     line-height: 20px;
     letter-spacing: 0.1px;
-    text-align: center;
     color: white;
     transition: all 0.2s ease-in-out;
     cursor: pointer;
 }
+
 
 /* Efecto hover */
 .fc-button:hover {
@@ -111,7 +117,7 @@
 }
 
 .turno-content {
-    background-color: #f6f6f6;
+    background-color: #ffffff;
     position: relative;
     color: rgb(3, 3, 3); /* Texto en blanco */
 }
@@ -159,5 +165,18 @@
     font-size: .85em;
     line-height: 1.3;
     border-radius: 3px;
-    /* border: 1px solid #3a87ad; */
+    border: 1px solid #454a4d54; 
+}
+/* Footer */
+footer {
+    background-color: #333;
+    opacity: 0.8;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
+    margin-top: 20px;
+    flex-shrink: 0; /* Asegura que el footer no se encoja */
+    position: relative;
+    bottom: 0;
 }
