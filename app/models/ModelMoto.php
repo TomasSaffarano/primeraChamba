@@ -74,5 +74,11 @@ class ModelMoto {
         $query->execute([$patente]);
         return $query->fetch(PDO::FETCH_OBJ);
     }
+    public function getMotosByDNI($dni) {
+        $query = $this->db->prepare("SELECT * FROM moto WHERE dni= ?");
+        $query->execute([$dni]);
+        return $query->fetchAll(PDO::FETCH_OBJ); // Esto devuelve un array de objetos
+    }
+    
 }
 ?>

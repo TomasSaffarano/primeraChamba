@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información de Motos</title>
+    <link rel="stylesheet" href="/primeraChamba/estilos/moto.css">
+</head>
+<body>
+<?php require './app/templates/header.phtml'; ?>
+
+<div class="container-moto">
+    <h3>Información del propietario</h3>
+    <?php if ($cliente): ?>
+        <div class="info-section">
+            <div class="cliente-info">
+                <p><strong>Nombre:</strong> <?= htmlspecialchars($cliente->nombre) ?></p>
+                <p><strong>Teléfono:</strong> <?= htmlspecialchars($cliente->telefono) ?></p>
+                <p><strong>DNI:</strong> <?= htmlspecialchars($cliente->dni) ?></p>
+                <p><strong>Total de Motos:</strong> <?= count($motosCliente) ?></p>
+            </div>
+
+            <h3>Información de los vehículos</h3>
+            <?php if (!empty($motosCliente)): ?>
+                <?php foreach ($motosCliente as $moto): ?>
+                    <div class="moto-info">
+                        <h2 class="titulo-moto">Modelo: <?= htmlspecialchars($moto->modelo) ?></h2>
+                        <p><strong>Estado:</strong> <?= htmlspecialchars($moto->estado) ?></p>
+                        <p><strong>Kilómetros:</strong> <?= htmlspecialchars($moto->kilometros) ?></p>
+                        <p><strong>Observaciones:</strong> <?= htmlspecialchars($moto->observaciones) ?></p>
+                        <p><strong>Descripción:</strong> <?= htmlspecialchars($moto->descripcion) ?></p>
+                    </div>
+                    <hr> <!-- Separador entre motos -->
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>Este cliente no tiene motos registradas.</p>
+            <?php endif; ?>
+        </div>
+    <?php else: ?>
+        <p>No se encontró información del cliente.</p>
+    <?php endif; ?>
+
+    <!-- Botón para regresar a la lista de motos -->
+    <div class="boton-regresar">
+        <a href="<?= BASE_URL . "clientes" ?>">Volver a clientes</a>
+    </div>
+</div>
+
+<?php require './app/templates/footer.phtml'; ?>
+</body>
+</html>
+

@@ -13,8 +13,8 @@ $isEdit = isset($turn);
 ?>
 
 <div class="container">
-<div class="right-section">
-<?php if (isset($_SESSION['error_message'])): ?>
+    <div class="form-section">
+    <?php if (isset($_SESSION['error_message'])): ?>
     <div class="alert alert-danger">
         <?php 
             echo $_SESSION['error_message']; 
@@ -22,6 +22,27 @@ $isEdit = isset($turn);
         ?>
     </div>
 <?php endif; ?>
+        <h2><?= $isEdit ? "Editar turno" : "Ingresar turno al sistema" ?></h2>
+        <form action="<?= $isEdit ? BASE_URL . 'modificarTurno/' . $turn->id : BASE_URL . 'agregarTurno' ?>" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="ingreso">Ingreso</label>
+                <input name="ingreso" type="date" class="form-control" id="ingreso" placeholder="Fecha ingreso" value="<?= $isEdit ? $turn->ingreso : '' ?>">
+            </div>
+            <div class="form-group">
+                <label for="dniInput">Entrega</label>
+                <input name="entrega" type="date" class="form-control" id="entrega" placeholder="Fecha entrega" value="<?= $isEdit ? $turn->entrega : '' ?>">
+            </div>
+            <div class="form-group">
+                <label for="cellInput">Patente</label>
+                <input name="patente" type="number" class="form-control" id="patente" placeholder="Patente" value="<?= $isEdit ? $turn->patente : '' ?>">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="right-section">
         <h2>Buscar Turno</h2>
         <form action="<?php echo BASE_URL . 'turnoPatente'; ?>" method="GET" class="d-flex">
         <input type="text" name="patente" class="form-control me-2" placeholder="Ingrese la patente del turno..." required>
@@ -56,9 +77,6 @@ $isEdit = isset($turn);
         </div>
     </div>
 </div>
-    </div>
-
-    
 
 <?php require './app/templates/footer.phtml'; ?>
 

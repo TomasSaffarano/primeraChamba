@@ -8,25 +8,45 @@
 </head>
 <body>
 
-<?php require './app/templates/header.phtml'; ?>
-
+<?php require './app/templates/header.phtml';
+$isEdit = isset($client);   
+?>
 <div class="container">
-    <div class="right-section">
-        <?php if (isset($_SESSION['error_message'])): ?>
-            <div class="alert alert-danger">
-                <?php 
-                    echo $_SESSION['error_message']; 
-                    unset($_SESSION['error_message']); // Eliminar después de mostrar
-                ?>
+    <div class="form-section">
+    <?php if (isset($_SESSION['error_message'])): ?>
+    <div class="alert alert-danger">
+        <?php 
+            echo $_SESSION['error_message']; 
+            unset($_SESSION['error_message']); // Eliminar después de mostrar
+        ?>
+    </div>
+<?php endif; ?>
+        <h2><?= $isEdit ? "Editar cliente" : "Ingresar cliente al sistema" ?></h2>
+        <form action="<?= $isEdit ? BASE_URL . 'modificarCliente/' . $client->id : BASE_URL . 'agregarCliente' ?>" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="nameInput">Nombre del cliente</label>
+                <input name="name" type="text" class="form-control" id="nameInput" placeholder="Nombre del cliente" value="<?= $isEdit ? $client->nombre : '' ?>">
             </div>
-        <?php endif; ?>
+            <div class="form-group">
+                <label for="dniInput">DNI</label>
+                <input name="dni" type="number" class="form-control" id="dniInput" placeholder="DNI" value="<?= $isEdit ? $client->dni : '' ?>">
+            </div>
+            <div class="form-group">
+                <label for="cellInput">Teléfono</label>
+                <input name="cellphone" type="number" class="form-control" id="cellInput" placeholder="Teléfono del cliente" value="<?= $isEdit ? $client->telefono : '' ?>">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </form>
+    </div>
 
+    <div class="right-section">
         <h2>Buscar cliente</h2>
         <form action="<?php echo BASE_URL . 'clienteNombre'; ?>" method="GET" class="d-flex">
-            <input type="text" name="nombre" class="form-control me-2" placeholder="Ingrese el nombre del cliente..." required>
-            <button type="submit" class="btn btn-secondary">Buscar</button>
+        <input type="text" name="nombre" class="form-control me-2" placeholder="Ingrese el nombre del cliente..." required>
+        <button type="submit" class="btn btn-secondary">Buscar</button>
         </form>
-
         <h2>Listado de clientes en el sistema</h2>
         <div class="table-container">
             <table class="table">
@@ -45,6 +65,7 @@
                             <td><?php echo $client->dni ?></td>
                             <td><?php echo $client->telefono ?></td>
                             <td>
+                                <a href="<?php echo BASE_URL . "verCliente/" . $client->id; ?>" class="icon-btn" title="Ver detalles">🔍</a>
                                 <a href="<?php echo BASE_URL . "modificarCliente/" . $client->id; ?>" class="icon-btn" title="Editar">✏️</a>
                                 <a href="<?php echo BASE_URL . "eliminarCliente/" . $client->id; ?>" class="icon-btn delete-btn" title="Borrar" onclick="return confirm('¿Seguro que quieres borrar este cliente?');">🗑️</a>
                             </td>
@@ -60,6 +81,11 @@
 
 </body>
 </html>
+
+
+
+
+
 
 
 

@@ -3,16 +3,19 @@
 require_once 'app/views/ViewCliente.php';
 require_once 'app/models/ModelCliente.php';
 require_once 'app/controllers/errorController.php';
+require_once 'app/models/ModelMoto.php';
 
 class ControllerCliente {
     private $view;
     private $model;
     private $error;
+    private $modelMoto;
 
     public function __construct() {
         $this->view = new ViewCliente();
         $this->model = new ModelCliente();
         $this->error = new ErrorController();
+        $this->modelMoto = new ModelMoto();
     }
 
     public function getAllClientes() {
@@ -133,4 +136,28 @@ class ControllerCliente {
             $this->error->showError($error, $redir);
         }
     }
+    public function verCliente($id) {
+        $id = (int) $id;
+        $cliente = $this->model->getClient($id);
+    
+        if ($cliente) {
+            // Obtener todas las motos del cliente usando su DNI
+            $motosCliente = $this->modelMoto->getMotosByDNI($cliente->dni);
+            
+            // Asegurar que $motosCliente es un array
+            if (!is_array($motosCliente)) {
+                $motosCliente = [];
+            }
+    
+            // Pasar los datos a la vista
+            $this->view->showCliente($cliente, $motosCliente);
+        } else {
+            $error = "No existe cliente con ID = $id";
+            $redir = "motos";
+            $this->error->showError($error, $redir);
+        }
+    }
+    
+    
+    
 }

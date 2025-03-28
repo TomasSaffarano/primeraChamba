@@ -14,5 +14,9 @@ class ViewCliente {
     public function showClientForm($client = null, $isEdit = false, $clients = []) {
         require_once './app/templates/listClients.phtml';
     }
+    public function showCliente($cliente, $motosCliente) {
+        require_once './app/templates/cliente.phtml';
+    }
+    
     
 }

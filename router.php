@@ -204,6 +204,17 @@ switch ($params[0]) {
             echo "Error: Falta el ID de la moto";
         }
         break;
+        case 'verCliente':
+            sessionAuthMiddleware($res);
+            verifyAuthMiddleware($res);
+            if (!empty($params[1])) { 
+                $controller = new ControllerCliente();
+                $controller->verCliente($params[1]);
+            } else {
+                echo "Error: Falta el ID del cliente";
+            }
+            break;
+    
 
             case 'editar':
                 sessionAuthMiddleware($res);
