@@ -44,7 +44,7 @@ class ModelMoto {
         $query->execute(["%{$modelo}%"]);
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
-    }
+    
     public function eliminarMoto($id) {
         $query = $this->db->prepare("DELETE FROM moto WHERE id = ?");
         return $query->execute([$id]); // Devuelve true si la eliminación fue exitosa, false si no
