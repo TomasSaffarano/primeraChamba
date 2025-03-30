@@ -39,11 +39,11 @@ class ModelMoto {
         }
     }
     
-
-    public function getMotosByModelo($modelo) {
-        $query = $this->db->prepare("SELECT *  FROM moto WHERE modelo = ?");
-        $query->execute([$modelo]);
+   public function getMotosByModelo($modelo) {
+        $query = $this->db->prepare("SELECT *  FROM moto WHERE modelo like ?");
+        $query->execute(["%{$modelo}%"]);
         return $query->fetchAll(PDO::FETCH_OBJ);
+    }
     }
     public function eliminarMoto($id) {
         $query = $this->db->prepare("DELETE FROM moto WHERE id = ?");
