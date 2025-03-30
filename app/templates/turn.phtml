@@ -195,14 +195,19 @@ document.addEventListener("DOMContentLoaded", function() {
         e.preventDefault(); // Previene el comportamiento por defecto del botón
 
         let formulario = document.querySelector(".form-section");
-
-        // Aquí obtienes el valor del id del turno directamente de PHP
         let turnoId = <?= $turno->id ?>;
+
+        // Ocultar el botón antes de generar el PDF
+        boton.style.display = "none";
 
         // Generar el PDF usando html2pdf.js
         html2pdf()
-            .from(formulario) // Selecciona el formulario para convertir en PDF
-            .save(`Turno_${turnoId}.pdf`); // Usar el ID del turno en el nombre del archivo
+            .from(formulario)
+            .save(`Turno_${turnoId}.pdf`)
+            .then(() => {
+                // Mostrar el botón nuevamente después de guardar el PDF
+                boton.style.display = "block";
+            });
     });
 });
 </script>
