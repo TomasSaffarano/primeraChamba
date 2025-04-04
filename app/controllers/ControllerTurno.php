@@ -25,10 +25,20 @@ class ControllerTurno {
         $this->view->showHome();
     }
 
-    public function getAllTurnos() {
-        $turns = $this->model->getTurns();
-        $this->view->showTurns($turns);
-    }
+           public function getAllTurnos() {
+            $turns = $this->model->getTurns();
+            $motos = []; 
+            foreach($turns as $turn){
+               $moto = $this->motoModel->getMotoByPatente($turn->patente);
+               if ($moto) { 
+                $motos[$moto->id] = $moto;
+                } else {
+                echo "Error: no devuelve un objeto o no existe";
+                var_dump($moto);
+            }
+            }
+            $this->view->showTurns($turns,$motos);
+        }
 
     public function addTurn(){
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
