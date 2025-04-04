@@ -34,7 +34,8 @@ $isEdit = isset($turn);
             </div>
             <div class="form-group">
                 <label for="cellInput">Patente</label>
-                <input name="patente" type="number" class="form-control" id="patente" placeholder="Patente" value="<?= $isEdit ? $turn->patente : '' ?>">
+                 <input name="patente" type="number" class="form-control" id="patente" placeholder="Patente"value="<?= $isEdit ? $turn->patente : '' ?>" 
+                <?= $isEdit ? 'readonly' : '' ?>>
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Guardar</button>
@@ -60,17 +61,23 @@ $isEdit = isset($turn);
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($turns as $turn) :?>
+                  <?php foreach($turns as $turn) :?>
+                        <?php foreach($motos as $moto) :?>
+                            <?php if  ($turn->patente = $moto->patente):?>
                         <tr>
                             <td><?php echo $turn->entrega?></td>
                             <td><?php echo $turn->ingreso ?></td>
-                            <td><?php echo $turn->patente ?></td>
+                            <td><?php echo $moto->modelo ?></td>
+                            <td><?php echo $moto->estado ?></td>
+                            <td><?php echo $moto->patente ?></td>
                             <td>
                                 <a href="<?php echo BASE_URL . "verTurno/" . $turn->id; ?>" class="icon-btn" title="Ver detalles">🔍</a>
                                 <a href="<?php echo BASE_URL . "modificarTurno/" . $turn->id; ?>" class="icon-btn" title="Editar">✏️</a>
                                 <a href="<?php echo BASE_URL . "eliminarTurno/" . $turn->id; ?>" class="icon-btn delete-btn" title="Borrar" onclick="return confirm('¿Seguro que quieres borrar este turno?');">🗑️</a>
                             </td>
                         </tr>
+                        <?php endif?>
+                        <?php endforeach ?>
                     <?php endforeach ?>
                 </tbody>
             </table>
