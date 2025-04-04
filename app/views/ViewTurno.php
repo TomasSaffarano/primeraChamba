@@ -55,7 +55,7 @@ class ViewTurno {
         echo '<p>ID Cliente: ' . $turno['id_cliente'] . '</p>';
     }
 
-    public function showTurns($turns) {
+    public function showTurns($turns,$motos) {
         require_once './app/templates/listTurns.phtml';
     }
 
